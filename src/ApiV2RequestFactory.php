@@ -20,4 +20,13 @@ class ApiV2RequestFactory
 	return $request;
     }
 
+    public static function quagganRequest($client, $id)
+    {
+	$request = $client->createRequest('GET', constant('self::BASE_URL') . constant('self::QUAGGANS_URL'));
+	$query = $request->getQuery();
+	$query->set('id', $id);
+
+	return $request;
+    }
+
 }

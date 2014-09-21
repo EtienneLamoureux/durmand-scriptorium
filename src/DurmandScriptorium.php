@@ -12,19 +12,37 @@ use GuzzleHttp\Client;
 class DurmandScriptorium
 {
 
-    public function __DurmandScriptorium()
-    {
+    protected $apiV2RequestFactory;
+    protected $client;
 
+    public function __construct()
+    {
+	$this->apiV2RequestFactory = new ApiV2RequestFactory();
+	$this->client = new Client();
     }
 
     public function getQuaggans()
     {
-	$client = new Client();
-	$request = ApiV2RequestFactory::quaggansRequest($client);
-	$response = $client->send($request);
-	$json = $response->json();
+	$request = $this->apiV2RequestFactory->quaggansRequest($this->client);
+	$data = $this->getDataFromApi($request);
 
-	return $json;
+	return $data;
+    }
+
+    public function getQuaggan($id)
+    {
+	$request = $this->apiV2RequestFactory->quagganRequest($this->client, $id);
+	$data = $this->getDataFromApi($request);
+
+	return $data;
+    }
+
+    protected function getDataFromApi($request)
+    {
+	$jsonResponse = $this->client->send($request);
+	$phpArray = $jsonResponse->json();
+
+	return $phpArray;
     }
 
 }

@@ -5,25 +5,24 @@
  * All rights reserved.
  * Distributed under the BSD 3-Clause license (http://opensource.org/licenses/BSD-3-Clause).
  */
-use GuzzleHttp\Client;
-use EtienneLamoureux\DurmandScriptorium\ApiV2RequestFactory;
+use EtienneLamoureux\DurmandScriptorium\DurmandScriptorium;
 
 class QuaggansTest extends PHPUnit_Framework_TestCase
 {
 
-    protected $client;
+    protected static $api;
 
-    protected function setUp()
+    public static function setUpBeforeClass()
     {
-	$this->client = new Client();
+	parent::setUpBeforeClass();
+	QuaggansTest::$api = new DurmandScriptorium();
     }
 
     public function testClientCanReachApi()
     {
-	$request = ApiV2RequestFactory::quaggansRequest($this->client);
-	$response = $this->client->send($request);
+	$data = QuaggansTest::$api->getQuaggans();
 
-	$this->assertEquals(200, $response->getStatusCode());
+	$this->assertNotNull($data);
     }
 
 }
