@@ -10,10 +10,4 @@ use EtienneLamoureux\DurmandScriptorium\DurmandScriptorium;
 class DurmandScriptoriumTest extends PHPUnit_Framework_TestCase
 {
 
-    public function testWorks()
-    {
-	$durmandScriptorium = new DurmandScriptorium;
-	$this->assertTrue($durmandScriptorium->testMethod());
-    }
-
 }
