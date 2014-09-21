@@ -7,42 +7,35 @@
  */
 namespace EtienneLamoureux\DurmandScriptorium;
 
-use GuzzleHttp\Client;
+use EtienneLamoureux\DurmandScriptorium\v2\quaggans\QuaggansApiConsumer;
 
 class DurmandScriptorium
 {
 
-    protected $apiV2RequestFactory;
-    protected $client;
+    protected $quaggans;
 
     public function __construct()
     {
-	$this->apiV2RequestFactory = new ApiV2RequestFactory();
-	$this->client = new Client();
+	$this->quaggans = new QuaggansApiConsumer();
     }
 
-    public function getQuaggans()
+    public function getQuaggans($expanded = false)
     {
-	$request = $this->apiV2RequestFactory->quaggansRequest($this->client);
-	$data = $this->getDataFromApi($request);
+	if ($expanded)
+	{
+	    $data = $this->quaggans->getExpandedQuaggans();
+	}
+	else
+	{
+	    $data = $this->quaggans->getQuaggans();
+	}
 
 	return $data;
     }
 
     public function getQuaggan($id)
     {
-	$request = $this->apiV2RequestFactory->quagganRequest($this->client, $id);
-	$data = $this->getDataFromApi($request);
-
-	return $data;
-    }
-
-    protected function getDataFromApi($request)
-    {
-	$jsonResponse = $this->client->send($request);
-	$phpArray = $jsonResponse->json();
-
-	return $phpArray;
+	return $this->quaggans->getQuaggan($id);
     }
 
 }

@@ -17,7 +17,7 @@
     },
     "autoload": {
 	"psr-4": {
-	    "EtienneLamoureux\\DurmandScriptorium\\": "src"
+	    "EtienneLamoureux\\DurmandScriptorium\\": "src/"
 	}
     }
 }

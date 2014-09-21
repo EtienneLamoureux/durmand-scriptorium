@@ -7,7 +7,7 @@
  */
 use EtienneLamoureux\DurmandScriptorium\DurmandScriptorium;
 
-class QuaggansTest extends PHPUnit_Framework_TestCase
+class DurmandScriptoriumTest extends PHPUnit_Framework_TestCase
 {
 
     protected static $api;
@@ -15,12 +15,12 @@ class QuaggansTest extends PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
 	parent::setUpBeforeClass();
-	QuaggansTest::$api = new DurmandScriptorium();
+	DurmandScriptoriumTest::$api = new DurmandScriptorium();
     }
 
     public function testClientCanReachApi()
     {
-	$data = QuaggansTest::$api->getQuaggans();
+	$data = DurmandScriptoriumTest::$api->getQuaggans();
 
 	$this->assertNotNull($data);
     }
