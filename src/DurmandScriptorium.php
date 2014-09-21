@@ -7,12 +7,24 @@
  */
 namespace EtienneLamoureux\DurmandScriptorium;
 
+use GuzzleHttp\Client;
+
 class DurmandScriptorium
 {
 
-    public function testMethod($bool = true)
+    public function __DurmandScriptorium()
     {
-	return $bool;
+
+    }
+
+    public function getQuaggans()
+    {
+	$client = new Client();
+	$request = ApiV2RequestFactory::quaggansRequest($client);
+	$response = $client->send($request);
+	$json = $response->json();
+
+	return $json;
     }
 
 }
