@@ -2,7 +2,7 @@
     "name": "EtienneLamoureux/DurmandScriptorium",
     "description": "PHP package to consume the GW2 API",
     "license": "BSD 3-Clause",
-    "keywords": ["php gw2 api"],
+    "keywords": ["php", "gw2", "api"],
     "authors": [
 	{
 	    "name": "Etienne Lamoureux",
