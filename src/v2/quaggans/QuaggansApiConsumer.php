@@ -16,7 +16,7 @@ class QuaggansApiConsumer extends \EtienneLamoureux\DurmandScriptorium\ApiConsum
 	$this->requestFactory = new QuaggansApiV2RequestFactory();
     }
 
-    public function getQuaggans()
+    public function getAllQuaggans()
     {
 	$request = $this->requestFactory->baseRequest($this->client);
 	$data = $this->getDataFromApi($request);
@@ -24,7 +24,7 @@ class QuaggansApiConsumer extends \EtienneLamoureux\DurmandScriptorium\ApiConsum
 	return $data;
     }
 
-    public function getExpandedQuaggans()
+    public function getAllExpandedQuaggans()
     {
 	$request = $this->requestFactory->quaggansRequest($this->client, 'all');
 	$data = $this->getDataFromApi($request);
@@ -35,6 +35,14 @@ class QuaggansApiConsumer extends \EtienneLamoureux\DurmandScriptorium\ApiConsum
     public function getQuaggan($id)
     {
 	$request = $this->requestFactory->quagganRequest($this->client, $id);
+	$data = $this->getDataFromApi($request);
+
+	return $data;
+    }
+
+    public function getQuaggans($ids)
+    {
+	$request = $this->requestFactory->quaggansRequest($this->client, $ids);
 	$data = $this->getDataFromApi($request);
 
 	return $data;

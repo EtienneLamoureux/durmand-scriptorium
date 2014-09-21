@@ -25,7 +25,9 @@ class QuaggansApiV2RequestFactory extends \EtienneLamoureux\DurmandScriptorium\v
     {
 	$request = $this->buildBaseRequest($client);
 	$query = $request->getQuery();
-	$query->set('ids', $ids);
+
+	$formattedIds = $this->formatIds($ids);
+	$query->set('ids', $formattedIds);
 
 	return $request;
     }

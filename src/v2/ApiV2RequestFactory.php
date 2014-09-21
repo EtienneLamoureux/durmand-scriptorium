@@ -25,4 +25,14 @@ abstract class ApiV2RequestFactory
 	return $client->createRequest('GET', $this->BASE_URL . $this->ENDPOINT_URL);
     }
 
+    protected function formatIds($ids)
+    {
+	if (is_array($ids))
+	{
+	    return implode(',', $ids);
+	}
+
+	return $ids;
+    }
+
 }

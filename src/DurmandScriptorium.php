@@ -19,15 +19,15 @@ class DurmandScriptorium
 	$this->quaggans = new QuaggansApiConsumer();
     }
 
-    public function getQuaggans($expanded = false)
+    public function getAllQuaggans($expanded = false)
     {
 	if ($expanded)
 	{
-	    $data = $this->quaggans->getExpandedQuaggans();
+	    $data = $this->quaggans->getAllExpandedQuaggans();
 	}
 	else
 	{
-	    $data = $this->quaggans->getQuaggans();
+	    $data = $this->quaggans->getAllQuaggans();
 	}
 
 	return $data;
@@ -36,6 +36,11 @@ class DurmandScriptorium
     public function getQuaggan($id)
     {
 	return $this->quaggans->getQuaggan($id);
+    }
+
+    public function getQuaggans($ids)
+    {
+	return $this->quaggans->getQuaggans($ids);
     }
 
 }
