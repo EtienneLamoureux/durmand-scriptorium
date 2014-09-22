@@ -12,6 +12,8 @@ use GuzzleHttp\Client;
 abstract class ApiConsumer
 {
 
+    const ALL = 'all';
+
     protected $requestFactory;
     protected $client;
 

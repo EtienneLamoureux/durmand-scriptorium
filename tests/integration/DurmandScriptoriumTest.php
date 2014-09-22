@@ -20,7 +20,7 @@ class DurmandScriptoriumTest extends PHPUnit_Framework_TestCase
 
     public function testClientCanReachApi()
     {
-	$data = DurmandScriptoriumTest::$api->getAllQuaggans();
+	$data = DurmandScriptoriumTest::$api->quaggans()->getAll();
 
 	$this->assertNotNull($data);
     }

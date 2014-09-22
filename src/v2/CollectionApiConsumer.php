@@ -15,18 +15,17 @@ class CollectionApiConsumer extends \EtienneLamoureux\DurmandScriptorium\ApiCons
 	parent::__construct($requestFactory);
     }
 
-    public function getAll()
+    public function getAll($expanded = false)
     {
-	$request = $this->requestFactory->baseRequest($this->client);
-	$data = $this->getDataFromApi($request);
-
-	return $data;
-    }
-
-    public function getAllExpanded()
-    {
-	$request = $this->requestFactory->idsRequest($this->client, 'all');
-	$data = $this->getDataFromApi($request);
+	if ($expanded)
+	{
+	    $data = $this->getSome(self::ALL);
+	}
+	else
+	{
+	    $request = $this->requestFactory->baseRequest($this->client);
+	    $data = $this->getDataFromApi($request);
+	}
 
 	return $data;
     }

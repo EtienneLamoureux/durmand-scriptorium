@@ -27,58 +27,14 @@ class DurmandScriptorium
 	$this->listings = new CollectionApiConsumer($listingsRequestFactory);
     }
 
-    public function getAllQuaggans($expanded = false)
+    public function quaggans()
     {
-	return $this->getAllElements($this->quaggans);
+	return $this->quaggans;
     }
 
-    public function getQuaggan($id)
+    public function listings()
     {
-	return $this->getElement($this->quaggans, $id);
-    }
-
-    public function getQuaggans($ids)
-    {
-	return $this->getElements($this->quaggans, $ids);
-    }
-
-    public function getAllListings($expanded = false)
-    {
-	return $this->getAllElements($this->listings);
-    }
-
-    public function getListing($id)
-    {
-	return $this->getElement($this->listings, $id);
-    }
-
-    public function getListings($ids)
-    {
-	return $this->getElements($this->listings, $ids);
-    }
-
-    private function getAllElements($apiConsumer, $expanded = false)
-    {
-	if ($expanded)
-	{
-	    $data = $apiConsumer->getAllExpanded();
-	}
-	else
-	{
-	    $data = $apiConsumer->getAll();
-	}
-
-	return $data;
-    }
-
-    private function getElement($apiConsumer, $id)
-    {
-	return $apiConsumer->get($id);
-    }
-
-    private function getElements($apiConsumer, $ids)
-    {
-	return $apiConsumer->getSome($ids);
+	return $this->listings;
     }
 
 }
