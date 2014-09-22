@@ -20,6 +20,26 @@ abstract class ApiV2RequestFactory
 	return $request;
     }
 
+    public function idRequest($client, $id)
+    {
+	$request = $this->buildBaseRequest($client);
+	$query = $request->getQuery();
+	$query->set('id', $id);
+
+	return $request;
+    }
+
+    public function idsRequest($client, $ids)
+    {
+	$request = $this->buildBaseRequest($client);
+	$query = $request->getQuery();
+
+	$formattedIds = $this->formatIds($ids);
+	$query->set('ids', $formattedIds);
+
+	return $request;
+    }
+
     protected function buildBaseRequest($client)
     {
 	return $client->createRequest('GET', $this->BASE_URL . $this->ENDPOINT_URL);

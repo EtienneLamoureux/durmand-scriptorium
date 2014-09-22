@@ -9,15 +9,16 @@ namespace EtienneLamoureux\DurmandScriptorium;
 
 use GuzzleHttp\Client;
 
-abstract class ApiConsumer
+class ApiConsumer
 {
 
     protected $requestFactory;
     protected $client;
 
-    public function __construct()
+    public function __construct($requestFactory)
     {
 	$this->client = new Client();
+	$this->requestFactory = $requestFactory;
     }
 
     protected function getDataFromApi($request)

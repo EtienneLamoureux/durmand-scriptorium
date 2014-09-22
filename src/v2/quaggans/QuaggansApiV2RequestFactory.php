@@ -12,24 +12,4 @@ class QuaggansApiV2RequestFactory extends \EtienneLamoureux\DurmandScriptorium\v
 
     protected $ENDPOINT_URL = '/v2/quaggans';
 
-    public function quagganRequest($client, $id)
-    {
-	$request = $this->buildBaseRequest($client);
-	$query = $request->getQuery();
-	$query->set('id', $id);
-
-	return $request;
-    }
-
-    public function quaggansRequest($client, $ids)
-    {
-	$request = $this->buildBaseRequest($client);
-	$query = $request->getQuery();
-
-	$formattedIds = $this->formatIds($ids);
-	$query->set('ids', $formattedIds);
-
-	return $request;
-    }
-
 }

@@ -7,7 +7,8 @@
  */
 namespace EtienneLamoureux\DurmandScriptorium;
 
-use EtienneLamoureux\DurmandScriptorium\v2\quaggans\QuaggansApiConsumer;
+use EtienneLamoureux\DurmandScriptorium\v2\CollectionApiConsumer;
+use EtienneLamoureux\DurmandScriptorium\v2\quaggans\QuaggansApiV2RequestFactory;
 
 class DurmandScriptorium
 {
@@ -16,18 +17,18 @@ class DurmandScriptorium
 
     public function __construct()
     {
-	$this->quaggans = new QuaggansApiConsumer();
+	$this->quaggans = new CollectionApiConsumer(new QuaggansApiV2RequestFactory());
     }
 
     public function getAllQuaggans($expanded = false)
     {
 	if ($expanded)
 	{
-	    $data = $this->quaggans->getAllExpandedQuaggans();
+	    $data = $this->quaggans->getAllExpanded();
 	}
 	else
 	{
-	    $data = $this->quaggans->getAllQuaggans();
+	    $data = $this->quaggans->getAll();
 	}
 
 	return $data;
@@ -35,12 +36,12 @@ class DurmandScriptorium
 
     public function getQuaggan($id)
     {
-	return $this->quaggans->getQuaggan($id);
+	return $this->quaggans->get($id);
     }
 
     public function getQuaggans($ids)
     {
-	return $this->quaggans->getQuaggans($ids);
+	return $this->quaggans->getSome($ids);
     }
 
 }
