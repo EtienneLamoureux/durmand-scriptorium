@@ -13,17 +13,18 @@ use EtienneLamoureux\DurmandScriptorium\v2\CollectionApiRequestFactory;
 class DurmandScriptorium
 {
 
-    public static $quaggansEndpointUrl = '/v2/quaggans';
-    public static $listingsEndpointUrl = '/v2/commerce/listings';
+    const QUAGGANS_ENDPOINT = '/v2/quaggans';
+    const LISTINGS_ENDPOINT = '/v2/commerce/listings';
+
     protected $quaggans;
     protected $listings;
 
     public function __construct()
     {
-	$quaggansRequestFactory = new CollectionApiRequestFactory(DurmandScriptorium::$quaggansEndpointUrl);
+	$quaggansRequestFactory = new CollectionApiRequestFactory(self::QUAGGANS_ENDPOINT);
 	$this->quaggans = new CollectionApiConsumer($quaggansRequestFactory);
 
-	$listingsRequestFactory = new CollectionApiRequestFactory(DurmandScriptorium::$listingsEndpointUrl);
+	$listingsRequestFactory = new CollectionApiRequestFactory(self::LISTINGS_ENDPOINT);
 	$this->listings = new CollectionApiConsumer($listingsRequestFactory);
     }
 

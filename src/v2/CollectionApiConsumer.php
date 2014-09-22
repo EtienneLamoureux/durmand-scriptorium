@@ -10,6 +10,8 @@ namespace EtienneLamoureux\DurmandScriptorium\v2;
 class CollectionApiConsumer extends \EtienneLamoureux\DurmandScriptorium\ApiConsumer
 {
 
+    const ALL = 'all';
+
     public function __construct($requestFactory)
     {
 	parent::__construct($requestFactory);
