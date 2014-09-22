@@ -9,7 +9,7 @@ namespace EtienneLamoureux\DurmandScriptorium;
 
 use GuzzleHttp\Client;
 
-class ApiConsumer
+abstract class ApiConsumer
 {
 
     protected $requestFactory;

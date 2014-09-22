@@ -8,7 +8,7 @@
 namespace EtienneLamoureux\DurmandScriptorium;
 
 use EtienneLamoureux\DurmandScriptorium\v2\CollectionApiConsumer;
-use EtienneLamoureux\DurmandScriptorium\v2\quaggans\QuaggansApiV2RequestFactory;
+use EtienneLamoureux\DurmandScriptorium\v2\CollectionApiRequestFactory;
 
 class DurmandScriptorium
 {
@@ -17,7 +17,7 @@ class DurmandScriptorium
 
     public function __construct()
     {
-	$this->quaggans = new CollectionApiConsumer(new QuaggansApiV2RequestFactory());
+	$this->quaggans = new CollectionApiConsumer(new CollectionApiRequestFactory('/v2/quaggans'));
     }
 
     public function getAllQuaggans($expanded = false)
