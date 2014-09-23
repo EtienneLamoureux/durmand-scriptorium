@@ -21,7 +21,7 @@ class CollectionApiConsumer extends \EtienneLamoureux\DurmandScriptorium\ApiCons
     {
 	if ($expanded)
 	{
-	    $data = $this->getSome(self::ALL);
+	    $data = $this->getMany(self::ALL);
 	}
 	else
 	{
@@ -40,7 +40,7 @@ class CollectionApiConsumer extends \EtienneLamoureux\DurmandScriptorium\ApiCons
 	return $data;
     }
 
-    public function getSome($ids)
+    public function getMany($ids)
     {
 	$request = $this->requestFactory->idsRequest($this->client, $ids);
 	$data = $this->getDataFromApi($request);
