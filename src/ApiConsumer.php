@@ -7,7 +7,8 @@
  */
 namespace EtienneLamoureux\DurmandScriptorium;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\Event\CompleteEvent;
+use GuzzleHttp\Event\ErrorEvent;
 
 abstract class ApiConsumer
 {
@@ -15,18 +16,43 @@ abstract class ApiConsumer
     protected $requestFactory;
     protected $client;
 
-    public function __construct($requestFactory)
+    public function __construct($client, $requestFactory)
     {
-	$this->client = new Client();
+	$this->client = $client;
 	$this->requestFactory = $requestFactory;
     }
 
     protected function getDataFromApi($request)
     {
 	$jsonResponse = $this->client->send($request);
-	$phpArray = $jsonResponse->json();
+	$phpArray = $this->convertJsonToArray($jsonResponse);
 
 	return $phpArray;
+    }
+
+    protected function executeBatch($requests)
+    {
+	$this->client->sendAll($requests, [
+	    // Call this function when each request completes
+	    'complete' => function (CompleteEvent $event)
+	    {
+		echo 'Completed request to ' . $event->getRequest()->getUrl() . "\n";
+		echo 'Response: ' . $event->getResponse()->getBody() . "\n\n";
+	    },
+	    // Call this function when a request encounters an error
+	    'error' => function (ErrorEvent $event)
+	    {
+		echo 'Request failed: ' . $event->getRequest()->getUrl() . "\n";
+		echo $event->getException();
+	    },
+	    // Maintain a maximum pool size of 25 concurrent requests.
+	    'parallel' => 100
+	]);
+    }
+
+    protected function convertJsonToArray($jsonResponse)
+    {
+	return $jsonResponse->json();
     }
 
 }

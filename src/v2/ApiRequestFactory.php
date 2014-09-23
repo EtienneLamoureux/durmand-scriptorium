@@ -10,7 +10,8 @@ namespace EtienneLamoureux\DurmandScriptorium\v2;
 abstract class ApiRequestFactory
 {
 
-    protected $BASE_URL = 'https://api.guildwars2.com';
+    const BASE_URL = 'https://api.guildwars2.com';
+
     protected $ENDPOINT_URL = '';
 
     public function baseRequest($client)
@@ -22,7 +23,7 @@ abstract class ApiRequestFactory
 
     protected function buildBaseRequest($client)
     {
-	return $client->createRequest('GET', $this->BASE_URL . $this->ENDPOINT_URL);
+	return $client->createRequest('GET', self::BASE_URL . $this->ENDPOINT_URL);
     }
 
 }

@@ -7,21 +7,20 @@
  */
 namespace EtienneLamoureux\DurmandScriptorium\v2;
 
+use GuzzleHttp\Exception\ClientException;
+use Guzzle\Batch\Batch;
+use Guzzle\Batch\BatchRequestTransfer;
+
 class CollectionApiConsumer extends \EtienneLamoureux\DurmandScriptorium\ApiConsumer
 {
 
     const ALL = 'all';
 
-    public function __construct($requestFactory)
-    {
-	parent::__construct($requestFactory);
-    }
-
     public function getAll($expanded = false)
     {
 	if ($expanded)
 	{
-	    $data = $this->getMany(self::ALL);
+	    $data = $this->getAllExpanded();
 	}
 	else
 	{
@@ -44,6 +43,22 @@ class CollectionApiConsumer extends \EtienneLamoureux\DurmandScriptorium\ApiCons
     {
 	$request = $this->requestFactory->idsRequest($this->client, $ids);
 	$data = $this->getDataFromApi($request);
+
+	return $data;
+    }
+
+    protected function getAllExpanded()
+    {
+	try
+	{
+	    $data = $this->getMany(self::ALL);
+	}
+	catch (ClientException $exc)
+	{
+	    $ids = $this->getAll();
+	    $requests = $this->requestFactory->idsBatchRequest($this->client, $ids);
+	    $this->executeBatch($requests);
+	}
 
 	return $data;
     }

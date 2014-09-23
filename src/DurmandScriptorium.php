@@ -9,6 +9,7 @@ namespace EtienneLamoureux\DurmandScriptorium;
 
 use EtienneLamoureux\DurmandScriptorium\v2\CollectionApiConsumer;
 use EtienneLamoureux\DurmandScriptorium\v2\CollectionApiRequestFactory;
+use GuzzleHttp\Client;
 
 class DurmandScriptorium
 {
@@ -21,11 +22,13 @@ class DurmandScriptorium
 
     public function __construct()
     {
+	$client = new Client();
+
 	$quaggansRequestFactory = new CollectionApiRequestFactory(self::QUAGGANS_ENDPOINT);
-	$this->quaggans = new CollectionApiConsumer($quaggansRequestFactory);
+	$this->quaggans = new CollectionApiConsumer($client, $quaggansRequestFactory);
 
 	$listingsRequestFactory = new CollectionApiRequestFactory(self::LISTINGS_ENDPOINT);
-	$this->listings = new CollectionApiConsumer($listingsRequestFactory);
+	$this->listings = new CollectionApiConsumer($client, $listingsRequestFactory);
     }
 
     public function quaggans()

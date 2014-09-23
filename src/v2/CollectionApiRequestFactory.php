@@ -35,6 +35,18 @@ class CollectionApiRequestFactory extends ApiRequestFactory
 	return $request;
     }
 
+    public function idsBatchRequest($client, $ids)
+    {
+	$requests = array();
+
+	foreach ($ids as $id)
+	{
+	    $requests[] = $this->idRequest($client, $id);
+	}
+
+	return $requests;
+    }
+
     protected function formatIds($ids)
     {
 	if (is_array($ids))
