@@ -16,12 +16,17 @@ class DurmandScriptorium
 
     const QUAGGANS_ENDPOINT = '/v2/quaggans';
     const LISTINGS_ENDPOINT = '/v2/commerce/listings';
+    const PRICES_ENDPOINT = '/v2/commerce/prices';
 
+    protected $guzzleCurlSelectTimeout;
     protected $quaggans;
     protected $listings;
+    protected $prices;
 
     public function __construct()
     {
+	$this->guzzleCurlSelectTimeout = 120;
+	putenv("GUZZLE_CURL_SELECT_TIMEOUT=$this->guzzleCurlSelectTimeout");
 	$client = new Client();
 
 	$quaggansRequestFactory = new CollectionApiRequestFactory(self::QUAGGANS_ENDPOINT);
@@ -29,6 +34,9 @@ class DurmandScriptorium
 
 	$listingsRequestFactory = new CollectionApiRequestFactory(self::LISTINGS_ENDPOINT);
 	$this->listings = new CollectionApiConsumer($client, $listingsRequestFactory);
+
+	$pricesRequestFactory = new CollectionApiRequestFactory(self::PRICES_ENDPOINT);
+	$this->prices = new CollectionApiConsumer($client, $pricesRequestFactory);
     }
 
     public function quaggans()
@@ -39,6 +47,11 @@ class DurmandScriptorium
     public function listings()
     {
 	return $this->listings;
+    }
+
+    public function prices()
+    {
+	return $this->prices;
     }
 
 }
