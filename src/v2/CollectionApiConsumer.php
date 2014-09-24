@@ -8,8 +8,6 @@
 namespace EtienneLamoureux\DurmandScriptorium\v2;
 
 use GuzzleHttp\Exception\ClientException;
-use Guzzle\Batch\Batch;
-use Guzzle\Batch\BatchRequestTransfer;
 
 class CollectionApiConsumer extends \EtienneLamoureux\DurmandScriptorium\ApiConsumer
 {
@@ -57,7 +55,7 @@ class CollectionApiConsumer extends \EtienneLamoureux\DurmandScriptorium\ApiCons
 	{
 	    $ids = $this->getAll();
 	    $requests = $this->requestFactory->idsBatchRequest($this->client, $ids);
-	    $this->executeBatch($requests);
+	    $data = $this->getDataFromApi($requests);
 	}
 
 	return $data;

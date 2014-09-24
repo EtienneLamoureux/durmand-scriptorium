@@ -25,8 +25,9 @@ class DurmandScriptorium
 
     public function __construct()
     {
-	$this->guzzleCurlSelectTimeout = 120;
-	putenv("GUZZLE_CURL_SELECT_TIMEOUT=$this->guzzleCurlSelectTimeout");
+	$this->guzzleCurlSelectTimeout = 300;
+	$_SERVER['GUZZLE_CURL_SELECT_TIMEOUT'] = 300;
+
 	$client = new Client();
 
 	$quaggansRequestFactory = new CollectionApiRequestFactory(self::QUAGGANS_ENDPOINT);
