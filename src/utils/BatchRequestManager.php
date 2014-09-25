@@ -17,18 +17,18 @@ class BatchRequestManager
     const NB_OF_PARALLEL_REQUESTS = 25;
 
     protected $client;
-    protected $jsonResponse;
+    protected $aggregatedResponse;
 
     public function __construct(Client $client)
     {
 	$this->client = $client;
-	$this->jsonResponse = '';
+	$this->aggregatedResponse = array();
     }
 
     public function executeRequests(array $requests)
     {
-
-	$this->jsonResponse = '';
+	unset($this->aggregatedResponse);
+	$this->aggregatedResponse = array();
 	$requestChunks = array_chunk($requests, self::NB_OF_PARALLEL_REQUESTS);
 
 	foreach ($requestChunks as $requestChunk)
@@ -36,25 +36,23 @@ class BatchRequestManager
 	    $this->sendRequestChunk($requestChunk);
 	}
 
-	return $this->jsonResponse;
+	return $this->aggregatedResponse;
     }
 
     protected function sendRequestChunk(array $requests)
     {
 	$this->client->sendAll($requests, [
-	    // Call this function when each request completes
 	    'complete' => function (CompleteEvent $event)
 	    {
 		echo 'Completed request to ' . $event->getRequest()->getUrl() . "<br />";
-		$this->jsonResponse = $this->jsonResponse . $event->getResponse()->getBody();
+		$response = $event->getResponse()->json();
+		$this->aggregatedResponse = array_merge($this->aggregatedResponse, $response);
 	    },
-	    // Call this function when a request encounters an error
 	    'error' => function (ErrorEvent $event)
 	    {
 		echo 'Request failed: ' . $event->getRequest()->getUrl() . "\n";
 		echo $event->getException();
 	    },
-	    // Maintain a maximum pool size of 25 concurrent requests.
 	    'parallel' => self::NB_OF_PARALLEL_REQUESTS
 	]);
     }

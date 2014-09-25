@@ -29,14 +29,13 @@ abstract class ApiConsumer
     {
 	if (is_array($request))
 	{
-	    $jsonResponse = $this->batchRequestManager->executeRequests($request);
+	    $phpArray = $this->batchRequestManager->executeRequests($request);
 	}
 	else
 	{
 	    $jsonResponse = $this->client->send($request);
+	    $phpArray = $jsonResponse->json();
 	}
-
-	$phpArray = $jsonResponse->json();
 
 	return $phpArray;
     }
