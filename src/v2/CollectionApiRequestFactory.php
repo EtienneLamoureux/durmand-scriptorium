@@ -10,51 +10,51 @@ namespace EtienneLamoureux\DurmandScriptorium\v2;
 class CollectionApiRequestFactory extends ApiRequestFactory
 {
 
-    public function __construct($endpointUrl)
-    {
-	$this->ENDPOINT_URL = $endpointUrl;
-    }
+    const MAX_IDS_SINGLE_REQUEST = 200;
 
-    public function idRequest($client, $id)
+    public function idRequest($id)
     {
-	$request = $this->buildBaseRequest($client);
+	$request = $this->buildBaseRequest();
 	$query = $request->getQuery();
 	$query->set('id', $id);
 
 	return $request;
     }
 
-    public function idsRequest($client, $ids)
+    public function idsRequest(array $ids)
     {
-	$request = $this->buildBaseRequest($client);
-	$query = $request->getQuery();
+	if (sizeof($ids) <= self::MAX_IDS_SINGLE_REQUEST)
+	{
+	    $request = $this->buildBaseRequest();
+	    $query = $request->getQuery();
 
-	$formattedIds = $this->formatIds($ids);
-	$query->set('ids', $formattedIds);
+	    $formattedIds = $this->formatIds($ids);
+	    $query->set('ids', $formattedIds);
+	}
+	else
+	{
+	    $request = $this->batchRequest($ids);
+	}
 
 	return $request;
     }
 
-    public function idsBatchRequest($client, $ids)
+    protected function batchRequest(array $ids)
     {
 	$requests = array();
+	$idChunks = array_chunk($ids, self::MAX_IDS_SINGLE_REQUEST);
 
-	foreach ($ids as $id)
+	foreach ($idChunks as $idChunk)
 	{
-	    $requests[] = $this->idRequest($client, $id);
+	    $requests[] = $this->idsRequest($idChunk);
 	}
 
 	return $requests;
     }
 
-    protected function formatIds($ids)
+    protected function formatIds(array $ids)
     {
-	if (is_array($ids))
-	{
-	    return implode(',', $ids);
-	}
-
-	return $ids;
+	return implode(',', $ids);
     }
 
 }

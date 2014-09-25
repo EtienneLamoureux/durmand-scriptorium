@@ -7,6 +7,7 @@
  */
 namespace EtienneLamoureux\DurmandScriptorium;
 
+use EtienneLamoureux\DurmandScriptorium\utils\BatchRequestManager;
 use EtienneLamoureux\DurmandScriptorium\v2\CollectionApiConsumer;
 use EtienneLamoureux\DurmandScriptorium\v2\CollectionApiRequestFactory;
 use GuzzleHttp\Client;
@@ -18,26 +19,24 @@ class DurmandScriptorium
     const LISTINGS_ENDPOINT = '/v2/commerce/listings';
     const PRICES_ENDPOINT = '/v2/commerce/prices';
 
-    protected $guzzleCurlSelectTimeout;
     protected $quaggans;
     protected $listings;
     protected $prices;
 
     public function __construct()
     {
-	$this->guzzleCurlSelectTimeout = 300;
-	$_SERVER['GUZZLE_CURL_SELECT_TIMEOUT'] = 300;
-
 	$client = new Client();
 
-	$quaggansRequestFactory = new CollectionApiRequestFactory(self::QUAGGANS_ENDPOINT);
-	$this->quaggans = new CollectionApiConsumer($client, $quaggansRequestFactory);
+	$batchRequestManager = new BatchRequestManager($client);
 
-	$listingsRequestFactory = new CollectionApiRequestFactory(self::LISTINGS_ENDPOINT);
-	$this->listings = new CollectionApiConsumer($client, $listingsRequestFactory);
+	$quaggansRequestFactory = new CollectionApiRequestFactory($client, self::QUAGGANS_ENDPOINT);
+	$this->quaggans = new CollectionApiConsumer($client, $quaggansRequestFactory, $batchRequestManager);
 
-	$pricesRequestFactory = new CollectionApiRequestFactory(self::PRICES_ENDPOINT);
-	$this->prices = new CollectionApiConsumer($client, $pricesRequestFactory);
+	$listingsRequestFactory = new CollectionApiRequestFactory($client, self::LISTINGS_ENDPOINT);
+	$this->listings = new CollectionApiConsumer($client, $listingsRequestFactory, $batchRequestManager);
+
+	$pricesRequestFactory = new CollectionApiRequestFactory($client, self::PRICES_ENDPOINT);
+	$this->prices = new CollectionApiConsumer($client, $pricesRequestFactory, $batchRequestManager);
     }
 
     public function quaggans()

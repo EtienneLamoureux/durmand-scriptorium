@@ -7,22 +7,21 @@
  */
 namespace EtienneLamoureux\DurmandScriptorium\v2;
 
-use GuzzleHttp\Exception\ClientException;
+use EtienneLamoureux\DurmandScriptorium\ApiConsumer;
 
-class CollectionApiConsumer extends \EtienneLamoureux\DurmandScriptorium\ApiConsumer
+class CollectionApiConsumer extends ApiConsumer
 {
-
-    const ALL = 'all';
 
     public function getAll($expanded = false)
     {
 	if ($expanded)
 	{
-	    $data = $this->getAllExpanded();
+	    $ids = $this->getAll();
+	    $data = $this->getMany($ids);
 	}
 	else
 	{
-	    $request = $this->requestFactory->baseRequest($this->client);
+	    $request = $this->requestFactory->baseRequest();
 	    $data = $this->getDataFromApi($request);
 	}
 
@@ -31,32 +30,16 @@ class CollectionApiConsumer extends \EtienneLamoureux\DurmandScriptorium\ApiCons
 
     public function get($id)
     {
-	$request = $this->requestFactory->idRequest($this->client, $id);
+	$request = $this->requestFactory->idRequest($id);
 	$data = $this->getDataFromApi($request);
 
 	return $data;
     }
 
-    public function getMany($ids)
+    public function getMany(array $ids)
     {
-	$request = $this->requestFactory->idsRequest($this->client, $ids);
+	$request = $this->requestFactory->idsRequest($ids);
 	$data = $this->getDataFromApi($request);
-
-	return $data;
-    }
-
-    protected function getAllExpanded()
-    {
-	try
-	{
-	    $data = $this->getMany(self::ALL);
-	}
-	catch (ClientException $exc)
-	{
-	    $ids = $this->getAll();
-	    $requests = $this->requestFactory->idsBatchRequest($this->client, $ids);
-	    $data = $this->getDataFromApi($requests);
-	}
 
 	return $data;
     }
