@@ -12,6 +12,8 @@ use EtienneLamoureux\DurmandScriptorium\ApiConsumer;
 class CollectionApiConsumer extends ApiConsumer
 {
 
+    const MAX_PAGE_SIZE = 200;
+
     public function getAll($expanded = false)
     {
 	if ($expanded)
@@ -39,6 +41,14 @@ class CollectionApiConsumer extends ApiConsumer
     public function getMany(array $ids)
     {
 	$request = $this->requestFactory->idsRequest($ids);
+	$data = $this->getDataFromApi($request);
+
+	return $data;
+    }
+
+    public function getPage($page, $pageSize = null)
+    {
+	$request = $this->requestFactory->pageRequest($page, $pageSize);
 	$data = $this->getDataFromApi($request);
 
 	return $data;
