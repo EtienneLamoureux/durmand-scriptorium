@@ -14,8 +14,6 @@ use GuzzleHttp\Event\ErrorEvent;
 class BatchRequestManager
 {
 
-    const NB_OF_PARALLEL_REQUESTS = 20;
-
     protected $client;
     protected $aggregatedResponse;
 
@@ -29,7 +27,7 @@ class BatchRequestManager
     {
 	unset($this->aggregatedResponse);
 	$this->aggregatedResponse = array();
-	$requestChunks = array_chunk($requests, self::NB_OF_PARALLEL_REQUESTS);
+	$requestChunks = array_chunk($requests, Constants::NB_OF_PARALLEL_REQUESTS);
 
 	foreach ($requestChunks as $requestChunk)
 	{
@@ -53,7 +51,7 @@ class BatchRequestManager
 		echo 'Request failed: ' . $event->getRequest()->getUrl() . "\n";
 		echo $event->getException();
 	    },
-	    'parallel' => self::NB_OF_PARALLEL_REQUESTS
+	    'parallel' => Constants::NB_OF_PARALLEL_REQUESTS
 	]);
     }
 

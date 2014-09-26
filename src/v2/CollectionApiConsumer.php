@@ -12,8 +12,6 @@ use EtienneLamoureux\DurmandScriptorium\ApiConsumer;
 class CollectionApiConsumer extends ApiConsumer
 {
 
-    const MAX_PAGE_SIZE = 200;
-
     public function getAll($expanded = false)
     {
 	if ($expanded)

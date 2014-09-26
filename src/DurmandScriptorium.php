@@ -8,17 +8,13 @@
 namespace EtienneLamoureux\DurmandScriptorium;
 
 use EtienneLamoureux\DurmandScriptorium\utils\BatchRequestManager;
+use EtienneLamoureux\DurmandScriptorium\utils\Constants;
 use EtienneLamoureux\DurmandScriptorium\v2\CollectionApiConsumer;
 use EtienneLamoureux\DurmandScriptorium\v2\CollectionApiRequestFactory;
 use GuzzleHttp\Client;
 
 class DurmandScriptorium
 {
-
-    const QUAGGANS_ENDPOINT = '/v2/quaggans';
-    const LISTINGS_ENDPOINT = '/v2/commerce/listings';
-    const PRICES_ENDPOINT = '/v2/commerce/prices';
-    const ITEMS_ENDPOINT = '/v2/items';
 
     protected $quaggans;
     protected $listings;
@@ -31,16 +27,16 @@ class DurmandScriptorium
 
 	$batchRequestManager = new BatchRequestManager($client);
 
-	$quaggansRequestFactory = new CollectionApiRequestFactory($client, self::QUAGGANS_ENDPOINT);
+	$quaggansRequestFactory = new CollectionApiRequestFactory($client, Constants::QUAGGANS_ENDPOINT);
 	$this->quaggans = new CollectionApiConsumer($client, $quaggansRequestFactory, $batchRequestManager);
 
-	$listingsRequestFactory = new CollectionApiRequestFactory($client, self::LISTINGS_ENDPOINT);
+	$listingsRequestFactory = new CollectionApiRequestFactory($client, Constants::LISTINGS_ENDPOINT);
 	$this->listings = new CollectionApiConsumer($client, $listingsRequestFactory, $batchRequestManager);
 
-	$pricesRequestFactory = new CollectionApiRequestFactory($client, self::PRICES_ENDPOINT);
+	$pricesRequestFactory = new CollectionApiRequestFactory($client, Constants::PRICES_ENDPOINT);
 	$this->prices = new CollectionApiConsumer($client, $pricesRequestFactory, $batchRequestManager);
 
-	$itemsRequestFactory = new CollectionApiRequestFactory($client, self::ITEMS_ENDPOINT);
+	$itemsRequestFactory = new CollectionApiRequestFactory($client, Constants::ITEMS_ENDPOINT);
 	$this->items = new CollectionApiConsumer($client, $itemsRequestFactory, $batchRequestManager);
     }
 

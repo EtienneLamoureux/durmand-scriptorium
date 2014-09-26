@@ -7,12 +7,11 @@
  */
 namespace EtienneLamoureux\DurmandScriptorium\v2;
 
+use EtienneLamoureux\DurmandScriptorium\utils\Constants;
 use GuzzleHttp\Client;
 
 abstract class ApiRequestFactory
 {
-
-    const BASE_URL = 'https://api.guildwars2.com';
 
     protected $ENDPOINT_URL = '';
     protected $client;
@@ -32,7 +31,7 @@ abstract class ApiRequestFactory
 
     protected function buildBaseRequest()
     {
-	return $this->client->createRequest('GET', self::BASE_URL . $this->ENDPOINT_URL);
+	return $this->client->createRequest('GET', Constants::BASE_URL . $this->ENDPOINT_URL);
     }
 
 }

@@ -33,8 +33,8 @@ abstract class ApiConsumer
 	}
 	else
 	{
-	    $jsonResponse = $this->client->send($request);
-	    $phpArray = $jsonResponse->json();
+	    $response = $this->client->send($request);
+	    $phpArray = $response->json();
 	}
 
 	return $phpArray;

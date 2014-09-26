@@ -7,10 +7,10 @@
  */
 namespace EtienneLamoureux\DurmandScriptorium\v2;
 
+use EtienneLamoureux\DurmandScriptorium\utils\Constants;
+
 class CollectionApiRequestFactory extends ApiRequestFactory
 {
-
-    const MAX_IDS_SINGLE_REQUEST = 200;
 
     public function idRequest($id)
     {
@@ -23,7 +23,7 @@ class CollectionApiRequestFactory extends ApiRequestFactory
 
     public function idsRequest(array $ids)
     {
-	if (sizeof($ids) <= self::MAX_IDS_SINGLE_REQUEST)
+	if (sizeof($ids) <= Constants::MAX_IDS_SINGLE_REQUEST)
 	{
 	    $request = $this->buildBaseRequest();
 	    $query = $request->getQuery();
@@ -56,7 +56,7 @@ class CollectionApiRequestFactory extends ApiRequestFactory
     protected function batchRequest(array $ids)
     {
 	$requests = array();
-	$idChunks = array_chunk($ids, self::MAX_IDS_SINGLE_REQUEST);
+	$idChunks = array_chunk($ids, Constants::MAX_IDS_SINGLE_REQUEST);
 
 	foreach ($idChunks as $idChunk)
 	{
