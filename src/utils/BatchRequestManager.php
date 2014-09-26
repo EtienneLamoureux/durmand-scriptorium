@@ -14,7 +14,7 @@ use GuzzleHttp\Event\ErrorEvent;
 class BatchRequestManager
 {
 
-    const NB_OF_PARALLEL_REQUESTS = 25;
+    const NB_OF_PARALLEL_REQUESTS = 20;
 
     protected $client;
     protected $aggregatedResponse;

@@ -18,10 +18,12 @@ class DurmandScriptorium
     const QUAGGANS_ENDPOINT = '/v2/quaggans';
     const LISTINGS_ENDPOINT = '/v2/commerce/listings';
     const PRICES_ENDPOINT = '/v2/commerce/prices';
+    const ITEMS_ENDPOINT = '/v2/items';
 
     protected $quaggans;
     protected $listings;
     protected $prices;
+    protected $items;
 
     public function __construct()
     {
@@ -37,6 +39,9 @@ class DurmandScriptorium
 
 	$pricesRequestFactory = new CollectionApiRequestFactory($client, self::PRICES_ENDPOINT);
 	$this->prices = new CollectionApiConsumer($client, $pricesRequestFactory, $batchRequestManager);
+
+	$itemsRequestFactory = new CollectionApiRequestFactory($client, self::ITEMS_ENDPOINT);
+	$this->items = new CollectionApiConsumer($client, $itemsRequestFactory, $batchRequestManager);
     }
 
     public function quaggans()
@@ -52,6 +57,11 @@ class DurmandScriptorium
     public function prices()
     {
 	return $this->prices;
+    }
+
+    public function items()
+    {
+	return $this->items;
     }
 
 }
