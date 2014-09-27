@@ -9,7 +9,7 @@ namespace Crystalgorithm\DurmandScriptorium\v2;
 
 use Crystalgorithm\DurmandScriptorium\utils\Constants;
 
-class CollectionApiRequestFactory extends ApiRequestFactory
+class CollectionRequestFactory extends RequestFactory
 {
 
     public function idRequest($id)

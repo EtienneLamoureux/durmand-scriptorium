@@ -8,17 +8,17 @@
 namespace Crystalgorithm\DurmandScriptorium;
 
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
-use Crystalgorithm\DurmandScriptorium\v2\ApiRequestFactory;
+use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
 use GuzzleHttp\Client;
 
-abstract class ApiConsumer
+abstract class Consumer
 {
 
     protected $requestFactory;
     protected $client;
     protected $batchRequestManager;
 
-    public function __construct(Client $client, ApiRequestFactory $requestFactory, BatchRequestManager $batchRequestManager)
+    public function __construct(Client $client, RequestFactory $requestFactory, BatchRequestManager $batchRequestManager)
     {
 	$this->client = $client;
 	$this->requestFactory = $requestFactory;

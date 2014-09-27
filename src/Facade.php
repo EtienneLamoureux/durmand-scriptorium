@@ -9,8 +9,8 @@ namespace Crystalgorithm\DurmandScriptorium;
 
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
 use Crystalgorithm\DurmandScriptorium\utils\Constants;
-use Crystalgorithm\DurmandScriptorium\v2\CollectionApiConsumer;
-use Crystalgorithm\DurmandScriptorium\v2\CollectionApiRequestFactory;
+use Crystalgorithm\DurmandScriptorium\v2\CollectionConsumer;
+use Crystalgorithm\DurmandScriptorium\v2\CollectionRequestFactory;
 use GuzzleHttp\Client;
 
 class Facade
@@ -27,17 +27,17 @@ class Facade
 
 	$batchRequestManager = new BatchRequestManager($client);
 
-	$quaggansRequestFactory = new CollectionApiRequestFactory($client, Constants::QUAGGANS_ENDPOINT);
-	$this->quaggans = new CollectionApiConsumer($client, $quaggansRequestFactory, $batchRequestManager);
+	$quaggansRequestFactory = new CollectionRequestFactory($client, Constants::QUAGGANS_ENDPOINT);
+	$this->quaggans = new CollectionConsumer($client, $quaggansRequestFactory, $batchRequestManager);
 
-	$listingsRequestFactory = new CollectionApiRequestFactory($client, Constants::LISTINGS_ENDPOINT);
-	$this->listings = new CollectionApiConsumer($client, $listingsRequestFactory, $batchRequestManager);
+	$listingsRequestFactory = new CollectionRequestFactory($client, Constants::LISTINGS_ENDPOINT);
+	$this->listings = new CollectionConsumer($client, $listingsRequestFactory, $batchRequestManager);
 
-	$pricesRequestFactory = new CollectionApiRequestFactory($client, Constants::PRICES_ENDPOINT);
-	$this->prices = new CollectionApiConsumer($client, $pricesRequestFactory, $batchRequestManager);
+	$pricesRequestFactory = new CollectionRequestFactory($client, Constants::PRICES_ENDPOINT);
+	$this->prices = new CollectionConsumer($client, $pricesRequestFactory, $batchRequestManager);
 
-	$itemsRequestFactory = new CollectionApiRequestFactory($client, Constants::ITEMS_ENDPOINT);
-	$this->items = new CollectionApiConsumer($client, $itemsRequestFactory, $batchRequestManager);
+	$itemsRequestFactory = new CollectionRequestFactory($client, Constants::ITEMS_ENDPOINT);
+	$this->items = new CollectionConsumer($client, $itemsRequestFactory, $batchRequestManager);
     }
 
     public function quaggans()

@@ -10,7 +10,7 @@ namespace Crystalgorithm\DurmandScriptorium\v2;
 use Crystalgorithm\DurmandScriptorium\utils\Constants;
 use GuzzleHttp\Client;
 
-abstract class ApiRequestFactory
+abstract class RequestFactory
 {
 
     protected $ENDPOINT_URL = '';

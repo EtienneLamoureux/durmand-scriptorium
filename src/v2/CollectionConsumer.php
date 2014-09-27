@@ -7,9 +7,9 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\v2;
 
-use Crystalgorithm\DurmandScriptorium\ApiConsumer;
+use Crystalgorithm\DurmandScriptorium\Consumer;
 
-class CollectionApiConsumer extends ApiConsumer
+class CollectionConsumer extends Consumer
 {
 
     public function getAll($expanded = false)
