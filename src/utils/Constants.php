@@ -13,6 +13,7 @@ class Constants
     const MAX_PAGE_SIZE = 200;
     const NB_OF_PARALLEL_REQUESTS = 20;
     const MAX_IDS_SINGLE_REQUEST = 200;
+    const TIMEOUT_LIMIT_IN_SECONDS = 300;
     const BASE_URL = 'https://api.guildwars2.com';
     const QUAGGANS_ENDPOINT = '/v2/quaggans';
     const LISTINGS_ENDPOINT = '/v2/commerce/listings';

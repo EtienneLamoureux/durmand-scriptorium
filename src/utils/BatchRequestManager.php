@@ -25,8 +25,9 @@ class BatchRequestManager
 
     public function executeRequests(array $requests)
     {
-	unset($this->aggregatedResponse);
-	$this->aggregatedResponse = array();
+	set_time_limit(Constants::TIMEOUT_LIMIT_IN_SECONDS);
+	$this->resetAggregatedResponse();
+
 	$requestChunks = array_chunk($requests, Constants::NB_OF_PARALLEL_REQUESTS);
 
 	foreach ($requestChunks as $requestChunk)
@@ -42,17 +43,22 @@ class BatchRequestManager
 	$this->client->sendAll($requests, [
 	    'complete' => function (CompleteEvent $event)
 	    {
-		echo 'Completed request to ' . $event->getRequest()->getUrl() . "<br />";
-		$response = $event->getResponse()->json();
-		$this->aggregatedResponse = array_merge($this->aggregatedResponse, $response);
+		$this->aggregatedResponse[] = $event->getResponse();
 	    },
 	    'error' => function (ErrorEvent $event)
 	    {
-		echo 'Request failed: ' . $event->getRequest()->getUrl() . "\n";
-		echo $event->getException();
+		// TODO log errors
+//		echo 'Request failed: ' . $event->getRequest()->getUrl() . "\n";
+//		echo $event->getException();
 	    },
 	    'parallel' => Constants::NB_OF_PARALLEL_REQUESTS
 	]);
+    }
+
+    protected function resetAggregatedResponse()
+    {
+	unset($this->aggregatedResponse);
+	$this->aggregatedResponse = array();
     }
 
 }

@@ -8,6 +8,7 @@
 namespace Crystalgorithm\DurmandScriptorium\v2;
 
 use Crystalgorithm\DurmandScriptorium\Consumer;
+use Crystalgorithm\DurmandScriptorium\utils\Constants;
 
 class CollectionConsumer extends Consumer
 {
@@ -16,8 +17,7 @@ class CollectionConsumer extends Consumer
     {
 	if ($expanded)
 	{
-	    $ids = $this->getAll();
-	    $data = $this->getMany($ids);
+	    $data = $this->getAllPages();
 	}
 	else
 	{
@@ -50,6 +50,33 @@ class CollectionConsumer extends Consumer
 	$data = $this->getDataFromApi($request);
 
 	return $data;
+    }
+
+    protected function getAllPages()
+    {
+	$page = 0;
+	$request = $this->requestFactory->pageRequest($page, Constants::MAX_PAGE_SIZE);
+	$response = $this->getResponse($request);
+	$totalNbOfPages = $response->getHeader('x-page-total');
+
+	$requests = $this->constructPagesRequests($totalNbOfPages);
+	$responses = $this->getResponse($requests);
+	$responses[] = $response;
+	$phpArray = $this->convertResponseToArray($responses);
+
+	return $phpArray;
+    }
+
+    protected function constructPagesRequests($totalNbOfPages)
+    {
+	$requests = array();
+
+	for ($currentPage = 1; $currentPage < $totalNbOfPages; $currentPage++)
+	{
+	    $requests[] = $this->requestFactory->pageRequest($currentPage, Constants::MAX_PAGE_SIZE);
+	}
+
+	return $requests;
     }
 
 }
