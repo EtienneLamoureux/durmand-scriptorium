@@ -5,7 +5,7 @@
  * All rights reserved.
  * Distributed under the BSD 3-Clause license (http://opensource.org/licenses/BSD-3-Clause).
  */
-namespace EtienneLamoureux\DurmandScriptorium\utils;
+namespace Crystalgorithm\DurmandScriptorium\utils;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Event\CompleteEvent;

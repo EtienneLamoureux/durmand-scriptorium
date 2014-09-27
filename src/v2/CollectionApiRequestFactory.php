@@ -5,9 +5,9 @@
  * All rights reserved.
  * Distributed under the BSD 3-Clause license (http://opensource.org/licenses/BSD-3-Clause).
  */
-namespace EtienneLamoureux\DurmandScriptorium\v2;
+namespace Crystalgorithm\DurmandScriptorium\v2;
 
-use EtienneLamoureux\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\utils\Constants;
 
 class CollectionApiRequestFactory extends ApiRequestFactory
 {

@@ -5,7 +5,7 @@
  * All rights reserved.
  * Distributed under the BSD 3-Clause license (http://opensource.org/licenses/BSD-3-Clause).
  */
-use EtienneLamoureux\DurmandScriptorium\DurmandScriptorium;
+use Crystalgorithm\DurmandScriptorium\Facade;
 
 class DurmandScriptoriumTest extends PHPUnit_Framework_TestCase
 {
@@ -15,7 +15,7 @@ class DurmandScriptoriumTest extends PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
 	parent::setUpBeforeClass();
-	DurmandScriptoriumTest::$api = new DurmandScriptorium();
+	DurmandScriptoriumTest::$api = new Facade();
     }
 
     public function testClientCanReachApi()

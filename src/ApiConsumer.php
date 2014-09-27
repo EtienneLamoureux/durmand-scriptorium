@@ -5,10 +5,10 @@
  * All rights reserved.
  * Distributed under the BSD 3-Clause license (http://opensource.org/licenses/BSD-3-Clause).
  */
-namespace EtienneLamoureux\DurmandScriptorium;
+namespace Crystalgorithm\DurmandScriptorium;
 
-use EtienneLamoureux\DurmandScriptorium\utils\BatchRequestManager;
-use EtienneLamoureux\DurmandScriptorium\v2\ApiRequestFactory;
+use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
+use Crystalgorithm\DurmandScriptorium\v2\ApiRequestFactory;
 use GuzzleHttp\Client;
 
 abstract class ApiConsumer

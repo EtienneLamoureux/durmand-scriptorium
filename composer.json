@@ -1,12 +1,14 @@
 {
-    "name": "EtienneLamoureux/DurmandScriptorium",
+    "name": "Crystalgorithm/DurmandScriptorium",
     "description": "PHP package to consume the GW2 API",
     "license": "BSD 3-Clause",
     "keywords": ["php", "gw2", "api"],
     "authors": [
 	{
 	    "name": "Etienne Lamoureux",
-	    "email": "etienne.lamoureux@crystalgorithm.com"
+	    "email": "etienne.lamoureux@crystalgorithm.com",
+	    "homepage": "http://www.crystalgorithm.com",
+	    "role": "Developer"
 	}
     ],
     "require": {
@@ -17,7 +19,7 @@
     },
     "autoload": {
 	"psr-4": {
-	    "EtienneLamoureux\\DurmandScriptorium\\": "src/"
+	    "Crystalgorithm\\DurmandScriptorium\\": "src/"
 	}
     }
 }

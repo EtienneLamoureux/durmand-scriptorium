@@ -5,15 +5,15 @@
  * All rights reserved.
  * Distributed under the BSD 3-Clause license (http://opensource.org/licenses/BSD-3-Clause).
  */
-namespace EtienneLamoureux\DurmandScriptorium;
+namespace Crystalgorithm\DurmandScriptorium;
 
-use EtienneLamoureux\DurmandScriptorium\utils\BatchRequestManager;
-use EtienneLamoureux\DurmandScriptorium\utils\Constants;
-use EtienneLamoureux\DurmandScriptorium\v2\CollectionApiConsumer;
-use EtienneLamoureux\DurmandScriptorium\v2\CollectionApiRequestFactory;
+use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
+use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\v2\CollectionApiConsumer;
+use Crystalgorithm\DurmandScriptorium\v2\CollectionApiRequestFactory;
 use GuzzleHttp\Client;
 
-class DurmandScriptorium
+class Facade
 {
 
     protected $quaggans;

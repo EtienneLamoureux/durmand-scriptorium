@@ -1,4 +1,4 @@
-Durmand-Scriptorium
+Durmand Scriptorium
 ===================
 [![Build Status](https://secure.travis-ci.org/EtienneLamoureux/DurmandScriptorium.png?branch=master)](http://travis-ci.org/EtienneLamoureux/DurmandScriptorium)
 
