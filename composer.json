@@ -1,5 +1,5 @@
 {
-    "name": "Crystalgorithm/DurmandScriptorium",
+    "name": "crystalgorithm/durmand-scriptorium",
     "description": "PHP package to consume the GW2 API",
     "license": "BSD 3-Clause",
     "keywords": ["php", "gw2", "api"],
