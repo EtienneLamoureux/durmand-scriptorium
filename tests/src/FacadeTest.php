@@ -2,7 +2,7 @@
 
 namespace Crystalgorithm\DurmandScriptorium;
 
-class FacadeTest extends \PHPUnit_Framework_TestCase
+class FacadeTest extends PHPUnitTest
 {
 
     const VALID_AMOUNT_TO_CONVERT = 10000;

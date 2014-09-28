@@ -36,6 +36,7 @@ require 'vendor/autoload.php';
 Durmand Scriptorium uses a number of open source projects to work properly:
 - [Guzzle](https://github.com/guzzle/guzzle) - PHP HTTP client and webservice framework
 - [PHPUnit](https://github.com/sebastianbergmann/phpunit) - The PHP Unit Testing framework.
+- [Mockery] (https://github.com/padraic/mockery) - Simple yet flexible PHP mock object framework.
 
 Usage
 -----

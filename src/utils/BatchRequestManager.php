@@ -1,9 +1,9 @@
 <?php
 
 /*
- * Copyright (c) 2014, Etienne Lamoureux
- * All rights reserved.
- * Distributed under the BSD 3-Clause license (http://opensource.org/licenses/BSD-3-Clause).
+ * @author Etienne Lamoureux <etienne.lamoureux@crystalgorithm.com>
+ * @copyright 2014 Etienne Lamoureux
+ * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  */
 namespace Crystalgorithm\DurmandScriptorium\utils;
 
