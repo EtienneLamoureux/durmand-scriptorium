@@ -30,9 +30,6 @@ class FacadeTest extends PHPUnit_Framework_TestCase
 	parent::tearDown();
     }
 
-    /**
-     * @ignore
-     */
     public function testCanReachQuaggans()
     {
 	$data = $this->api->quaggans()->getAll();
@@ -40,9 +37,6 @@ class FacadeTest extends PHPUnit_Framework_TestCase
 	$this->assertNotNull($data);
     }
 
-    /**
-     * @ignore
-     */
     public function testCanReachListings()
     {
 	$data = $this->api->listings()->getAll();
@@ -50,9 +44,6 @@ class FacadeTest extends PHPUnit_Framework_TestCase
 	$this->assertNotNull($data);
     }
 
-    /**
-     * @ignore
-     */
     public function testCanReachPrices()
     {
 	$data = $this->api->prices()->getAll();
@@ -60,9 +51,6 @@ class FacadeTest extends PHPUnit_Framework_TestCase
 	$this->assertNotNull($data);
     }
 
-    /**
-     * @ignore
-     */
     public function testCanReachItems()
     {
 	$data = $this->api->items()->getAll();
@@ -70,9 +58,6 @@ class FacadeTest extends PHPUnit_Framework_TestCase
 	$this->assertNotNull($data);
     }
 
-    /**
-     * @ignore
-     */
     public function testCanReachCoins()
     {
 	$data = $this->api->coins()->convert(self::VALID_AMOUNT_TO_CONVERT);
@@ -80,9 +65,6 @@ class FacadeTest extends PHPUnit_Framework_TestCase
 	$this->assertNotNull($data);
     }
 
-    /**
-     * @ignore
-     */
     public function testCanReachGems()
     {
 	$data = $this->api->gems()->convert(self::VALID_AMOUNT_TO_CONVERT);

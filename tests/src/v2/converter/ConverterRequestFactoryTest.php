@@ -10,8 +10,7 @@ namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 use Crystalgorithm\DurmandScriptorium\utils\Constants;
 use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
 use GuzzleHttp\Client;
-use GuzzleHttp\Message\Request;
-use GuzzleHttp\Query;
+use InvalidArgumentException;
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
@@ -19,9 +18,11 @@ class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
 {
 
     const VALID_AMOUNT = 10000;
-    const INVALID_AMOUNT = 0;
-    const INSUFFICIENT_AMOUNT = 1;
-    const CONVERTER_ENDPOINT = 'endpoint';
+    const NEGATIVE_AMOUNT = -1;
+    const ZERO = 0;
+    const NULL_AMOUNT = null;
+    const SCHEME_TO_HOST = '://';
+    const CONVERTER_ENDPOINT = '/endpoint';
 
     /**
      * @var ConverterRequestFactory
@@ -29,25 +30,15 @@ class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
     protected $factory;
 
     /**
-     * @var Client mock
+     * @var Client
      */
     protected $client;
 
-    /**
-     * @var Request mock
-     */
-    protected $request;
-
-    /**
-     * @var Query mock
-     */
-    protected $query;
-
-    protected function setUp()
+    protected function setUp(
+    )
     {
-	$this->client = Mockery::mock('\GuzzleHttp\Client');
-	$this->request = Mockery::mock('\GuzzleHttp\Message\Request');
-	$this->query = Mockery::mock('\GuzzleHttp\Query');
+
+	$this->client = new Client();
 	$this->factory = new ConverterRequestFactory($this->client, self::CONVERTER_ENDPOINT);
     }
 
@@ -56,17 +47,38 @@ class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
 	Mockery::close();
     }
 
-    public function testGivenValidAmountThenBuildConversionRequest()
+    public function testGivenAmountThenBuildConversionRequest()
     {
-	$createRequestArgs = ['GET', Constants::BASE_URL . self::CONVERTER_ENDPOINT];
-	$setArgs = ['quantity', self::VALID_AMOUNT];
+	$request = $this->factory->conversionRequest(self::VALID_AMOUNT);
+	$query = $request->getQuery();
+	$requestedUrl = $request->getScheme() . self::SCHEME_TO_HOST . $request->getHost() . $request->getPath();
 
-	$this->client->shouldReceive('createRequest')->matchArgs($createRequestArgs)->once()->andReturn($this->request);
-	$this->request->shouldReceive('getQuery')->once()->andReturn($this->query);
-	$this->query->shouldReceive('set')->matchArgs($setArgs)->once();
+	$this->assertEquals(Constants::BASE_URL . self::CONVERTER_ENDPOINT, $requestedUrl);
+	$this->assertEquals(self::VALID_AMOUNT, $query[ConverterRequestFactory::QUANTITY]);
+    }
 
-	$returnedRequest = $this->factory->conversionRequest(self::VALID_AMOUNT);
-	$this->assertSame($this->request, $returnedRequest);
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testGivenNullThenThrowsException()
+    {
+	$this->factory->conversionRequest(self::NULL_AMOUNT);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testGivenZeroThenThrowsException()
+    {
+	$this->factory->conversionRequest(self::ZERO);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testGivenNegativeAmountThenThrowsException()
+    {
+	$this->factory->conversionRequest(self::NEGATIVE_AMOUNT);
     }
 
 }
