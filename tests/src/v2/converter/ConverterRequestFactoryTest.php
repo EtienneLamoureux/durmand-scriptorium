@@ -8,19 +8,17 @@
 namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 
 use Crystalgorithm\DurmandScriptorium\utils\Constants;
-use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
 use GuzzleHttp\Client;
 use InvalidArgumentException;
-use Mockery;
 use PHPUnit_Framework_TestCase;
 
 class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
 {
 
-    const VALID_AMOUNT = 10000;
-    const NEGATIVE_AMOUNT = -1;
+    const VALID_QUANTITY = 10000;
+    const NEGATIVE_QUANTITY = -1;
     const ZERO = 0;
-    const NULL_AMOUNT = null;
+    const NULL_QUANTITY = null;
     const SCHEME_TO_HOST = '://';
     const CONVERTER_ENDPOINT = '/endpoint';
 
@@ -34,27 +32,21 @@ class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
      */
     protected $client;
 
-    protected function setUp(
-    )
+    protected function setUp()
     {
 
 	$this->client = new Client();
 	$this->factory = new ConverterRequestFactory($this->client, self::CONVERTER_ENDPOINT);
     }
 
-    protected function tearDown()
-    {
-	Mockery::close();
-    }
-
     public function testGivenAmountThenBuildConversionRequest()
     {
-	$request = $this->factory->conversionRequest(self::VALID_AMOUNT);
+	$request = $this->factory->conversionRequest(self::VALID_QUANTITY);
 	$query = $request->getQuery();
 	$requestedUrl = $request->getScheme() . self::SCHEME_TO_HOST . $request->getHost() . $request->getPath();
 
 	$this->assertEquals(Constants::BASE_URL . self::CONVERTER_ENDPOINT, $requestedUrl);
-	$this->assertEquals(self::VALID_AMOUNT, $query[ConverterRequestFactory::QUANTITY]);
+	$this->assertEquals(self::VALID_QUANTITY, $query[ConverterRequestFactory::QUANTITY]);
     }
 
     /**
@@ -62,7 +54,7 @@ class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testGivenNullThenThrowsException()
     {
-	$this->factory->conversionRequest(self::NULL_AMOUNT);
+	$this->factory->conversionRequest(self::NULL_QUANTITY);
     }
 
     /**
@@ -78,7 +70,7 @@ class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testGivenNegativeAmountThenThrowsException()
     {
-	$this->factory->conversionRequest(self::NEGATIVE_AMOUNT);
+	$this->factory->conversionRequest(self::NEGATIVE_QUANTITY);
     }
 
 }
