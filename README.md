@@ -2,7 +2,6 @@ Durmand Scriptorium
 ===================
 [![Build Status](https://secure.travis-ci.org/EtienneLamoureux/DurmandScriptorium.png?branch=master)](http://travis-ci.org/EtienneLamoureux/DurmandScriptorium)
 [![Latest Stable Version](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/v/stable.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
-[![Total Downloads](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/downloads.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
 [![Latest Unstable Version](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/v/unstable.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
 [![License](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/license.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
 
@@ -50,6 +49,7 @@ Retrieving information from the collection-type endpoints:
 ```php
 use Crystalgorithm\DurmandScriptorium\Facade as DurmandScriptorium;
 
+require 'vendor/autoload.php';
 $api = new DurmandScriptorium();
 
 // Get a single element

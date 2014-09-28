@@ -13,21 +13,6 @@ use Crystalgorithm\DurmandScriptorium\utils\Constants;
 class CollectionConsumer extends Consumer
 {
 
-    public function getAll($expanded = false)
-    {
-	if ($expanded)
-	{
-	    $data = $this->getAllPages();
-	}
-	else
-	{
-	    $request = $this->requestFactory->baseRequest();
-	    $data = $this->getDataFromApi($request);
-	}
-
-	return $data;
-    }
-
     public function get($id)
     {
 	if (is_array($id))
@@ -48,10 +33,17 @@ class CollectionConsumer extends Consumer
 	return $data;
     }
 
-    protected function getMany(array $ids)
+    public function getAll($expanded = false)
     {
-	$request = $this->requestFactory->idsRequest($ids);
-	$data = $this->getDataFromApi($request);
+	if ($expanded)
+	{
+	    $data = $this->getAllPages();
+	}
+	else
+	{
+	    $request = $this->requestFactory->baseRequest();
+	    $data = $this->getDataFromApi($request);
+	}
 
 	return $data;
     }
@@ -64,6 +56,14 @@ class CollectionConsumer extends Consumer
 	return $data;
     }
 
+    protected function getMany(array $ids)
+    {
+	$request = $this->requestFactory->idsRequest($ids);
+	$data = $this->getDataFromApi($request);
+
+	return $data;
+    }
+
     protected function getAllPages()
     {
 	$page = 0;
@@ -71,7 +71,7 @@ class CollectionConsumer extends Consumer
 	$response = $this->getResponse($request);
 	$totalNbOfPages = $response->getHeader('x-page-total');
 
-	$requests = $this->constructPagesRequests($totalNbOfPages);
+	$requests = $this->buildPagesRequests($totalNbOfPages);
 	$responses = $this->getResponse($requests);
 	$responses[] = $response;
 	$phpArray = $this->convertResponseToArray($responses);
@@ -79,7 +79,7 @@ class CollectionConsumer extends Consumer
 	return $phpArray;
     }
 
-    protected function constructPagesRequests($totalNbOfPages)
+    protected function buildPagesRequests($totalNbOfPages)
     {
 	$requests = array();
 
