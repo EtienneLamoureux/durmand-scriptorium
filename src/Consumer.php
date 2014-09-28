@@ -14,8 +14,19 @@ use GuzzleHttp\Client;
 abstract class Consumer
 {
 
+    /**
+     * @var RequestFactory
+     */
     protected $requestFactory;
+
+    /**
+     * @var Client
+     */
     protected $client;
+
+    /**
+     * @var BatchRequestManager
+     */
     protected $batchRequestManager;
 
     public function __construct(Client $client, RequestFactory $requestFactory, BatchRequestManager $batchRequestManager)

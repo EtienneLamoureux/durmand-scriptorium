@@ -21,7 +21,6 @@ class ConverterRequestFactoryTest extends PHPUnitTest
     protected $factory;
 
     /**
-     *
      * @var Client mock
      */
     protected $client;

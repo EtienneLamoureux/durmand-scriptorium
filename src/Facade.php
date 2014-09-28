@@ -18,11 +18,34 @@ use GuzzleHttp\Client;
 class Facade
 {
 
+    /**
+     * @var CollectionConsumer
+     */
     protected $quaggans;
+
+    /**
+     * @var CollectionConsumer
+     */
     protected $listings;
+
+    /**
+     * @var CollectionConsumer
+     */
     protected $prices;
+
+    /**
+     * @var CollectionConsumer
+     */
     protected $items;
+
+    /**
+     * @var ConverterConsumer
+     */
     protected $coins;
+
+    /**
+     * @var ConverterConsumer
+     */
     protected $gems;
 
     public function __construct()

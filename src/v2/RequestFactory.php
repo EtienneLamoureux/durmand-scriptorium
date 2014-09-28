@@ -14,6 +14,10 @@ abstract class RequestFactory
 {
 
     protected $ENDPOINT_URL = '';
+
+    /**
+     * @var Client
+     */
     protected $client;
 
     public function __construct(Client $client, $endpointUrl)

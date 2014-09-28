@@ -14,7 +14,14 @@ use GuzzleHttp\Event\ErrorEvent;
 class BatchRequestManager
 {
 
+    /**
+     * @var Client
+     */
     protected $client;
+
+    /**
+     * @var array Array of Response
+     */
     protected $aggregatedResponse;
 
     public function __construct(Client $client)
