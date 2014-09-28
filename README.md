@@ -1,6 +1,10 @@
 Durmand Scriptorium
 ===================
 [![Build Status](https://secure.travis-ci.org/EtienneLamoureux/DurmandScriptorium.png?branch=master)](http://travis-ci.org/EtienneLamoureux/DurmandScriptorium)
+[![Latest Stable Version](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/v/stable.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
+[![Total Downloads](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/downloads.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
+[![Latest Unstable Version](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/v/unstable.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
+[![License](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/license.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
 
 PHP package to consume the GW2 API
 
@@ -8,7 +12,7 @@ Installation
 ------------
 ### Via Composer
 
-The recommended way to install Guzzle is through
+The recommended way to install Durmand Scriptorium is through
 [Composer](http://getcomposer.org).
 
 Add Durmand Scriptorium to your project's composer.json file:
