@@ -15,6 +15,11 @@ class CollectionRequestFactory extends RequestFactory
 
     public function idRequest($id)
     {
+	if ($id < 0)
+	{
+	    throw new InvalidArgumentException('ID must be greater than or equal to 0. Input was: ' . $id);
+	}
+
 	$request = $this->buildBaseRequest();
 	$query = $request->getQuery();
 	$query->set('id', $id);
@@ -42,6 +47,11 @@ class CollectionRequestFactory extends RequestFactory
 
     public function pageRequest($page, $pageSize = null)
     {
+	if ($page < 0)
+	{
+	    throw new InvalidArgumentException('Page must be greater than or equal to 0. Input was: ' . $page);
+	}
+
 	$request = $this->buildBaseRequest();
 	$query = $request->getQuery();
 	$query->set('page', $page);

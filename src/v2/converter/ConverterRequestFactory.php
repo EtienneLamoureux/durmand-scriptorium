@@ -19,13 +19,13 @@ class ConverterRequestFactory extends RequestFactory
     {
 	if ($quantity <= 0)
 	{
-	    throw new InvalidArgumentException('Quantity must be positive. Input was: ' . $quantity);
+	    throw new InvalidArgumentException('Quantity must be greater than 0. Input was: ' . $quantity);
 	}
 
 	$request = $this->buildBaseRequest();
 	$query = $request->getQuery();
 	$query->set(self::QUANTITY, $quantity);
-	var_dump($request);
+
 	return $request;
     }
 

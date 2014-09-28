@@ -8,17 +8,14 @@
 namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 
 use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
 use GuzzleHttp\Client;
-use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 
-class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
+class ConverterRequestFactoryFunctionalTest extends PHPUnit_Framework_TestCase
 {
 
     const VALID_QUANTITY = 10000;
-    const NEGATIVE_QUANTITY = -1;
-    const ZERO = 0;
-    const NULL_QUANTITY = null;
     const SCHEME_TO_HOST = '://';
     const CONVERTER_ENDPOINT = '/endpoint';
 
@@ -47,30 +44,6 @@ class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
 
 	$this->assertEquals(Constants::BASE_URL . self::CONVERTER_ENDPOINT, $requestedUrl);
 	$this->assertEquals(self::VALID_QUANTITY, $query[ConverterRequestFactory::QUANTITY]);
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testGivenNullThenThrowsException()
-    {
-	$this->factory->conversionRequest(self::NULL_QUANTITY);
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testGivenZeroThenThrowsException()
-    {
-	$this->factory->conversionRequest(self::ZERO);
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testGivenNegativeAmountThenThrowsException()
-    {
-	$this->factory->conversionRequest(self::NEGATIVE_QUANTITY);
     }
 
 }
