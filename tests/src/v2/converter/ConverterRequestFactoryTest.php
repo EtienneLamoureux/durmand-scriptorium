@@ -7,12 +7,20 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 
-use Crystalgorithm\DurmandScriptorium\PHPUnitTest;
+use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
+use GuzzleHttp\Client;
+use GuzzleHttp\Message\Request;
+use GuzzleHttp\Query;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 
-class ConverterRequestFactoryTest extends PHPUnitTest
+class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
 {
 
-    const VALID_AMOUNT_TO_CONVERT = 10000;
+    const VALID_AMOUNT = 10000;
+    const INVALID_AMOUNT = 0;
+    const INSUFFICIENT_AMOUNT = 1;
     const CONVERTER_ENDPOINT = 'endpoint';
 
     /**
@@ -25,23 +33,40 @@ class ConverterRequestFactoryTest extends PHPUnitTest
      */
     protected $client;
 
+    /**
+     * @var Request mock
+     */
+    protected $request;
+
+    /**
+     * @var Query mock
+     */
+    protected $query;
+
     protected function setUp()
     {
-	$this->client = $this->mock('\GuzzleHttp\Client');
-	$this->factory = new ConverterRequestFactory;
+	$this->client = Mockery::mock('\GuzzleHttp\Client');
+	$this->request = Mockery::mock('\GuzzleHttp\Message\Request');
+	$this->query = Mockery::mock('\GuzzleHttp\Query');
+	$this->factory = new ConverterRequestFactory($this->client, self::CONVERTER_ENDPOINT);
     }
 
     protected function tearDown()
     {
-
+	Mockery::close();
     }
 
     public function testGivenValidAmountThenBuildConversionRequest()
     {
-	// Remove the following lines when you implement this test.
-	$this->markTestIncomplete(
-		'This test has not been implemented yet.'
-	);
+	$createRequestArgs = ['GET', Constants::BASE_URL . self::CONVERTER_ENDPOINT];
+	$setArgs = ['quantity', self::VALID_AMOUNT];
+
+	$this->client->shouldReceive('createRequest')->matchArgs($createRequestArgs)->once()->andReturn($this->request);
+	$this->request->shouldReceive('getQuery')->once()->andReturn($this->query);
+	$this->query->shouldReceive('set')->matchArgs($setArgs)->once();
+
+	$returnedRequest = $this->factory->conversionRequest(self::VALID_AMOUNT);
+	$this->assertSame($this->request, $returnedRequest);
     }
 
 }
