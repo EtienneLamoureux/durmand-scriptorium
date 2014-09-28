@@ -30,13 +30,25 @@ class CollectionConsumer extends Consumer
 
     public function get($id)
     {
-	$request = $this->requestFactory->idRequest($id);
-	$data = $this->getDataFromApi($request);
+	if (is_array($id))
+	{
+	    if (sizeof($id) <= 0)
+	    {
+		return array();
+	    }
+
+	    $data = $this->getMany($id);
+	}
+	else
+	{
+	    $request = $this->requestFactory->idRequest($id);
+	    $data = $this->getDataFromApi($request);
+	}
 
 	return $data;
     }
 
-    public function getMany(array $ids)
+    protected function getMany(array $ids)
     {
 	$request = $this->requestFactory->idsRequest($ids);
 	$data = $this->getDataFromApi($request);
