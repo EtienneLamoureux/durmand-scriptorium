@@ -1,7 +1,7 @@
 Durmand Scriptorium
 ===================
 [![Build Status](https://secure.travis-ci.org/EtienneLamoureux/DurmandScriptorium.png?branch=master)](http://travis-ci.org/EtienneLamoureux/DurmandScriptorium)
-[![Dependency Status](https://www.versioneye.com/user/projects/54275a4075d37259e8000127/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54275a4075d37259e8000127)
+[![Dependency Status](https://www.versioneye.com/user/projects/54275a4075d37259e8000127/badge.svg)](https://www.versioneye.com/user/projects/54275a4075d37259e8000127)
 [![Latest Stable Version](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/v/stable.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
 [![License](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/license.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
 
