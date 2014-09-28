@@ -45,6 +45,10 @@ Collection-type endpoints:
 - Listings
 - Prices
 
+Converter-type endpoints:
+- Coins
+- Gems
+
 ### Examples
 Retrieving information from the collection-type endpoints:
 ```php
@@ -63,6 +67,15 @@ $api->quaggans()->getPage($page, $pageSize); // N.B. the first page number is 0
 // Get all elements
 $api->quaggans()->getAll(); // returns all the IDs
 $api->quaggans()->getAll(true); // returns detailed information about each element
+```
+Retrieving information from the converter-type endpoints:
+```php
+use Crystalgorithm\DurmandScriptorium\Facade as DurmandScriptorium;
+
+require 'vendor/autoload.php';
+$api = new DurmandScriptorium();
+
+$api->gems()->convert($quantity);
 ```
 That's it, it's as simple as that!
 
