@@ -9,8 +9,10 @@ namespace Crystalgorithm\DurmandScriptorium;
 
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
 use Crystalgorithm\DurmandScriptorium\utils\Constants;
-use Crystalgorithm\DurmandScriptorium\v2\CollectionConsumer;
-use Crystalgorithm\DurmandScriptorium\v2\CollectionRequestFactory;
+use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionConsumer;
+use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory;
+use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterConsumer;
+use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
 use GuzzleHttp\Client;
 
 class Facade
@@ -20,6 +22,8 @@ class Facade
     protected $listings;
     protected $prices;
     protected $items;
+    protected $coins;
+    protected $gems;
 
     public function __construct()
     {
@@ -38,6 +42,12 @@ class Facade
 
 	$itemsRequestFactory = new CollectionRequestFactory($client, Constants::ITEMS_ENDPOINT);
 	$this->items = new CollectionConsumer($client, $itemsRequestFactory, $batchRequestManager);
+
+	$coinsRequestFactory = new ConverterRequestFactory($client, Constants::COINS_ENDPOINT);
+	$this->coins = new ConverterConsumer($client, $coinsRequestFactory, $batchRequestManager);
+
+	$gemsRequestFactory = new ConverterRequestFactory($client, Constants::GEMS_ENDPOINT);
+	$this->gems = new ConverterConsumer($client, $gemsRequestFactory, $batchRequestManager);
     }
 
     public function quaggans()
@@ -58,6 +68,16 @@ class Facade
     public function items()
     {
 	return $this->items;
+    }
+
+    public function coins()
+    {
+	return $this->coins;
+    }
+
+    public function gems()
+    {
+	return $this->gems;
     }
 
 }

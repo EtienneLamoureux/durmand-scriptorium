@@ -5,9 +5,10 @@
  * All rights reserved.
  * Distributed under the BSD 3-Clause license (http://opensource.org/licenses/BSD-3-Clause).
  */
-namespace Crystalgorithm\DurmandScriptorium\v2;
+namespace Crystalgorithm\DurmandScriptorium\v2\collection;
 
 use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
 
 class CollectionRequestFactory extends RequestFactory
 {

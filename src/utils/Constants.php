@@ -19,5 +19,7 @@ class Constants
     const LISTINGS_ENDPOINT = '/v2/commerce/listings';
     const PRICES_ENDPOINT = '/v2/commerce/prices';
     const ITEMS_ENDPOINT = '/v2/items';
+    const GEMS_ENDPOINT = '/v2/commerce/exchange/gems';
+    const COINS_ENDPOINT = '/v2/commerce/exchange/coins';
 
 }
