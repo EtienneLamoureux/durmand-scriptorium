@@ -22,6 +22,7 @@ class Constants
     const PAGE_SIZE = 'page_size';
     const QUANTITY = 'quantity';
     const GET = 'GET';
+    const TOTAL_PAGE_HEADER = 'x-page-total';
     const BASE_URL = 'https://api.guildwars2.com';
     const QUAGGANS_ENDPOINT = '/v2/quaggans';
     const LISTINGS_ENDPOINT = '/v2/commerce/listings';

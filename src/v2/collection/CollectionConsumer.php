@@ -69,7 +69,7 @@ class CollectionConsumer extends Consumer
 	$page = 0;
 	$request = $this->requestFactory->pageRequest($page, Constants::MAX_PAGE_SIZE);
 	$response = $this->getResponse($request);
-	$totalNbOfPages = $response->getHeader('x-page-total');
+	$totalNbOfPages = $response->getHeader(Constants::TOTAL_PAGE_HEADER);
 
 	$requests = $this->buildPagesRequests($totalNbOfPages);
 	$responses = $this->getResponse($requests);
