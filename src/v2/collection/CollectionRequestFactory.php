@@ -14,12 +14,6 @@ use InvalidArgumentException;
 class CollectionRequestFactory extends RequestFactory
 {
 
-    const ID = 'id';
-    const IDS = 'ids';
-    const PAGE = 'page';
-    const ID_SEPARATOR = ',';
-    const PAGE_SIZE = 'page_size';
-
     public function idRequest($id)
     {
 	if ($id <= 0)
@@ -29,7 +23,7 @@ class CollectionRequestFactory extends RequestFactory
 
 	$request = $this->buildBaseRequest();
 	$query = $request->getQuery();
-	$query->set(self::ID, $id);
+	$query->set(Constants::ID, $id);
 
 	return $request;
     }
@@ -42,7 +36,7 @@ class CollectionRequestFactory extends RequestFactory
 	    $query = $request->getQuery();
 
 	    $formattedIds = $this->formatIds($ids);
-	    $query->set(self::IDS, $formattedIds);
+	    $query->set(Constants::IDS, $formattedIds);
 	}
 	else
 	{
@@ -61,11 +55,11 @@ class CollectionRequestFactory extends RequestFactory
 
 	$request = $this->buildBaseRequest();
 	$query = $request->getQuery();
-	$query->set(self::PAGE, $page);
+	$query->set(Constants::PAGE, $page);
 
 	if (isset($pageSize) && $pageSize > 0)
 	{
-	    $query->set(self::PAGE_SIZE, $pageSize);
+	    $query->set(Constants::PAGE_SIZE, $pageSize);
 	}
 
 	return $request;
@@ -86,7 +80,7 @@ class CollectionRequestFactory extends RequestFactory
 
     protected function formatIds(array $ids)
     {
-	return implode(self::ID_SEPARATOR, $ids);
+	return implode(Constants::ID_SEPARATOR, $ids);
     }
 
 }

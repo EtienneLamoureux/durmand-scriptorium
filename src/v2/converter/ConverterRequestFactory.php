@@ -7,13 +7,12 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 
+use Crystalgorithm\DurmandScriptorium\utils\Constants;
 use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
 use InvalidArgumentException;
 
 class ConverterRequestFactory extends RequestFactory
 {
-
-    const QUANTITY = 'quantity';
 
     public function conversionRequest($quantity)
     {
@@ -24,7 +23,7 @@ class ConverterRequestFactory extends RequestFactory
 
 	$request = $this->buildBaseRequest();
 	$query = $request->getQuery();
-	$query->set(self::QUANTITY, $quantity);
+	$query->set(Constants::QUANTITY, $quantity);
 
 	return $request;
     }

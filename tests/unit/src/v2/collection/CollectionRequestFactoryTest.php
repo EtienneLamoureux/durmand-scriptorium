@@ -63,8 +63,8 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testGivenValidIdWhenBuildingIdRequestThenBuildIdRequest()
     {
-	$createRequestArgs = [CollectionRequestFactory::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
-	$setArgs = [CollectionRequestFactory::ID, self::VALID_ID];
+	$createRequestArgs = [Constants::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
+	$setArgs = [Constants::ID, self::VALID_ID];
 
 	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->once()->andReturn($this->request);
 	$this->request->shouldReceive('getQuery')->once()->andReturn($this->query);
@@ -100,9 +100,9 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
     public function testGivenValidIdsWhenBuildingIdsRequestThenBuildIdsRequest()
     {
 	$validIds = [self::VALID_ID, self::VALID_ID];
-	$validIdsString = implode(CollectionRequestFactory::ID_SEPARATOR, $validIds);
-	$createRequestArgs = [CollectionRequestFactory::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
-	$setArgs = [CollectionRequestFactory::IDS, $validIdsString];
+	$validIdsString = implode(Constants::ID_SEPARATOR, $validIds);
+	$createRequestArgs = [Constants::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
+	$setArgs = [Constants::IDS, $validIdsString];
 
 	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->once()->andReturn($this->request);
 	$this->request->shouldReceive('getQuery')->once()->andReturn($this->query);
@@ -115,7 +115,7 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
     {
 	$timesTooBig = 3;
 	$validIds = array_fill(0, $timesTooBig * Constants::MAX_IDS_SINGLE_REQUEST, self::VALID_ID);
-	$createRequestArgs = [CollectionRequestFactory::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
+	$createRequestArgs = [Constants::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
 
 	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->times($timesTooBig)->andReturn($this->request);
 	$this->request->shouldReceive('getQuery')->times($timesTooBig)->andReturn($this->query);
@@ -126,9 +126,9 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testGivenValidPageParamWhenBuildingPageRequestThenBuildPageRequest()
     {
-	$createRequestArgs = [CollectionRequestFactory::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
-	$setPageArgs = [CollectionRequestFactory::PAGE, self::VALID_PAGE];
-	$setPageSizeArgs = [CollectionRequestFactory::PAGE_SIZE, self::VALID_PAGE_SIZE];
+	$createRequestArgs = [Constants::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
+	$setPageArgs = [Constants::PAGE, self::VALID_PAGE];
+	$setPageSizeArgs = [Constants::PAGE_SIZE, self::VALID_PAGE_SIZE];
 
 	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->once()->andReturn($this->request);
 	$this->request->shouldReceive('getQuery')->once()->andReturn($this->query);

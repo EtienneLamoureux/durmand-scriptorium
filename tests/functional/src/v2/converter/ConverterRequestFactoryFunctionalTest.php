@@ -43,7 +43,7 @@ class ConverterRequestFactoryFunctionalTest extends PHPUnit_Framework_TestCase
 	$requestedUrl = $request->getScheme() . self::SCHEME_TO_HOST . $request->getHost() . $request->getPath();
 
 	$this->assertEquals(Constants::BASE_URL . self::CONVERTER_ENDPOINT, $requestedUrl);
-	$this->assertEquals(self::VALID_QUANTITY, $query[ConverterRequestFactory::QUANTITY]);
+	$this->assertEquals(self::VALID_QUANTITY, $query[Constants::QUANTITY]);
     }
 
 }

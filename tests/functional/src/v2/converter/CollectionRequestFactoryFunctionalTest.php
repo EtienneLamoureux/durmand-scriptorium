@@ -46,20 +46,20 @@ class CollectionRequestFactoryFunctionalTest extends PHPUnit_Framework_TestCase
 	$requestedUrl = $request->getScheme() . self::SCHEME_TO_HOST . $request->getHost() . $request->getPath();
 
 	$this->assertEquals(Constants::BASE_URL . self::COLLECTION_ENDPOINT, $requestedUrl);
-	$this->assertEquals(self::VALID_ID, $query[CollectionRequestFactory::ID]);
+	$this->assertEquals(self::VALID_ID, $query[Constants::ID]);
     }
 
     public function testGivenIdsThenBuildIdsRequest()
     {
 	$validIds = [self::VALID_ID, self::VALID_ID];
-	$validIdsString = implode(CollectionRequestFactory::ID_SEPARATOR, $validIds);
+	$validIdsString = implode(Constants::ID_SEPARATOR, $validIds);
 
 	$request = $this->factory->idsRequest($validIds);
 	$query = $request->getQuery();
 	$requestedUrl = $request->getScheme() . self::SCHEME_TO_HOST . $request->getHost() . $request->getPath();
 
 	$this->assertEquals(Constants::BASE_URL . self::COLLECTION_ENDPOINT, $requestedUrl);
-	$this->assertEquals($validIdsString, $query[CollectionRequestFactory::IDS]);
+	$this->assertEquals($validIdsString, $query[Constants::IDS]);
     }
 
     public function testGivenPageParamsThenBuildPageRequest()
@@ -69,8 +69,8 @@ class CollectionRequestFactoryFunctionalTest extends PHPUnit_Framework_TestCase
 	$requestedUrl = $request->getScheme() . self::SCHEME_TO_HOST . $request->getHost() . $request->getPath();
 
 	$this->assertEquals(Constants::BASE_URL . self::COLLECTION_ENDPOINT, $requestedUrl);
-	$this->assertEquals(self::VALID_PAGE, $query[CollectionRequestFactory::PAGE]);
-	$this->assertEquals(self::VALID_PAGE_SIZE, $query[CollectionRequestFactory::PAGE_SIZE]);
+	$this->assertEquals(self::VALID_PAGE, $query[Constants::PAGE]);
+	$this->assertEquals(self::VALID_PAGE_SIZE, $query[Constants::PAGE_SIZE]);
     }
 
 }

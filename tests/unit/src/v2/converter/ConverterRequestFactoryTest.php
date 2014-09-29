@@ -60,8 +60,8 @@ class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testGivenValidAmountThenBuildConversionRequest()
     {
-	$createRequestArgs = [ConverterRequestFactory::GET, Constants::BASE_URL . self::CONVERTER_ENDPOINT];
-	$setArgs = [ConverterRequestFactory::QUANTITY, self::VALID_QUANTITY];
+	$createRequestArgs = [Constants::GET, Constants::BASE_URL . self::CONVERTER_ENDPOINT];
+	$setArgs = [Constants::QUANTITY, self::VALID_QUANTITY];
 
 	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->once()->andReturn($this->request);
 	$this->request->shouldReceive('getQuery')->once()->andReturn($this->query);
