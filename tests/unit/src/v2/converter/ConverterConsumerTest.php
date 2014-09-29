@@ -7,9 +7,11 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 
+use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
 use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Message\Request;
 use GuzzleHttp\Message\Response;
 use Mockery;
@@ -19,6 +21,9 @@ class ConverterConsumerTest extends PHPUnit_Framework_TestCase
 {
 
     const VALID_QUANTITY = 10000;
+    const INSUFFICIENT_QUANTITY = 0;
+    const EXCEPTION_MESSAGE = 'error';
+    const TEXT = 'text';
 
     /**
      * @var ConverterConsumer
@@ -50,6 +55,11 @@ class ConverterConsumerTest extends PHPUnit_Framework_TestCase
      */
     protected $response;
 
+    /**
+     * @var ClientException mock
+     */
+    protected $clientException;
+
     protected function setUp()
     {
 	$this->client = Mockery::mock('GuzzleHttp\Client');
@@ -57,6 +67,7 @@ class ConverterConsumerTest extends PHPUnit_Framework_TestCase
 	$this->batchRequestManager = Mockery::mock('Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager');
 	$this->request = Mockery::mock('GuzzleHttp\Message\Request');
 	$this->response = Mockery::mock('GuzzleHttp\Message\Response');
+	$this->clientException = Mockery::mock('GuzzleHttp\Exception\ClientException');
 
 	$this->consumer = new ConverterConsumer($this->client, $this->requestFactory, $this->batchRequestManager);
     }
@@ -73,6 +84,23 @@ class ConverterConsumerTest extends PHPUnit_Framework_TestCase
 	$this->response->shouldReceive('json')->once();
 
 	$this->consumer->convert(self::VALID_QUANTITY);
+    }
+
+    public function testGivenInvalidQuantityThenThrow()
+    {
+	$this->requestFactory->shouldReceive('conversionRequest')->with(self::INSUFFICIENT_QUANTITY)->once()->andReturn($this->request);
+	$this->clientException->shouldReceive('getResponse')->andReturn($this->response);
+	$this->response->shouldReceive('json')->andReturn([self::TEXT => self::EXCEPTION_MESSAGE]);
+	$this->client->shouldReceive('send')->with($this->request)->once()->andThrow($this->clientException);
+
+	try
+	{
+	    $this->consumer->convert(self::INSUFFICIENT_QUANTITY);
+	}
+	catch (BadRequestException $ex)
+	{
+	    $this->assertEquals(self::EXCEPTION_MESSAGE, $ex->getMessage());
+	}
     }
 
 }

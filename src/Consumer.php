@@ -7,9 +7,11 @@
  */
 namespace Crystalgorithm\DurmandScriptorium;
 
+use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
 use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 abstract class Consumer
 {
@@ -57,7 +59,14 @@ abstract class Consumer
 	}
 	else
 	{
-	    $response = $this->client->send($request);
+	    try
+	    {
+		$response = $this->client->send($request);
+	    }
+	    catch (ClientException $ex)
+	    {
+		throw new BadRequestException($ex->getResponse()->json()['text']);
+	    }
 	}
 
 	return $response;

@@ -29,6 +29,5 @@ class Constants
     const ITEMS_ENDPOINT = '/v2/items';
     const GEMS_ENDPOINT = '/v2/commerce/exchange/gems';
     const COINS_ENDPOINT = '/v2/commerce/exchange/coins';
-    const INSUFICIENT_AMOUNT = 'ExchangeState: amount offered is insufficient for exchange';
 
 }
