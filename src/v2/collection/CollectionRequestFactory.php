@@ -9,20 +9,27 @@ namespace Crystalgorithm\DurmandScriptorium\v2\collection;
 
 use Crystalgorithm\DurmandScriptorium\utils\Constants;
 use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
+use InvalidArgumentException;
 
 class CollectionRequestFactory extends RequestFactory
 {
 
+    const ID = 'id';
+    const IDS = 'ids';
+    const PAGE = 'page';
+    const ID_SEPARATOR = ',';
+    const PAGE_SIZE = 'page_size';
+
     public function idRequest($id)
     {
-	if ($id < 0)
+	if ($id <= 0)
 	{
-	    throw new InvalidArgumentException('ID must be greater than or equal to 0. Input was: ' . $id);
+	    throw new InvalidArgumentException('ID must be greater than 0. Input was: ' . $id);
 	}
 
 	$request = $this->buildBaseRequest();
 	$query = $request->getQuery();
-	$query->set('id', $id);
+	$query->set(self::ID, $id);
 
 	return $request;
     }
@@ -35,7 +42,7 @@ class CollectionRequestFactory extends RequestFactory
 	    $query = $request->getQuery();
 
 	    $formattedIds = $this->formatIds($ids);
-	    $query->set('ids', $formattedIds);
+	    $query->set(self::IDS, $formattedIds);
 	}
 	else
 	{
@@ -54,11 +61,11 @@ class CollectionRequestFactory extends RequestFactory
 
 	$request = $this->buildBaseRequest();
 	$query = $request->getQuery();
-	$query->set('page', $page);
+	$query->set(self::PAGE, $page);
 
 	if (isset($pageSize) && $pageSize > 0)
 	{
-	    $query->set('page_size', $pageSize);
+	    $query->set(self::PAGE_SIZE, $pageSize);
 	}
 
 	return $request;
@@ -79,7 +86,7 @@ class CollectionRequestFactory extends RequestFactory
 
     protected function formatIds(array $ids)
     {
-	return implode(',', $ids);
+	return implode(self::ID_SEPARATOR, $ids);
     }
 
 }

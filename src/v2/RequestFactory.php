@@ -13,6 +13,8 @@ use GuzzleHttp\Client;
 abstract class RequestFactory
 {
 
+    const GET = 'GET';
+
     protected $ENDPOINT_URL = '';
 
     /**
@@ -35,7 +37,7 @@ abstract class RequestFactory
 
     protected function buildBaseRequest()
     {
-	return $this->client->createRequest('GET', Constants::BASE_URL . $this->ENDPOINT_URL);
+	return $this->client->createRequest(self::GET, Constants::BASE_URL . $this->ENDPOINT_URL);
     }
 
 }
