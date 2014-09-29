@@ -63,9 +63,9 @@ class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
 	$createRequestArgs = [ConverterRequestFactory::GET, Constants::BASE_URL . self::CONVERTER_ENDPOINT];
 	$setArgs = [ConverterRequestFactory::QUANTITY, self::VALID_QUANTITY];
 
-	$this->client->shouldReceive('createRequest')->matchArgs($createRequestArgs)->once()->andReturn($this->request);
+	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->once()->andReturn($this->request);
 	$this->request->shouldReceive('getQuery')->once()->andReturn($this->query);
-	$this->query->shouldReceive('set')->matchArgs($setArgs)->once();
+	$this->query->shouldReceive('set')->withArgs($setArgs)->once();
 
 	$this->factory->conversionRequest(self::VALID_QUANTITY);
     }
@@ -73,7 +73,7 @@ class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testGivenNullThenThrowsException()
+    public function testGivenNullThenThrowException()
     {
 	$this->factory->conversionRequest(self::NULL_QUANTITY);
     }
@@ -81,7 +81,7 @@ class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testGivenZeroThenThrowsException()
+    public function testGivenZeroThenThrowException()
     {
 	$this->factory->conversionRequest(self::ZERO);
     }
@@ -89,7 +89,7 @@ class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testGivenNegativeAmountThenThrowsException()
+    public function testGivenNegativeAmountThenThrowException()
     {
 	$this->factory->conversionRequest(self::NEGATIVE_QUANTITY);
     }

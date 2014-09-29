@@ -22,9 +22,10 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
     const NEGATIVE_ID = -1;
     const ZERO = 0;
     const NULL_ID = null;
+    const VALID_PAGE = 0;
+    const INVALID_PAGE = -1;
+    const VALID_PAGE_SIZE = 50;
     const COLLECTION_ENDPOINT = '/endpoint';
-
-    protected static $VALID_IDS = [100, 101];
 
     /**
      * @var CollectionRequestFactory
@@ -65,9 +66,9 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
 	$createRequestArgs = [CollectionRequestFactory::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
 	$setArgs = [CollectionRequestFactory::ID, self::VALID_ID];
 
-	$this->client->shouldReceive('createRequest')->matchArgs($createRequestArgs)->once()->andReturn($this->request);
+	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->once()->andReturn($this->request);
 	$this->request->shouldReceive('getQuery')->once()->andReturn($this->query);
-	$this->query->shouldReceive('set')->matchArgs($setArgs)->once();
+	$this->query->shouldReceive('set')->withArgs($setArgs)->once();
 
 	$this->factory->idRequest(self::VALID_ID);
     }
@@ -75,7 +76,7 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testGivenNullWhenBuildingIdRequestThenThrowsException()
+    public function testGivenNullWhenBuildingIdRequestThenThrowException()
     {
 	$this->factory->idRequest(self::NULL_ID);
     }
@@ -83,7 +84,7 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testGivenZeroWhenBuildingIdRequestThenThrowsException()
+    public function testGivenZeroWhenBuildingIdRequestThenThrowException()
     {
 	$this->factory->idRequest(self::ZERO);
     }
@@ -91,21 +92,58 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testGivenNegativeIdWhenBuildingIdRequestThenThrowsException()
+    public function testGivenNegativeIdWhenBuildingIdRequestThenThrowException()
     {
 	$this->factory->idRequest(self::NEGATIVE_ID);
     }
 
     public function testGivenValidIdsWhenBuildingIdsRequestThenBuildIdsRequest()
     {
+	$validIds = [self::VALID_ID, self::VALID_ID];
+	$validIdsString = implode(CollectionRequestFactory::ID_SEPARATOR, $validIds);
 	$createRequestArgs = [CollectionRequestFactory::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
-	$setArgs = [CollectionRequestFactory::ID, self::VALID_ID];
+	$setArgs = [CollectionRequestFactory::IDS, $validIdsString];
 
-	$this->client->shouldReceive('createRequest')->matchArgs($createRequestArgs)->once()->andReturn($this->request);
+	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->once()->andReturn($this->request);
 	$this->request->shouldReceive('getQuery')->once()->andReturn($this->query);
-	$this->query->shouldReceive('set')->matchArgs($setArgs)->once();
+	$this->query->shouldReceive('set')->withArgs($setArgs)->once();
 
-	$this->factory->idRequest(self::VALID_ID);
+	$this->factory->idsRequest($validIds);
+    }
+
+    public function testGivenTooManyIdsWhenBuildingIdsRequestThenBuildManyIdsRequest()
+    {
+	$timesTooBig = 3;
+	$validIds = array_fill(0, $timesTooBig * Constants::MAX_IDS_SINGLE_REQUEST, self::VALID_ID);
+	$createRequestArgs = [CollectionRequestFactory::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
+
+	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->times($timesTooBig)->andReturn($this->request);
+	$this->request->shouldReceive('getQuery')->times($timesTooBig)->andReturn($this->query);
+	$this->query->shouldReceive('set')->times($timesTooBig);
+
+	$this->factory->idsRequest($validIds);
+    }
+
+    public function testGivenValidPageParamWhenBuildingPageRequestThenBuildPageRequest()
+    {
+	$createRequestArgs = [CollectionRequestFactory::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
+	$setPageArgs = [CollectionRequestFactory::PAGE, self::VALID_PAGE];
+	$setPageSizeArgs = [CollectionRequestFactory::PAGE_SIZE, self::VALID_PAGE_SIZE];
+
+	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->once()->andReturn($this->request);
+	$this->request->shouldReceive('getQuery')->once()->andReturn($this->query);
+	$this->query->shouldReceive('set')->withArgs($setPageArgs)->once();
+	$this->query->shouldReceive('set')->withArgs($setPageSizeArgs)->once();
+
+	$this->factory->pageRequest(self::VALID_PAGE, self::VALID_PAGE_SIZE);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testGivenNegativePageWhenBuildingPageRequestThenThrowException()
+    {
+	$this->factory->pageRequest(self::INVALID_PAGE);
     }
 
 }
