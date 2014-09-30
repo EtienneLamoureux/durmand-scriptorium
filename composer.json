@@ -1,8 +1,9 @@
 {
     "name": "crystalgorithm/durmand-scriptorium",
     "description": "PHP package to consume the GW2 API",
-    "license": "BSD-3-Clause",
     "keywords": ["php", "gw2", "api"],
+    "homepage": "https://github.com/EtienneLamoureux/durmand-scriptorium",
+    "license": "BSD-3-Clause",
     "authors": [
 	{
 	    "name": "Etienne Lamoureux",
@@ -21,6 +22,11 @@
     "autoload": {
 	"psr-4": {
 	    "Crystalgorithm\\DurmandScriptorium\\": "src/"
+	}
+    },
+    "extra": {
+	"branch-alias": {
+	    "dev-master": "1.0.x-dev"
 	}
     }
 }
