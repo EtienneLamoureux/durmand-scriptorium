@@ -12,7 +12,6 @@ use Crystalgorithm\DurmandScriptorium\utils\Constants;
 use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionConsumer;
 use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Message\Request;
 use GuzzleHttp\Message\Response;
 use Mockery;
@@ -54,11 +53,6 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
      */
     protected $response;
 
-    /**
-     * @var ClientException mock
-     */
-    protected $clientException;
-
     protected function setUp()
     {
 	$this->client = Mockery::mock('\GuzzleHttp\Client');
@@ -66,7 +60,6 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
 	$this->batchRequestManager = Mockery::mock('\Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager');
 	$this->request = Mockery::mock('\GuzzleHttp\Message\Request');
 	$this->response = Mockery::mock('\GuzzleHttp\Message\Response');
-	$this->clientException = Mockery::mock('\GuzzleHttp\Exception\ClientException');
 
 	$this->consumer = new CollectionConsumer($this->client, $this->requestFactory, $this->batchRequestManager);
     }

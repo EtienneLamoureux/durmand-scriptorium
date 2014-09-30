@@ -58,7 +58,7 @@ class ConverterConsumerTest extends PHPUnit_Framework_TestCase
     /**
      * @var ClientException mock
      */
-    protected $clientException;
+    protected $exception;
 
     protected function setUp()
     {
@@ -67,7 +67,7 @@ class ConverterConsumerTest extends PHPUnit_Framework_TestCase
 	$this->batchRequestManager = Mockery::mock('\Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager');
 	$this->request = Mockery::mock('\GuzzleHttp\Message\Request');
 	$this->response = Mockery::mock('\GuzzleHttp\Message\Response');
-	$this->clientException = Mockery::mock('\GuzzleHttp\Exception\ClientException');
+	$this->exception = Mockery::mock('\GuzzleHttp\Exception\ClientException');
 
 	$this->consumer = new ConverterConsumer($this->client, $this->requestFactory, $this->batchRequestManager);
     }
@@ -89,9 +89,9 @@ class ConverterConsumerTest extends PHPUnit_Framework_TestCase
     public function testGivenInvalidQuantityThenThrow()
     {
 	$this->requestFactory->shouldReceive('conversionRequest')->with(self::INSUFFICIENT_QUANTITY)->once()->andReturn($this->request);
-	$this->clientException->shouldReceive('getResponse')->andReturn($this->response);
+	$this->exception->shouldReceive('getResponse')->andReturn($this->response);
 	$this->response->shouldReceive('json')->andReturn([self::TEXT => self::EXCEPTION_MESSAGE]);
-	$this->client->shouldReceive('send')->with($this->request)->once()->andThrow($this->clientException);
+	$this->client->shouldReceive('send')->with($this->request)->once()->andThrow($this->exception);
 
 	try
 	{
