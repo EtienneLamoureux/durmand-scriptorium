@@ -7,7 +7,10 @@
  */
 namespace Crystalgorithm\DurmandScriptorium;
 
-use Crystalgorithm\DurmandScriptorium\Facade;
+use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
+use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory;
+use GuzzleHttp\Client;
 use PHPUnit_Framework_TestCase;
 
 class FacadeTest extends PHPUnit_Framework_TestCase
@@ -70,6 +73,21 @@ class FacadeTest extends PHPUnit_Framework_TestCase
 	$data = $this->api->gems()->convert(self::VALID_AMOUNT_TO_CONVERT);
 
 	$this->assertNotNull($data);
+    }
+
+    /**
+     * TODO make functional
+     */
+    public function testCanSendBatchRequests()
+    {
+	$client = new Client();
+	$batchRequestManager = new BatchRequestManager($client);
+
+	$requestFactory = new CollectionRequestFactory($client, Constants::QUAGGANS_ENDPOINT);
+	$request = $requestFactory->baseRequest();
+	$responses = $batchRequestManager->executeRequests([$request]);
+
+	$this->assertNotNull($responses);
     }
 
 }

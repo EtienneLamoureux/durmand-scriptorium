@@ -24,9 +24,15 @@ class BatchRequestManager
      */
     protected $aggregatedResponse;
 
-    public function __construct(Client $client)
+    /**
+     * @var int nb of maximum parallel requests
+     */
+    protected $parallel;
+
+    public function __construct(Client $client, $parallel = Constants::NB_OF_PARALLEL_REQUESTS)
     {
 	$this->client = $client;
+	$this->parallel = $parallel;
 	$this->aggregatedResponse = array();
     }
 
@@ -36,7 +42,7 @@ class BatchRequestManager
 	ini_set('memory_limit', Constants::MEMORY_LIMIT_IN_BYTES);
 	$this->resetAggregatedResponse();
 
-	$requestChunks = array_chunk($requests, Constants::NB_OF_PARALLEL_REQUESTS);
+	$requestChunks = array_chunk($requests, $this->parallel);
 
 	foreach ($requestChunks as $requestChunk)
 	{
@@ -59,7 +65,7 @@ class BatchRequestManager
 //		echo 'Request failed: ' . $event->getRequest()->getUrl() . "\n";
 //		echo $event->getException();
 	    },
-	    'parallel' => Constants::NB_OF_PARALLEL_REQUESTS
+	    'parallel' => $this->parallel
 	]);
     }
 

@@ -57,11 +57,11 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-	$this->client = Mockery::mock('\GuzzleHttp\Client');
-	$this->requestFactory = Mockery::mock('\Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory');
-	$this->batchRequestManager = Mockery::mock('\Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager');
-	$this->request = Mockery::mock('\GuzzleHttp\Message\Request');
-	$this->response = Mockery::mock('\GuzzleHttp\Message\Response');
+	$this->client = Mockery::mock('GuzzleHttp\Client');
+	$this->requestFactory = Mockery::mock('Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory');
+	$this->batchRequestManager = Mockery::mock('Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager');
+	$this->request = Mockery::mock('GuzzleHttp\Message\Request');
+	$this->response = Mockery::mock('GuzzleHttp\Message\Response');
 
 	$this->consumer = new CollectionConsumer($this->client, $this->requestFactory, $this->batchRequestManager);
     }

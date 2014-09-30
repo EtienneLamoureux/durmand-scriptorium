@@ -49,9 +49,9 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-	$this->client = Mockery::mock('\GuzzleHttp\Client');
-	$this->request = Mockery::mock('\GuzzleHttp\Message\Request');
-	$this->query = Mockery::mock('\GuzzleHttp\Query');
+	$this->client = Mockery::mock('GuzzleHttp\Client');
+	$this->request = Mockery::mock('GuzzleHttp\Message\Request');
+	$this->query = Mockery::mock('GuzzleHttp\Query');
 
 	$this->factory = new CollectionRequestFactory($this->client, self::COLLECTION_ENDPOINT);
     }

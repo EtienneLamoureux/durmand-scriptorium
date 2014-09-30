@@ -62,12 +62,12 @@ class ConverterConsumerTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-	$this->client = Mockery::mock('\GuzzleHttp\Client');
-	$this->requestFactory = Mockery::mock('\Crystalgorithm\DurmandScriptorium\v2\RequestFactory');
-	$this->batchRequestManager = Mockery::mock('\Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager');
-	$this->request = Mockery::mock('\GuzzleHttp\Message\Request');
-	$this->response = Mockery::mock('\GuzzleHttp\Message\Response');
-	$this->exception = Mockery::mock('\GuzzleHttp\Exception\ClientException');
+	$this->client = Mockery::mock('GuzzleHttp\Client');
+	$this->requestFactory = Mockery::mock('Crystalgorithm\DurmandScriptorium\v2\RequestFactory');
+	$this->batchRequestManager = Mockery::mock('Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager');
+	$this->request = Mockery::mock('GuzzleHttp\Message\Request');
+	$this->response = Mockery::mock('GuzzleHttp\Message\Response');
+	$this->exception = Mockery::mock('GuzzleHttp\Exception\ClientException');
 
 	$this->consumer = new ConverterConsumer($this->client, $this->requestFactory, $this->batchRequestManager);
     }
