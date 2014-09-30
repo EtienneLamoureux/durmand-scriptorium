@@ -22,6 +22,8 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
 
     const VALID_ID = 100;
     const NB_PAGE = 2;
+    const ONE_PAGE = 1;
+    const VALID_PAGE = 1;
 
     /**
      * @var ConverterConsumer
@@ -110,13 +112,35 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
 
     public function testWhenRequestAllDetailsThenGetAllDetails()
     {
-	$this->requestFactory->shouldReceive('baseRequest')->andReturn($this->request);
-	$this->requestFactory->shouldReceive('pageRequest')->atLeast(1)->andReturn($this->request);
-	$this->response->shouldReceive('getHeader')->with(Constants::TOTAL_PAGE_HEADER)->andReturn(self::NB_PAGE);
-	$this->client->shouldReceive('send')->with($this->request)->atLeast(1)->andReturn($this->response);
-	$this->response->shouldReceive('json')->atLeast(1);
+	$responses = [$this->response, $this->response];
 
-	$this->consumer->getAll();
+	$this->requestFactory->shouldReceive('pageRequest')->atLeast(1)->andReturn($this->request);
+	$this->client->shouldReceive('send')->with($this->request)->atLeast(1)->andReturn($this->response);
+	$this->response->shouldReceive('getHeader')->with(Constants::TOTAL_PAGE_HEADER)->once()->andReturn(self::NB_PAGE);
+	$this->response->shouldReceive('json')->atLeast(1)->andReturn([]);
+	$this->batchRequestManager->shouldReceive('executeRequests')->once()->andReturn($responses);
+
+	$this->consumer->getAll(true);
+    }
+
+    public function testGivenASinglePageOfDataWhenRequestAllDetailsThenCallOnce()
+    {
+	$this->requestFactory->shouldReceive('pageRequest')->once()->andReturn($this->request);
+	$this->client->shouldReceive('send')->with($this->request)->once()->andReturn($this->response);
+	$this->response->shouldReceive('getHeader')->with(Constants::TOTAL_PAGE_HEADER)->once()->andReturn(self::ONE_PAGE);
+	$this->response->shouldReceive('json')->once()->andReturn([]);
+	$this->batchRequestManager->shouldReceive('executeRequests')->never();
+
+	$this->consumer->getAll(true);
+    }
+
+    public function testGivenPageThenGet()
+    {
+	$this->requestFactory->shouldReceive('pageRequest')->once()->andReturn($this->request);
+	$this->client->shouldReceive('send')->with($this->request)->once()->andReturn($this->response);
+	$this->response->shouldReceive('json')->once();
+
+	$this->consumer->getPage(self::VALID_PAGE);
     }
 
 }

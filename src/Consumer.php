@@ -76,11 +76,6 @@ abstract class Consumer
     {
 	if (is_array($response))
 	{
-	    if (sizeof($response) <= 0)
-	    {
-		return array();
-	    }
-
 	    $phpArray = array();
 
 	    foreach ($response as $value)
