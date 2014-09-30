@@ -1,9 +1,9 @@
 <?php
 
 /*
- * Copyright (c) 2014, Etienne Lamoureux
- * All rights reserved.
- * Distributed under the BSD 3-Clause license (http://opensource.org/licenses/BSD-3-Clause).
+ * @author Etienne Lamoureux <etienne.lamoureux@crystalgorithm.com>
+ * @copyright 2014 Etienne Lamoureux
+ * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  */
 namespace Crystalgorithm\DurmandScriptorium;
 
@@ -18,11 +18,34 @@ use GuzzleHttp\Client;
 class Facade
 {
 
+    /**
+     * @var CollectionConsumer
+     */
     protected $quaggans;
+
+    /**
+     * @var CollectionConsumer
+     */
     protected $listings;
+
+    /**
+     * @var CollectionConsumer
+     */
     protected $prices;
+
+    /**
+     * @var CollectionConsumer
+     */
     protected $items;
+
+    /**
+     * @var ConverterConsumer
+     */
     protected $coins;
+
+    /**
+     * @var ConverterConsumer
+     */
     protected $gems;
 
     public function __construct()

@@ -1,26 +1,73 @@
 <?php
 
 /*
- * Copyright (c) 2014, Etienne Lamoureux
- * All rights reserved.
- * Distributed under the BSD 3-Clause license (http://opensource.org/licenses/BSD-3-Clause).
+ * @author Etienne Lamoureux <etienne.lamoureux@crystalgorithm.com>
+ * @copyright 2014 Etienne Lamoureux
+ * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  */
-use Crystalgorithm\DurmandScriptorium\Facade;
+namespace Crystalgorithm\DurmandScriptorium;
 
-class DurmandScriptoriumTest extends PHPUnit_Framework_TestCase
+use Crystalgorithm\DurmandScriptorium\Facade;
+use PHPUnit_Framework_TestCase;
+
+class FacadeTest extends PHPUnit_Framework_TestCase
 {
 
-    protected static $api;
+    const VALID_AMOUNT_TO_CONVERT = 10000;
 
-    public static function setUpBeforeClass()
+    /**
+     * @var Facade
+     */
+    protected $api;
+
+    protected function setUp()
     {
-	parent::setUpBeforeClass();
-	DurmandScriptoriumTest::$api = new Facade();
+	$this->api = new Facade;
     }
 
-    public function testClientCanReachApi()
+    protected function tearDown()
     {
-	$data = DurmandScriptoriumTest::$api->quaggans()->getAll();
+	parent::tearDown();
+    }
+
+    public function testCanReachQuaggans()
+    {
+	$data = $this->api->quaggans()->getAll();
+
+	$this->assertNotNull($data);
+    }
+
+    public function testCanReachListings()
+    {
+	$data = $this->api->listings()->getAll();
+
+	$this->assertNotNull($data);
+    }
+
+    public function testCanReachPrices()
+    {
+	$data = $this->api->prices()->getAll();
+
+	$this->assertNotNull($data);
+    }
+
+    public function testCanReachItems()
+    {
+	$data = $this->api->items()->getAll();
+
+	$this->assertNotNull($data);
+    }
+
+    public function testCanReachCoins()
+    {
+	$data = $this->api->coins()->convert(self::VALID_AMOUNT_TO_CONVERT);
+
+	$this->assertNotNull($data);
+    }
+
+    public function testCanReachGems()
+    {
+	$data = $this->api->gems()->convert(self::VALID_AMOUNT_TO_CONVERT);
 
 	$this->assertNotNull($data);
     }

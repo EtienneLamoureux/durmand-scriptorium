@@ -1,9 +1,9 @@
 <?php
 
 /*
- * Copyright (c) 2014, Etienne Lamoureux
- * All rights reserved.
- * Distributed under the BSD 3-Clause license (http://opensource.org/licenses/BSD-3-Clause).
+ * @author Etienne Lamoureux <etienne.lamoureux@crystalgorithm.com>
+ * @copyright 2014 Etienne Lamoureux
+ * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  */
 namespace Crystalgorithm\DurmandScriptorium\v2\collection;
 
@@ -69,7 +69,7 @@ class CollectionConsumer extends Consumer
 	$page = 0;
 	$request = $this->requestFactory->pageRequest($page, Constants::MAX_PAGE_SIZE);
 	$response = $this->getResponse($request);
-	$totalNbOfPages = $response->getHeader('x-page-total');
+	$totalNbOfPages = $response->getHeader(Constants::TOTAL_PAGE_HEADER);
 
 	$requests = $this->buildPagesRequests($totalNbOfPages);
 	$responses = $this->getResponse($requests);

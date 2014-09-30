@@ -1,21 +1,34 @@
 <?php
 
 /*
- * Copyright (c) 2014, Etienne Lamoureux
- * All rights reserved.
- * Distributed under the BSD 3-Clause license (http://opensource.org/licenses/BSD-3-Clause).
+ * @author Etienne Lamoureux <etienne.lamoureux@crystalgorithm.com>
+ * @copyright 2014 Etienne Lamoureux
+ * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  */
 namespace Crystalgorithm\DurmandScriptorium;
 
+use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
 use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 abstract class Consumer
 {
 
+    /**
+     * @var RequestFactory
+     */
     protected $requestFactory;
+
+    /**
+     * @var Client
+     */
     protected $client;
+
+    /**
+     * @var BatchRequestManager
+     */
     protected $batchRequestManager;
 
     public function __construct(Client $client, RequestFactory $requestFactory, BatchRequestManager $batchRequestManager)
@@ -46,7 +59,14 @@ abstract class Consumer
 	}
 	else
 	{
-	    $response = $this->client->send($request);
+	    try
+	    {
+		$response = $this->client->send($request);
+	    }
+	    catch (ClientException $ex)
+	    {
+		throw new BadRequestException($ex->getResponse()->json()['text']);
+	    }
 	}
 
 	return $response;

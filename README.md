@@ -1,6 +1,7 @@
 Durmand Scriptorium
 ===================
-[![Build Status](https://travis-ci.org/EtienneLamoureux/durmand-scriptorium.svg?branch=master)](https://travis-ci.org/EtienneLamoureux/durmand-scriptorium)
+[![Build Status](https://travis-ci.org/EtienneLamoureux/durmand-scriptorium.svg)](https://travis-ci.org/EtienneLamoureux/durmand-scriptorium)
+[![Coverage Status](https://img.shields.io/coveralls/EtienneLamoureux/durmand-scriptorium.svg)](https://coveralls.io/r/EtienneLamoureux/durmand-scriptorium)
 [![Dependency Status](https://www.versioneye.com/user/projects/54276b2175d3727f13000228/badge.svg)](https://www.versioneye.com/user/projects/54276b2175d3727f13000228)
 [![Latest Stable Version](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/v/stable.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
 [![Latest Unstable Version](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/v/unstable.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
@@ -20,7 +21,7 @@ Add Durmand Scriptorium to your project's composer.json file:
 ```javascript
 {
     "require": {
-        "crystalgorithm/durmand-scriptorium": "dev-master"
+        "crystalgorithm/durmand-scriptorium": "~1.0"
     }
 }
 ```
@@ -35,6 +36,7 @@ require 'vendor/autoload.php';
 Durmand Scriptorium uses a number of open source projects to work properly:
 - [Guzzle](https://github.com/guzzle/guzzle) - PHP HTTP client and webservice framework
 - [PHPUnit](https://github.com/sebastianbergmann/phpunit) - The PHP Unit Testing framework.
+- [Mockery] (https://github.com/padraic/mockery) - Simple yet flexible PHP mock object framework.
 
 Usage
 -----

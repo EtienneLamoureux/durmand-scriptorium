@@ -1,23 +1,29 @@
 <?php
 
 /*
- * Copyright (c) 2014, Etienne Lamoureux
- * All rights reserved.
- * Distributed under the BSD 3-Clause license (http://opensource.org/licenses/BSD-3-Clause).
+ * @author Etienne Lamoureux <etienne.lamoureux@crystalgorithm.com>
+ * @copyright 2014 Etienne Lamoureux
+ * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  */
 namespace Crystalgorithm\DurmandScriptorium\v2\collection;
 
 use Crystalgorithm\DurmandScriptorium\utils\Constants;
 use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
+use InvalidArgumentException;
 
 class CollectionRequestFactory extends RequestFactory
 {
 
     public function idRequest($id)
     {
+	if ($id <= 0)
+	{
+	    throw new InvalidArgumentException('ID must be greater than 0. Input was: ' . $id);
+	}
+
 	$request = $this->buildBaseRequest();
 	$query = $request->getQuery();
-	$query->set('id', $id);
+	$query->set(Constants::ID, $id);
 
 	return $request;
     }
@@ -30,7 +36,7 @@ class CollectionRequestFactory extends RequestFactory
 	    $query = $request->getQuery();
 
 	    $formattedIds = $this->formatIds($ids);
-	    $query->set('ids', $formattedIds);
+	    $query->set(Constants::IDS, $formattedIds);
 	}
 	else
 	{
@@ -42,13 +48,18 @@ class CollectionRequestFactory extends RequestFactory
 
     public function pageRequest($page, $pageSize = null)
     {
+	if ($page < 0)
+	{
+	    throw new InvalidArgumentException('Page must be greater than or equal to 0. Input was: ' . $page);
+	}
+
 	$request = $this->buildBaseRequest();
 	$query = $request->getQuery();
-	$query->set('page', $page);
+	$query->set(Constants::PAGE, $page);
 
 	if (isset($pageSize) && $pageSize > 0)
 	{
-	    $query->set('page_size', $pageSize);
+	    $query->set(Constants::PAGE_SIZE, $pageSize);
 	}
 
 	return $request;
@@ -69,7 +80,7 @@ class CollectionRequestFactory extends RequestFactory
 
     protected function formatIds(array $ids)
     {
-	return implode(',', $ids);
+	return implode(Constants::ID_SEPARATOR, $ids);
     }
 
 }
