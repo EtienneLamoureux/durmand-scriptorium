@@ -7,11 +7,13 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 
+use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
 use Crystalgorithm\DurmandScriptorium\utils\Constants;
 use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionConsumer;
 use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Message\Request;
 use GuzzleHttp\Message\Response;
 use Mockery;
@@ -21,12 +23,16 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
 {
 
     const VALID_ID = 100;
+    const INVALID_ID = -1;
     const NB_PAGE = 2;
     const ONE_PAGE = 1;
     const VALID_PAGE = 1;
+    const INVALID_PAGE = 1;
+    const TEXT = 'text';
+    const EXCEPTION_MESSAGE = 'error';
 
     /**
-     * @var ConverterConsumer
+     * @var CollectionConsumer
      */
     protected $consumer;
 
@@ -55,6 +61,11 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
      */
     protected $response;
 
+    /**
+     * @var ClientException mock
+     */
+    protected $exception;
+
     protected function setUp()
     {
 	$this->client = Mockery::mock('GuzzleHttp\Client');
@@ -62,6 +73,7 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
 	$this->batchRequestManager = Mockery::mock('Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager');
 	$this->request = Mockery::mock('GuzzleHttp\Message\Request');
 	$this->response = Mockery::mock('GuzzleHttp\Message\Response');
+	$this->exception = Mockery::mock('GuzzleHttp\Exception\ClientException');
 
 	$this->consumer = new CollectionConsumer($this->client, $this->requestFactory, $this->batchRequestManager);
     }
@@ -141,6 +153,40 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
 	$this->response->shouldReceive('json')->once();
 
 	$this->consumer->getPage(self::VALID_PAGE);
+    }
+
+    public function testGivenInvalidIdThenThrow()
+    {
+	$this->requestFactory->shouldReceive('idRequest')->with(self::INVALID_ID)->once()->andReturn($this->request);
+	$this->exception->shouldReceive('getResponse')->andReturn($this->response);
+	$this->response->shouldReceive('json')->andReturn([self::TEXT => self::EXCEPTION_MESSAGE]);
+	$this->client->shouldReceive('send')->with($this->request)->once()->andThrow($this->exception);
+
+	try
+	{
+	    $this->consumer->get(self::INVALID_ID);
+	}
+	catch (BadRequestException $ex)
+	{
+	    $this->assertEquals(self::EXCEPTION_MESSAGE, $ex->getMessage());
+	}
+    }
+
+    public function testGivenInvalidPageThenThrow()
+    {
+	$this->requestFactory->shouldReceive('pageRequest')->with(self::INVALID_PAGE, null)->once()->andReturn($this->request);
+	$this->exception->shouldReceive('getResponse')->andReturn($this->response);
+	$this->response->shouldReceive('json')->andReturn([self::TEXT => self::EXCEPTION_MESSAGE]);
+	$this->client->shouldReceive('send')->with($this->request)->once()->andThrow($this->exception);
+
+	try
+	{
+	    $this->consumer->getPage(self::INVALID_PAGE);
+	}
+	catch (BadRequestException $ex)
+	{
+	    $this->assertEquals(self::EXCEPTION_MESSAGE, $ex->getMessage());
+	}
     }
 
 }
