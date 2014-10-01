@@ -16,7 +16,7 @@ class CollectionRequestFactory extends RequestFactory
 
     public function idRequest($id)
     {
-	if ($id <= 0)
+	if (!is_string($id) and $id <= 0)
 	{
 	    throw new InvalidArgumentException('ID must be greater than 0. Input was: ' . $id);
 	}

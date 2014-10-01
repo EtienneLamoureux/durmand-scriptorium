@@ -28,6 +28,7 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
     const ONE_PAGE = 1;
     const VALID_PAGE = 1;
     const INVALID_PAGE = 1;
+    const INVALID_PAGE_SIZE = 250;
     const TEXT = 'text';
     const EXCEPTION_MESSAGE = 'error';
 
@@ -182,6 +183,23 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
 	try
 	{
 	    $this->consumer->getPage(self::INVALID_PAGE);
+	}
+	catch (BadRequestException $ex)
+	{
+	    $this->assertEquals(self::EXCEPTION_MESSAGE, $ex->getMessage());
+	}
+    }
+
+    public function testGivenInvalidPageSizeThenThrow()
+    {
+	$this->requestFactory->shouldReceive('pageRequest')->with(self::VALID_PAGE, self::INVALID_PAGE_SIZE)->once()->andReturn($this->request);
+	$this->exception->shouldReceive('getResponse')->andReturn($this->response);
+	$this->response->shouldReceive('json')->andReturn([self::TEXT => self::EXCEPTION_MESSAGE]);
+	$this->client->shouldReceive('send')->with($this->request)->once()->andThrow($this->exception);
+
+	try
+	{
+	    $this->consumer->getPage(self::VALID_PAGE, self::INVALID_PAGE_SIZE);
 	}
 	catch (BadRequestException $ex)
 	{

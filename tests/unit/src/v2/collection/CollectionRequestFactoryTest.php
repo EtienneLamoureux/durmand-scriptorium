@@ -25,6 +25,7 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
     const VALID_PAGE = 0;
     const INVALID_PAGE = -1;
     const VALID_PAGE_SIZE = 50;
+    const INVALID_PAGE_SIZE = 250;
     const COLLECTION_ENDPOINT = '/endpoint';
 
     /**
