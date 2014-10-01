@@ -35,51 +35,28 @@ require 'vendor/autoload.php';
 ### Dependencies
 Durmand Scriptorium uses a number of open source projects to work properly:
 - [Guzzle](https://github.com/guzzle/guzzle) - PHP HTTP client and webservice framework
-- [PHPUnit](https://github.com/sebastianbergmann/phpunit) - The PHP Unit Testing framework.
-- [Mockery] (https://github.com/padraic/mockery) - Simple yet flexible PHP mock object framework.
+- [PHPUnit](https://github.com/sebastianbergmann/phpunit) [dev only] - The PHP Unit Testing framework.
+- [Mockery](https://github.com/padraic/mockery) [dev only] - Simple yet flexible PHP mock object framework.
 
-Usage
------
-### Supported endpoints
-Collection-type endpoints:
-- Quaggans
-- Items
-- Listings
-- Prices
-
-Converter-type endpoints:
-- Coins
-- Gems
-
-### Examples
-Retrieving information from the collection-type endpoints:
-```php
-use Crystalgorithm\DurmandScriptorium\Facade as DurmandScriptorium;
-
-require 'vendor/autoload.php';
-$api = new DurmandScriptorium();
-
-// Get a single element
-$api->quaggans()->get($id); // $id is a single ID
-
-// Get many elements
-$api->quaggans()->get($ids); // $ids is an array of IDs
-$api->quaggans()->getPage($page, $pageSize); // N.B. the first page number is 0
-
-// Get all elements
-$api->quaggans()->getAll(); // returns all the IDs
-$api->quaggans()->getAll(true); // returns detailed information about each element
-```
-Retrieving information from the converter-type endpoints:
-```php
-use Crystalgorithm\DurmandScriptorium\Facade as DurmandScriptorium;
-
-require 'vendor/autoload.php';
-$api = new DurmandScriptorium();
-
-$api->gems()->convert($quantity);
-```
-That's it, it's as simple as that!
+Documentation
+-------------
+- Supported endpoints
+    - Quaggans
+    - Items
+    - Listings
+    - Prices
+    - Coins
+    - Gems
+- Collection consumer
+    - Get
+    - GetAll
+    - GetPage
+- Converter consumer
+    - Convert
+- Examples
+    - Retreiving listings from the trading post
+    - Getting detailed info about newly added items
+    - Getting all there is to know about a specific item
 
 License
 -------
