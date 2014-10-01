@@ -1,15 +1,39 @@
 Converter consumer
-==================
+===================
+The converter consumer is used to interract with converter-type endpoints.
+
+Each method below returns a PHP array equivalent to the JSON data returned by the API.
+
+N.B.: The amount of coins is always expressed in copper.
 
 Convert
--------
-### Parameters
-- Amount
-    - Type : int
-    - Mandatory
-    - Quantity of currency to convert. *N.B.: Coins is expressed in the equivalent amount of copper pieces.*
+---
+### Definition
 
-### Returns
-See
+```php
+public function convert($quantity)
+```
+
+The *convert* method allows to convert an amount of currency and get the current exchange rate.
+
+### Example
+```php
+use Crystalgorithm\DurmandScriptorium\Facade as DurmandScriptorium;
+require 'vendor/autoload.php';
+
+$api = new DurmandScriptorium();
+
+// Get the amount of coins obtained for 100 gems
+$coins = $api->gems()->convert(100);
+```
+
+The above snipet of code will return the following results:
+```php
+// $coins
+array (size=2)
+  'coins_per_gem' => int 963
+  'quantity' => int 96386
+```
 
 ### Throws
+*BadRequestException* when an insufficent amount of currency is used (quantity lower than the exchange rate).

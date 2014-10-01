@@ -53,10 +53,6 @@ Documentation
     - GetPage
 - Converter consumer
     - Convert
-- Examples
-    - Retreiving listings from the trading post
-    - Getting detailed info about newly added items
-    - Getting all there is to know about a specific item
 
 License
 -------
