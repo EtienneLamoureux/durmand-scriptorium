@@ -135,7 +135,7 @@ public function getAll($expanded = false)
 
 The *getAll* method has two modes of operation. Without parameters, it will return all the IDs of the elements in the collection.
 
-However, by specifying *$expanded = true*, it will instead returned the detailed information about each and every element in the collection. Batch requests will be automatically built and send in parallel to get the data as fast as possible.
+However, by specifying *$expanded = true*, it will instead returned the detailed information about each and every element in the collection. Batch requests will be automatically built and send in parallel to get the data as fast as possible. There is no garanty on the order of the elements when using *getAll(true)*.
 
 ### Example
 ```php

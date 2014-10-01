@@ -40,19 +40,19 @@ Durmand Scriptorium uses a number of open source projects to work properly:
 
 Documentation
 -------------
-- Supported endpoints
-    - Quaggans
-    - Items
-    - Listings
-    - Prices
-    - Coins
-    - Gems
-- Collection consumer
-    - Get
-    - GetAll
-    - GetPage
-- Converter consumer
-    - Convert
+- [Supported endpoints](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/SUPPORTED_ENDPOINTS.md#supported-endpoints)
+    - [Quaggans](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/SUPPORTED_ENDPOINTS.md#quaggans)
+    - [Items](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/SUPPORTED_ENDPOINTS.md#items)
+    - [Listings](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/SUPPORTED_ENDPOINTS.md#listings)
+    - [Prices](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/SUPPORTED_ENDPOINTS.md#prices)
+    - [Coins](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/SUPPORTED_ENDPOINTS.md#coins)
+    - [Gems](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/SUPPORTED_ENDPOINTS.md#gems)
+- [Collection consumer](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#collection-consumer)
+    - [Get](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#get)
+    - [GetAll](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getall)
+    - [GetPage](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getpage)
+- [Converter consumer](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/CONVERTER_CONSUMER.md#converter-consumer)
+    - [Convert](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/CONVERTER_CONSUMER.md#convert)
 
 License
 -------
