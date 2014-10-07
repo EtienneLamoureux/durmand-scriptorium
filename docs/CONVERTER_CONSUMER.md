@@ -1,6 +1,6 @@
 Converter consumer
 ===================
-The converter consumer is used to interract with converter-type endpoints.
+The converter consumer is used to interact with converter-type endpoints.
 
 Each method below returns a PHP array equivalent to the JSON data returned by the API.
 
@@ -14,7 +14,7 @@ Convert
 public function convert($quantity)
 ```
 
-The *convert* method allows to convert an amount of currency and get the current exchange rate.
+The *convert* method converts an amount of currency and get the current exchange rate.
 
 ### Example
 ```php
@@ -27,7 +27,7 @@ $api = new DurmandScriptorium();
 $coins = $api->gems()->convert(100);
 ```
 
-The above snipet of code will return the following results:
+The above snippet of code will return the following results:
 ```php
 // $coins
 array (size=2)
@@ -36,4 +36,4 @@ array (size=2)
 ```
 
 ### Throws
-*BadRequestException* when an insufficent amount of currency is used (quantity lower than the exchange rate).
+*BadRequestException* when an insufficient amount of currency is used (quantity lower than the exchange rate).

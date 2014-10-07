@@ -1,6 +1,6 @@
 Collection consumer
 ===================
-The collection consumer is used to interract with collection-type endpoints.
+The collection consumer is used to interact with collection-type endpoints.
 
 Each method below returns a PHP array equivalent to the JSON data returned by the API.
 
@@ -12,9 +12,9 @@ Get
 public function get($id)
 ```
 
-The *get* method allows to fetch detailed information about one or more element of the collection. It accepts a single ID or an array of IDs.
+The *get* method fetches detailed information about one or more element of the collection. It accepts a single ID or an array of IDs.
 
-There is no limit to the size of the array passed in parameter, as a batch request will automatically built if the number of IDs exceed the limit of the API. However, if you wish to retreive detailed information about all the elements of the collection, the use of the *getAll* method is prefered.
+There is no limit to the size of the array passed in parameter, as a batch request will automatically be built if the number of IDs exceed the limit of the API. However, if you wish to retrieve detailed information about all the elements of the collection, see the *getAll* method.
 
 ### Example
 ```php
@@ -23,10 +23,10 @@ require 'vendor/autoload.php';
 
 $api = new DurmandScriptorium();
 
-// Retreive a single item
+// Retrieve a single item
 $item = $api->items()->get(80);
 
-// Retreive the price of multiple items
+// Retrieve the price of multiple items
 $ids = [80, 81, 100];
 $prices = $api->prices()->get($ids);
 
@@ -34,7 +34,7 @@ $prices = $api->prices()->get($ids);
 $quaggan = $api->quaggans()->get('hat');
 ```
 
-The above snipet of code will return the following results:
+The above snippet of code will return the following results:
 ```php
 // $item
 array (size=13)
@@ -121,7 +121,7 @@ array (size=2)
 ### Throws
 *InvalidArgumentException* when requesting a negative non-string ID. This exception will be thrown before any request to the API has been sent.
 
-*BadRequestException* when fetching an inexisting ID. Exception to this is the Quaggans endpoint, which will return an empty array when fetching an inexisting ID.
+*BadRequestException* when fetching an inexistent ID. Exception to this is the Quaggans endpoint, which will return an empty array when fetching an inexistent ID.
 
 Finally, requesting a bad ID in an array of IDs will simply cause the invalid one to be ignored, and will never throw an exception.
 
@@ -135,7 +135,7 @@ public function getAll($expanded = false)
 
 The *getAll* method has two modes of operation. Without parameters, it will return all the IDs of the elements in the collection.
 
-However, by specifying *$expanded = true*, it will instead returned the detailed information about each and every element in the collection. Batch requests will be automatically built and send in parallel to get the data as fast as possible. There is no garanty on the order of the elements when using *getAll(true)*.
+However, by specifying *$expanded = true*, it will instead return the detailed information about each and every element in the collection. Batch requests will be automatically built and sent in parallel to get the data as fast as possible. There is no guaranty on the order of the elements when using *getAll(true)*.
 
 ### Example
 ```php
@@ -151,7 +151,7 @@ $quaggansIds = $api->quaggans()->getAll();
 $allListings = $api->listings()->getAll(true);
 ```
 
-The above snipet of code will return the following results:
+The above snippet of code will return the following results:
 ```php
 // $quaggansIds
 array (size=35)
@@ -216,7 +216,7 @@ GetPage
 public function getPage($page, $pageSize = null)
 ```
 
-The *getPage* method allows to fetch detailed information about a page of elements of the collection.
+The *getPage* method fetches detailed information about a page of elements of the collection.
 
 The first page number is 0. The last page number depends on the collection and the page size requested. This method won't give you this information, but if you are interested in iterating over all the pages, the *getAll* method is there just for that!
 
@@ -236,7 +236,7 @@ $fiftyItems = $api->items()->getPage(5);
 $hundredItems = $api->items()->getPage(0, 100);
 ```
 
-The above snipet of code will return the following results:
+The above snippet of code will return the following results:
 ```php
 // $fiftyItems
 array (size=50)
