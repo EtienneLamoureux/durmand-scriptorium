@@ -29,7 +29,7 @@ class BatchRequestManager
      */
     protected $parallel;
 
-    public function __construct(Client $client, $parallel = Constants::NB_OF_PARALLEL_REQUESTS)
+    public function __construct(Client $client, $parallel = Settings::NB_OF_PARALLEL_REQUESTS)
     {
 	$this->client = $client;
 	$this->parallel = $parallel;
@@ -38,8 +38,8 @@ class BatchRequestManager
 
     public function executeRequests(array $requests)
     {
-	set_time_limit(Constants::TIMEOUT_LIMIT_IN_SECONDS);
-	ini_set('memory_limit', Constants::MEMORY_LIMIT_IN_BYTES);
+	set_time_limit(Settings::TIMEOUT_LIMIT_IN_SECONDS);
+	ini_set('memory_limit', Settings::MEMORY_LIMIT_IN_BYTES);
 	$this->resetAggregatedResponse();
 
 	$requestChunks = array_chunk($requests, $this->parallel);

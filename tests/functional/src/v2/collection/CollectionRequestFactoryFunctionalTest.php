@@ -7,7 +7,7 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 
-use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory;
 use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
 use GuzzleHttp\Client;
@@ -45,21 +45,21 @@ class CollectionRequestFactoryFunctionalTest extends PHPUnit_Framework_TestCase
 	$query = $request->getQuery();
 	$requestedUrl = $request->getScheme() . self::SCHEME_TO_HOST . $request->getHost() . $request->getPath();
 
-	$this->assertEquals(Constants::BASE_URL . self::COLLECTION_ENDPOINT, $requestedUrl);
-	$this->assertEquals(self::VALID_ID, $query[Constants::ID]);
+	$this->assertEquals(Settings::BASE_URL . self::COLLECTION_ENDPOINT, $requestedUrl);
+	$this->assertEquals(self::VALID_ID, $query[Settings::ID]);
     }
 
     public function testGivenIdsThenBuildIdsRequest()
     {
 	$validIds = [self::VALID_ID, self::VALID_ID];
-	$validIdsString = implode(Constants::ID_SEPARATOR, $validIds);
+	$validIdsString = implode(Settings::ID_SEPARATOR, $validIds);
 
 	$request = $this->factory->idsRequest($validIds);
 	$query = $request->getQuery();
 	$requestedUrl = $request->getScheme() . self::SCHEME_TO_HOST . $request->getHost() . $request->getPath();
 
-	$this->assertEquals(Constants::BASE_URL . self::COLLECTION_ENDPOINT, $requestedUrl);
-	$this->assertEquals($validIdsString, $query[Constants::IDS]);
+	$this->assertEquals(Settings::BASE_URL . self::COLLECTION_ENDPOINT, $requestedUrl);
+	$this->assertEquals($validIdsString, $query[Settings::IDS]);
     }
 
     public function testGivenPageParamsThenBuildPageRequest()
@@ -68,9 +68,9 @@ class CollectionRequestFactoryFunctionalTest extends PHPUnit_Framework_TestCase
 	$query = $request->getQuery();
 	$requestedUrl = $request->getScheme() . self::SCHEME_TO_HOST . $request->getHost() . $request->getPath();
 
-	$this->assertEquals(Constants::BASE_URL . self::COLLECTION_ENDPOINT, $requestedUrl);
-	$this->assertEquals(self::VALID_PAGE, $query[Constants::PAGE]);
-	$this->assertEquals(self::VALID_PAGE_SIZE, $query[Constants::PAGE_SIZE]);
+	$this->assertEquals(Settings::BASE_URL . self::COLLECTION_ENDPOINT, $requestedUrl);
+	$this->assertEquals(self::VALID_PAGE, $query[Settings::PAGE]);
+	$this->assertEquals(self::VALID_PAGE_SIZE, $query[Settings::PAGE_SIZE]);
     }
 
 }

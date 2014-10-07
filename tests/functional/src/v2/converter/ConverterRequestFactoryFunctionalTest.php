@@ -7,7 +7,7 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 
-use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
 use GuzzleHttp\Client;
 use PHPUnit_Framework_TestCase;
@@ -42,8 +42,8 @@ class ConverterRequestFactoryFunctionalTest extends PHPUnit_Framework_TestCase
 	$query = $request->getQuery();
 	$requestedUrl = $request->getScheme() . self::SCHEME_TO_HOST . $request->getHost() . $request->getPath();
 
-	$this->assertEquals(Constants::BASE_URL . self::CONVERTER_ENDPOINT, $requestedUrl);
-	$this->assertEquals(self::VALID_QUANTITY, $query[Constants::QUANTITY]);
+	$this->assertEquals(Settings::BASE_URL . self::CONVERTER_ENDPOINT, $requestedUrl);
+	$this->assertEquals(self::VALID_QUANTITY, $query[Settings::QUANTITY]);
     }
 
 }

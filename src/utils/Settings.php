@@ -7,7 +7,7 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\utils;
 
-class Constants
+class Settings
 {
 
     const MAX_PAGE_SIZE = 200;

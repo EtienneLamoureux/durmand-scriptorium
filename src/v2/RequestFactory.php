@@ -7,7 +7,7 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\v2;
 
-use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use GuzzleHttp\Client;
 
 abstract class RequestFactory
@@ -35,7 +35,7 @@ abstract class RequestFactory
 
     protected function buildBaseRequest()
     {
-	return $this->client->createRequest(Constants::GET, Constants::BASE_URL . $this->ENDPOINT_URL);
+	return $this->client->createRequest(Settings::GET, Settings::BASE_URL . $this->ENDPOINT_URL);
     }
 
 }

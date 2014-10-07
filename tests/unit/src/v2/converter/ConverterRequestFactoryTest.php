@@ -7,7 +7,7 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 
-use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use GuzzleHttp\Client;
 use GuzzleHttp\Message\Request;
 use GuzzleHttp\Query;
@@ -60,8 +60,8 @@ class ConverterRequestFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testGivenValidAmountThenBuildConversionRequest()
     {
-	$createRequestArgs = [Constants::GET, Constants::BASE_URL . self::CONVERTER_ENDPOINT];
-	$setArgs = [Constants::QUANTITY, self::VALID_QUANTITY];
+	$createRequestArgs = [Settings::GET, Settings::BASE_URL . self::CONVERTER_ENDPOINT];
+	$setArgs = [Settings::QUANTITY, self::VALID_QUANTITY];
 
 	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->once()->andReturn($this->request);
 	$this->request->shouldReceive('getQuery')->once()->andReturn($this->query);

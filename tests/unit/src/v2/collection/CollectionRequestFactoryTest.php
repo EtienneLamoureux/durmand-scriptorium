@@ -7,7 +7,7 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\v2\collection;
 
-use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use GuzzleHttp\Client;
 use GuzzleHttp\Message\Request;
 use GuzzleHttp\Query;
@@ -64,8 +64,8 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testGivenValidIdWhenBuildingIdRequestThenBuildIdRequest()
     {
-	$createRequestArgs = [Constants::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
-	$setArgs = [Constants::ID, self::VALID_ID];
+	$createRequestArgs = [Settings::GET, Settings::BASE_URL . self::COLLECTION_ENDPOINT];
+	$setArgs = [Settings::ID, self::VALID_ID];
 
 	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->once()->andReturn($this->request);
 	$this->request->shouldReceive('getQuery')->once()->andReturn($this->query);
@@ -101,9 +101,9 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
     public function testGivenValidIdsWhenBuildingIdsRequestThenBuildIdsRequest()
     {
 	$validIds = [self::VALID_ID, self::VALID_ID];
-	$validIdsString = implode(Constants::ID_SEPARATOR, $validIds);
-	$createRequestArgs = [Constants::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
-	$setArgs = [Constants::IDS, $validIdsString];
+	$validIdsString = implode(Settings::ID_SEPARATOR, $validIds);
+	$createRequestArgs = [Settings::GET, Settings::BASE_URL . self::COLLECTION_ENDPOINT];
+	$setArgs = [Settings::IDS, $validIdsString];
 
 	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->once()->andReturn($this->request);
 	$this->request->shouldReceive('getQuery')->once()->andReturn($this->query);
@@ -115,8 +115,8 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
     public function testGivenTooManyIdsWhenBuildingIdsRequestThenBuildManyIdsRequest()
     {
 	$timesTooBig = 3;
-	$validIds = array_fill(0, $timesTooBig * Constants::MAX_IDS_SINGLE_REQUEST, self::VALID_ID);
-	$createRequestArgs = [Constants::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
+	$validIds = array_fill(0, $timesTooBig * Settings::MAX_IDS_SINGLE_REQUEST, self::VALID_ID);
+	$createRequestArgs = [Settings::GET, Settings::BASE_URL . self::COLLECTION_ENDPOINT];
 
 	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->times($timesTooBig)->andReturn($this->request);
 	$this->request->shouldReceive('getQuery')->times($timesTooBig)->andReturn($this->query);
@@ -127,9 +127,9 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testGivenValidPageParamWhenBuildingPageRequestThenBuildPageRequest()
     {
-	$createRequestArgs = [Constants::GET, Constants::BASE_URL . self::COLLECTION_ENDPOINT];
-	$setPageArgs = [Constants::PAGE, self::VALID_PAGE];
-	$setPageSizeArgs = [Constants::PAGE_SIZE, self::VALID_PAGE_SIZE];
+	$createRequestArgs = [Settings::GET, Settings::BASE_URL . self::COLLECTION_ENDPOINT];
+	$setPageArgs = [Settings::PAGE, self::VALID_PAGE];
+	$setPageSizeArgs = [Settings::PAGE_SIZE, self::VALID_PAGE_SIZE];
 
 	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->once()->andReturn($this->request);
 	$this->request->shouldReceive('getQuery')->once()->andReturn($this->query);

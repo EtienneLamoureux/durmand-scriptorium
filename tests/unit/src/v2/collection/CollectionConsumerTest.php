@@ -9,7 +9,7 @@ namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 
 use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
-use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionConsumer;
 use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory;
 use GuzzleHttp\Client;
@@ -129,7 +129,7 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
 
 	$this->requestFactory->shouldReceive('pageRequest')->atLeast(1)->andReturn($this->request);
 	$this->client->shouldReceive('send')->with($this->request)->atLeast(1)->andReturn($this->response);
-	$this->response->shouldReceive('getHeader')->with(Constants::TOTAL_PAGE_HEADER)->once()->andReturn(self::NB_PAGE);
+	$this->response->shouldReceive('getHeader')->with(Settings::TOTAL_PAGE_HEADER)->once()->andReturn(self::NB_PAGE);
 	$this->response->shouldReceive('json')->atLeast(1)->andReturn([]);
 	$this->batchRequestManager->shouldReceive('executeRequests')->once()->andReturn($responses);
 
@@ -140,7 +140,7 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
     {
 	$this->requestFactory->shouldReceive('pageRequest')->once()->andReturn($this->request);
 	$this->client->shouldReceive('send')->with($this->request)->once()->andReturn($this->response);
-	$this->response->shouldReceive('getHeader')->with(Constants::TOTAL_PAGE_HEADER)->once()->andReturn(self::ONE_PAGE);
+	$this->response->shouldReceive('getHeader')->with(Settings::TOTAL_PAGE_HEADER)->once()->andReturn(self::ONE_PAGE);
 	$this->response->shouldReceive('json')->once()->andReturn([]);
 	$this->batchRequestManager->shouldReceive('executeRequests')->never();
 

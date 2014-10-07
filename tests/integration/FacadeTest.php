@@ -8,7 +8,7 @@
 namespace Crystalgorithm\DurmandScriptorium;
 
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
-use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory;
 use GuzzleHttp\Client;
 use PHPUnit_Framework_TestCase;
@@ -83,7 +83,7 @@ class FacadeTest extends PHPUnit_Framework_TestCase
 	$client = new Client();
 	$batchRequestManager = new BatchRequestManager($client);
 
-	$requestFactory = new CollectionRequestFactory($client, Constants::QUAGGANS_ENDPOINT);
+	$requestFactory = new CollectionRequestFactory($client, Settings::QUAGGANS_ENDPOINT);
 	$request = $requestFactory->baseRequest();
 	$responses = $batchRequestManager->executeRequests([$request]);
 

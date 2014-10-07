@@ -7,7 +7,7 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 
-use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
 use InvalidArgumentException;
 
@@ -23,7 +23,7 @@ class ConverterRequestFactory extends RequestFactory
 
 	$request = $this->buildBaseRequest();
 	$query = $request->getQuery();
-	$query->set(Constants::QUANTITY, $quantity);
+	$query->set(Settings::QUANTITY, $quantity);
 
 	return $request;
     }

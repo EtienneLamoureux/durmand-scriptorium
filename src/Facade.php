@@ -8,7 +8,7 @@
 namespace Crystalgorithm\DurmandScriptorium;
 
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
-use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionConsumer;
 use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory;
 use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterConsumer;
@@ -54,22 +54,22 @@ class Facade
 
 	$batchRequestManager = new BatchRequestManager($client);
 
-	$quaggansRequestFactory = new CollectionRequestFactory($client, Constants::QUAGGANS_ENDPOINT);
+	$quaggansRequestFactory = new CollectionRequestFactory($client, Settings::QUAGGANS_ENDPOINT);
 	$this->quaggans = new CollectionConsumer($client, $quaggansRequestFactory, $batchRequestManager);
 
-	$listingsRequestFactory = new CollectionRequestFactory($client, Constants::LISTINGS_ENDPOINT);
+	$listingsRequestFactory = new CollectionRequestFactory($client, Settings::LISTINGS_ENDPOINT);
 	$this->listings = new CollectionConsumer($client, $listingsRequestFactory, $batchRequestManager);
 
-	$pricesRequestFactory = new CollectionRequestFactory($client, Constants::PRICES_ENDPOINT);
+	$pricesRequestFactory = new CollectionRequestFactory($client, Settings::PRICES_ENDPOINT);
 	$this->prices = new CollectionConsumer($client, $pricesRequestFactory, $batchRequestManager);
 
-	$itemsRequestFactory = new CollectionRequestFactory($client, Constants::ITEMS_ENDPOINT);
+	$itemsRequestFactory = new CollectionRequestFactory($client, Settings::ITEMS_ENDPOINT);
 	$this->items = new CollectionConsumer($client, $itemsRequestFactory, $batchRequestManager);
 
-	$coinsRequestFactory = new ConverterRequestFactory($client, Constants::COINS_ENDPOINT);
+	$coinsRequestFactory = new ConverterRequestFactory($client, Settings::COINS_ENDPOINT);
 	$this->coins = new ConverterConsumer($client, $coinsRequestFactory, $batchRequestManager);
 
-	$gemsRequestFactory = new ConverterRequestFactory($client, Constants::GEMS_ENDPOINT);
+	$gemsRequestFactory = new ConverterRequestFactory($client, Settings::GEMS_ENDPOINT);
 	$this->gems = new ConverterConsumer($client, $gemsRequestFactory, $batchRequestManager);
     }
 

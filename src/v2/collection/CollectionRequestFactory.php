@@ -7,7 +7,7 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\v2\collection;
 
-use Crystalgorithm\DurmandScriptorium\utils\Constants;
+use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
 use InvalidArgumentException;
 
@@ -23,20 +23,20 @@ class CollectionRequestFactory extends RequestFactory
 
 	$request = $this->buildBaseRequest();
 	$query = $request->getQuery();
-	$query->set(Constants::ID, $id);
+	$query->set(Settings::ID, $id);
 
 	return $request;
     }
 
     public function idsRequest(array $ids)
     {
-	if (sizeof($ids) <= Constants::MAX_IDS_SINGLE_REQUEST)
+	if (sizeof($ids) <= Settings::MAX_IDS_SINGLE_REQUEST)
 	{
 	    $request = $this->buildBaseRequest();
 	    $query = $request->getQuery();
 
 	    $formattedIds = $this->formatIds($ids);
-	    $query->set(Constants::IDS, $formattedIds);
+	    $query->set(Settings::IDS, $formattedIds);
 	}
 	else
 	{
@@ -55,11 +55,11 @@ class CollectionRequestFactory extends RequestFactory
 
 	$request = $this->buildBaseRequest();
 	$query = $request->getQuery();
-	$query->set(Constants::PAGE, $page);
+	$query->set(Settings::PAGE, $page);
 
 	if (isset($pageSize) && $pageSize > 0)
 	{
-	    $query->set(Constants::PAGE_SIZE, $pageSize);
+	    $query->set(Settings::PAGE_SIZE, $pageSize);
 	}
 
 	return $request;
@@ -68,7 +68,7 @@ class CollectionRequestFactory extends RequestFactory
     protected function batchRequest(array $ids)
     {
 	$requests = array();
-	$idChunks = array_chunk($ids, Constants::MAX_IDS_SINGLE_REQUEST);
+	$idChunks = array_chunk($ids, Settings::MAX_IDS_SINGLE_REQUEST);
 
 	foreach ($idChunks as $idChunk)
 	{
@@ -80,7 +80,7 @@ class CollectionRequestFactory extends RequestFactory
 
     protected function formatIds(array $ids)
     {
-	return implode(Constants::ID_SEPARATOR, $ids);
+	return implode(Settings::ID_SEPARATOR, $ids);
     }
 
 }
