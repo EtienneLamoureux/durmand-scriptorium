@@ -7,7 +7,7 @@ Durmand Scriptorium
 [![Latest Unstable Version](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/v/unstable.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
 [![License](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/license.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
 
-PHP package to consume the Guild Wars 2 API
+PHP package to consume the Guild Wars 2 API, proudly brought to you by Keider.8652
 
 Installation
 ------------
