@@ -10,8 +10,8 @@ namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
-use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionConsumer;
 use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory;
+use Crystalgorithm\DurmandScriptorium\v2\collection\V2CollectionConsumer;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Message\Request;
@@ -19,7 +19,7 @@ use GuzzleHttp\Message\Response;
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
-class CollectionConsumerTest extends PHPUnit_Framework_TestCase
+class V2CollectionConsumerTest extends PHPUnit_Framework_TestCase
 {
 
     const VALID_ID = 100;
@@ -33,7 +33,7 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
     const EXCEPTION_MESSAGE = 'error';
 
     /**
-     * @var CollectionConsumer
+     * @vaV2CollectionConsumerer
      */
     protected $consumer;
 
@@ -76,7 +76,7 @@ class CollectionConsumerTest extends PHPUnit_Framework_TestCase
 	$this->response = Mockery::mock('GuzzleHttp\Message\Response');
 	$this->exception = Mockery::mock('GuzzleHttp\Exception\ClientException');
 
-	$this->consumer = new CollectionConsumer($this->client, $this->requestFactory, $this->batchRequestManager);
+	$this->consumer = new V2CollectionConsumer($this->client, $this->requestFactory, $this->batchRequestManager);
     }
 
     protected function tearDown()

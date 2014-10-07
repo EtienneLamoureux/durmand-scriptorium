@@ -7,10 +7,11 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\v2\collection;
 
+use Crystalgorithm\DurmandScriptorium\CollectionConsumer;
 use Crystalgorithm\DurmandScriptorium\Consumer;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
 
-class CollectionConsumer extends Consumer
+class V2CollectionConsumer extends Consumer implements CollectionConsumer
 {
 
     public function get($id)

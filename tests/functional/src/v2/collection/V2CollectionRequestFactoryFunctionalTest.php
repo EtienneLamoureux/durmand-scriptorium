@@ -13,7 +13,7 @@ use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
 use GuzzleHttp\Client;
 use PHPUnit_Framework_TestCase;
 
-class CollectionRequestFactoryFunctionalTest extends PHPUnit_Framework_TestCase
+class V2CollectionRequestFactoryFunctionalTest extends PHPUnit_Framework_TestCase
 {
 
     const VALID_ID = 100;
