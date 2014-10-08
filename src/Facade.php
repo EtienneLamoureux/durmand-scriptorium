@@ -9,8 +9,8 @@ namespace Crystalgorithm\DurmandScriptorium;
 
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
-use Crystalgorithm\DurmandScriptorium\v2\collection\V2CollectionConsumer;
-use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory;
+use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionConsumer;
+use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionRequestFactory;
 use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterConsumer;
 use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
 use GuzzleHttp\Client;
@@ -19,22 +19,22 @@ class Facade
 {
 
     /**
-     * @var V2CollectionConsumer
+     * @var PaginatedCollectionConsumer
      */
     protected $quaggans;
 
     /**
-     * @var V2CollectionConsumer
+     * @var PaginatedCollectionConsumer
      */
     protected $listings;
 
     /**
-     * @var V2CollectionConsumer
+     * @var PaginatedCollectionConsumer
      */
     protected $prices;
 
     /**
-     * @var V2CollectionConsumer
+     * @var PaginatedCollectionConsumer
      */
     protected $items;
 
@@ -54,17 +54,17 @@ class Facade
 
 	$batchRequestManager = new BatchRequestManager($client);
 
-	$quaggansRequestFactory = new CollectionRequestFactory($client, Settings::QUAGGANS_ENDPOINT);
-	$this->quaggans = new V2CollectionConsumer($client, $quaggansRequestFactory, $batchRequestManager);
+	$quaggansRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::QUAGGANS_ENDPOINT);
+	$this->quaggans = new PaginatedCollectionConsumer($client, $quaggansRequestFactory, $batchRequestManager);
 
-	$listingsRequestFactory = new CollectionRequestFactory($client, Settings::LISTINGS_ENDPOINT);
-	$this->listings = new V2CollectionConsumer($client, $listingsRequestFactory, $batchRequestManager);
+	$listingsRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::LISTINGS_ENDPOINT);
+	$this->listings = new PaginatedCollectionConsumer($client, $listingsRequestFactory, $batchRequestManager);
 
-	$pricesRequestFactory = new CollectionRequestFactory($client, Settings::PRICES_ENDPOINT);
-	$this->prices = new V2CollectionConsumer($client, $pricesRequestFactory, $batchRequestManager);
+	$pricesRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::PRICES_ENDPOINT);
+	$this->prices = new PaginatedCollectionConsumer($client, $pricesRequestFactory, $batchRequestManager);
 
-	$itemsRequestFactory = new CollectionRequestFactory($client, Settings::ITEMS_ENDPOINT);
-	$this->items = new V2CollectionConsumer($client, $itemsRequestFactory, $batchRequestManager);
+	$itemsRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::ITEMS_ENDPOINT);
+	$this->items = new PaginatedCollectionConsumer($client, $itemsRequestFactory, $batchRequestManager);
 
 	$coinsRequestFactory = new ConverterRequestFactory($client, Settings::COINS_ENDPOINT);
 	$this->coins = new ConverterConsumer($client, $coinsRequestFactory, $batchRequestManager);

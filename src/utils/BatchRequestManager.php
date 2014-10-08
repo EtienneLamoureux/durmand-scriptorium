@@ -39,7 +39,7 @@ class BatchRequestManager
     public function executeRequests(array $requests)
     {
 	set_time_limit(Settings::TIMEOUT_LIMIT_IN_SECONDS);
-	ini_set('memory_limit', Settings::MEMORY_LIMIT_IN_BYTES);
+	ini_set('memory_limit', Settings::MEMORY_LIMIT);
 	$this->resetAggregatedResponse();
 
 	$requestChunks = array_chunk($requests, $this->parallel);

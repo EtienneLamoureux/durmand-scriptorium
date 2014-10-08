@@ -11,7 +11,7 @@ use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
 use InvalidArgumentException;
 
-class CollectionRequestFactory extends RequestFactory
+class PaginatedCollectionRequestFactory extends RequestFactory
 {
 
     public function idRequest($id)

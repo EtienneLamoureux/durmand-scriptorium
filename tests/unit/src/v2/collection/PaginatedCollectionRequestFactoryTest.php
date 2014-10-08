@@ -15,7 +15,7 @@ use InvalidArgumentException;
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
-class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
+class PaginatedCollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
 {
 
     const VALID_ID = 100;
@@ -29,7 +29,7 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
     const COLLECTION_ENDPOINT = '/endpoint';
 
     /**
-     * @var CollectionRequestFactory
+     * @var PaginatedCollectionRequestFactory
      */
     protected $factory;
 
@@ -54,7 +54,7 @@ class CollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
 	$this->request = Mockery::mock('GuzzleHttp\Message\Request');
 	$this->query = Mockery::mock('GuzzleHttp\Query');
 
-	$this->factory = new CollectionRequestFactory($this->client, self::COLLECTION_ENDPOINT);
+	$this->factory = new PaginatedCollectionRequestFactory($this->client, self::COLLECTION_ENDPOINT);
     }
 
     protected function tearDown()

@@ -10,8 +10,8 @@ namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
-use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory;
-use Crystalgorithm\DurmandScriptorium\v2\collection\V2CollectionConsumer;
+use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionConsumer;
+use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionRequestFactory;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Message\Request;
@@ -19,7 +19,7 @@ use GuzzleHttp\Message\Response;
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
-class V2CollectionConsumerTest extends PHPUnit_Framework_TestCase
+class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
 {
 
     const VALID_ID = 100;
@@ -43,7 +43,7 @@ class V2CollectionConsumerTest extends PHPUnit_Framework_TestCase
     protected $client;
 
     /**
-     * @var CollectionRequestFactory mock
+     * @var PaginatedCollectionRequestFactory mock
      */
     protected $requestFactory;
 
@@ -70,13 +70,13 @@ class V2CollectionConsumerTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
 	$this->client = Mockery::mock('GuzzleHttp\Client');
-	$this->requestFactory = Mockery::mock('Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory');
+	$this->requestFactory = Mockery::mock('Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionRequestFactory');
 	$this->batchRequestManager = Mockery::mock('Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager');
 	$this->request = Mockery::mock('GuzzleHttp\Message\Request');
 	$this->response = Mockery::mock('GuzzleHttp\Message\Response');
 	$this->exception = Mockery::mock('GuzzleHttp\Exception\ClientException');
 
-	$this->consumer = new V2CollectionConsumer($this->client, $this->requestFactory, $this->batchRequestManager);
+	$this->consumer = new PaginatedCollectionConsumer($this->client, $this->requestFactory, $this->batchRequestManager);
     }
 
     protected function tearDown()

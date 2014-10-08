@@ -8,12 +8,12 @@
 namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
-use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionRequestFactory;
+use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionRequestFactory;
 use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
 use GuzzleHttp\Client;
 use PHPUnit_Framework_TestCase;
 
-class V2CollectionRequestFactoryFunctionalTest extends PHPUnit_Framework_TestCase
+class PaginatedCollectionRequestFactoryFunctionalTest extends PHPUnit_Framework_TestCase
 {
 
     const VALID_ID = 100;
@@ -36,7 +36,7 @@ class V2CollectionRequestFactoryFunctionalTest extends PHPUnit_Framework_TestCas
     {
 
 	$this->client = new Client();
-	$this->factory = new CollectionRequestFactory($this->client, self::COLLECTION_ENDPOINT);
+	$this->factory = new PaginatedCollectionRequestFactory($this->client, self::COLLECTION_ENDPOINT);
     }
 
     public function testGivenIdThenBuildIdRequest()

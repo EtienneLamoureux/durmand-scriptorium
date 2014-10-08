@@ -76,16 +76,23 @@ abstract class Consumer
     {
 	if (is_array($response))
 	{
-	    $phpArray = array();
-
-	    foreach ($response as $value)
-	    {
-		$phpArray = array_merge($phpArray, $value->json());
-	    }
+	    $phpArray = $this->convertResponsesToArray($response);
 	}
 	else
 	{
 	    $phpArray = $response->json();
+	}
+
+	return $phpArray;
+    }
+
+    protected function convertResponsesToArray(array &$responses)
+    {
+	$phpArray = array();
+
+	foreach ($responses as $response)
+	{
+	    $phpArray = array_merge($phpArray, $response->json());
 	}
 
 	return $phpArray;

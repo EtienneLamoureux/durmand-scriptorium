@@ -14,7 +14,7 @@ class Settings
     const NB_OF_PARALLEL_REQUESTS = 20;
     const MAX_IDS_SINGLE_REQUEST = 200;
     const TIMEOUT_LIMIT_IN_SECONDS = 300;
-    const MEMORY_LIMIT_IN_BYTES = 1073741824;
+    const MEMORY_LIMIT = "100M";
     const ID = 'id';
     const IDS = 'ids';
     const PAGE = 'page';

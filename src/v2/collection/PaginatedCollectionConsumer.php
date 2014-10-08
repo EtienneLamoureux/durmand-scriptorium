@@ -11,7 +11,7 @@ use Crystalgorithm\DurmandScriptorium\CollectionConsumer;
 use Crystalgorithm\DurmandScriptorium\Consumer;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
 
-class V2CollectionConsumer extends Consumer implements CollectionConsumer
+class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
 {
 
     public function get($id)
