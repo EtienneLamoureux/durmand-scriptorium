@@ -18,18 +18,11 @@ class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
     {
 	if (is_array($id))
 	{
-	    if (sizeof($id) <= 0)
-	    {
-		return array();
-	    }
+	    return $this->getMany($id);
+	}
 
-	    $data = $this->getMany($id);
-	}
-	else
-	{
-	    $request = $this->requestFactory->idRequest($id);
-	    $data = $this->getDataFromApi($request);
-	}
+	$request = $this->requestFactory->idRequest($id);
+	$data = $this->getDataFromApi($request);
 
 	return $data;
     }
@@ -38,17 +31,22 @@ class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
     {
 	if ($expanded)
 	{
-	    $data = $this->getAllPages();
+	    return $this->getAllPages();
 	}
-	else
-	{
-	    $request = $this->requestFactory->baseRequest();
-	    $data = $this->getDataFromApi($request);
-	}
+
+	$request = $this->requestFactory->baseRequest();
+	$data = $this->getDataFromApi($request);
 
 	return $data;
     }
 
+    /**
+     * @link https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getpage documentation
+     * @param int $page
+     * @param int $pageSize
+     * @return array
+     * @throws BadRequestException
+     */
     public function getPage($page, $pageSize = null)
     {
 	$request = $this->requestFactory->pageRequest($page, $pageSize);
@@ -59,6 +57,11 @@ class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
 
     protected function getMany(array $ids)
     {
+	if (sizeof($ids) <= 0)
+	{
+	    return array();
+	}
+
 	$request = $this->requestFactory->idsRequest($ids);
 	$data = $this->getDataFromApi($request);
 
@@ -72,7 +75,7 @@ class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
 	$response = $this->getResponse($request);
 	$totalNbOfPages = $response->getHeader(Settings::TOTAL_PAGE_HEADER);
 
-	$requests = $this->buildPagesRequests($totalNbOfPages);
+	$requests = $this->buildPagesRequests(1, $totalNbOfPages);
 	$responses = $this->getResponse($requests);
 	$responses[] = $response;
 	$phpArray = $this->convertResponseToArray($responses);
@@ -80,11 +83,11 @@ class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
 	return $phpArray;
     }
 
-    protected function buildPagesRequests($totalNbOfPages)
+    protected function buildPagesRequests($firstPage, $lastPage)
     {
 	$requests = array();
 
-	for ($currentPage = 1; $currentPage < $totalNbOfPages; $currentPage++)
+	for ($currentPage = $firstPage; $currentPage < $lastPage; $currentPage++)
 	{
 	    $requests[] = $this->requestFactory->pageRequest($currentPage, Settings::MAX_PAGE_SIZE);
 	}
