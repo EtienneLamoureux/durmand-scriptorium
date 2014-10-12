@@ -73,31 +73,49 @@ class Facade
 	$this->gems = new ConverterConsumer($client, $gemsRequestFactory, $batchRequestManager);
     }
 
+    /**
+     * @return PaginatedCollectionConsumer
+     */
     public function quaggans()
     {
 	return $this->quaggans;
     }
 
+    /**
+     * @return PaginatedCollectionConsumer
+     */
     public function listings()
     {
 	return $this->listings;
     }
 
+    /**
+     * @return PaginatedCollectionConsumer
+     */
     public function prices()
     {
 	return $this->prices;
     }
 
+    /**
+     * @return PaginatedCollectionConsumer
+     */
     public function items()
     {
 	return $this->items;
     }
 
+    /**
+     * @return ConverterConsumer
+     */
     public function coins()
     {
 	return $this->coins;
     }
 
+    /**
+     * @return ConverterConsumer
+     */
     public function gems()
     {
 	return $this->gems;

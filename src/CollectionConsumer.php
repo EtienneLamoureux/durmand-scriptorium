@@ -31,14 +31,4 @@ interface CollectionConsumer
      * @return array
      */
     public function getAll($expanded);
-
-    /**
-     * @deprecated
-     * @link https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getpage documentation
-     * @param int $page
-     * @param int $pageSize
-     * @return array
-     * @throws BadRequestException
-     */
-    public function getPage($page, $pageSize);
 }

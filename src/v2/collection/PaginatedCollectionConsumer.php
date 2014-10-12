@@ -14,6 +14,9 @@ use Crystalgorithm\DurmandScriptorium\utils\Settings;
 class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
 {
 
+    /**
+     * {@inheritdoc}
+     */
     public function get($id)
     {
 	if (is_array($id))
@@ -27,6 +30,9 @@ class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
 	return $data;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getAll($expanded = false)
     {
 	if ($expanded)
