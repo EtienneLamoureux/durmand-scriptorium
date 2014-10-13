@@ -73,4 +73,9 @@ class PaginatedCollectionRequestFactoryFunctionalTest extends PHPUnit_Framework_
 	$this->assertEquals(self::VALID_PAGE_SIZE, $query[Settings::PAGE_SIZE]);
     }
 
+    protected function setDefaultExpectations()
+    {
+	
+    }
+
 }

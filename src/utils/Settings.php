@@ -11,6 +11,7 @@ class Settings
 {
 
     const MAX_PAGE_SIZE = 200;
+    const FIRST_PAGE_NB = 0;
     const NB_OF_PARALLEL_REQUESTS = 20;
     const MAX_IDS_SINGLE_REQUEST = 200;
     const TIMEOUT_LIMIT_IN_SECONDS = 300;

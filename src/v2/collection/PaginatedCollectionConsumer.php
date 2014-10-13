@@ -61,6 +61,22 @@ class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
 	return $data;
     }
 
+    /**
+     * @link https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getpagerange documentation
+     * @param int $pageSize
+     * @return array
+     */
+    public function getPageRange($pageSize)
+    {
+	$request = $this->requestFactory->pageRequest(Settings::FIRST_PAGE_NB, $pageSize);
+	$response = $this->getResponse($request);
+	$totalNbOfPages = $response->getHeader(Settings::TOTAL_PAGE_HEADER);
+
+	$pageRange = ['first' => Settings::FIRST_PAGE_NB, 'last' => $totalNbOfPages];
+
+	return $pageRange;
+    }
+
     protected function getMany(array $ids)
     {
 	if (sizeof($ids) <= 0)
@@ -76,24 +92,19 @@ class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
 
     protected function getAllPages()
     {
-	$page = 0;
-	$request = $this->requestFactory->pageRequest($page, Settings::MAX_PAGE_SIZE);
-	$response = $this->getResponse($request);
-	$totalNbOfPages = $response->getHeader(Settings::TOTAL_PAGE_HEADER);
+	$pageRange = $this->getPageRange(Settings::MAX_PAGE_SIZE);
 
-	$requests = $this->buildPagesRequests(1, $totalNbOfPages);
-	$responses = $this->getResponse($requests);
-	$responses[] = $response;
-	$phpArray = $this->convertResponseToArray($responses);
+	$requests = $this->buildPagesRequests($pageRange['first'], $pageRange['last']);
+	$iterator = $this->getDataFromApi($requests);
 
-	return $phpArray;
+	return $iterator;
     }
 
     protected function buildPagesRequests($firstPage, $lastPage)
     {
 	$requests = array();
 
-	for ($currentPage = $firstPage; $currentPage < $lastPage; $currentPage++)
+	for ($currentPage = $firstPage; $currentPage <= $lastPage; $currentPage++)
 	{
 	    $requests[] = $this->requestFactory->pageRequest($currentPage, Settings::MAX_PAGE_SIZE);
 	}

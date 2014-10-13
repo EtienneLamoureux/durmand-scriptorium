@@ -25,7 +25,7 @@ class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
     const VALID_ID = 100;
     const INVALID_ID = -1;
     const NB_PAGE = 2;
-    const ONE_PAGE = 1;
+    const ONE_PAGE = 0;
     const VALID_PAGE = 1;
     const INVALID_PAGE = 1;
     const INVALID_PAGE_SIZE = 250;
@@ -132,17 +132,6 @@ class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
 	$this->response->shouldReceive('getHeader')->with(Settings::TOTAL_PAGE_HEADER)->once()->andReturn(self::NB_PAGE);
 	$this->response->shouldReceive('json')->atLeast(1)->andReturn([]);
 	$this->batchRequestManager->shouldReceive('executeRequests')->once()->andReturn($responses);
-
-	$this->consumer->getAll(true);
-    }
-
-    public function testGivenASinglePageOfDataWhenRequestAllDetailsThenCallOnce()
-    {
-	$this->requestFactory->shouldReceive('pageRequest')->once()->andReturn($this->request);
-	$this->client->shouldReceive('send')->with($this->request)->once()->andReturn($this->response);
-	$this->response->shouldReceive('getHeader')->with(Settings::TOTAL_PAGE_HEADER)->once()->andReturn(self::ONE_PAGE);
-	$this->response->shouldReceive('json')->once()->andReturn([]);
-	$this->batchRequestManager->shouldReceive('executeRequests')->never();
 
 	$this->consumer->getAll(true);
     }

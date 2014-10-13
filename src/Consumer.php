@@ -41,61 +41,62 @@ abstract class Consumer
     protected function getDataFromApi($request)
     {
 	$response = $this->getResponse($request);
-	$phpArray = $this->convertResponseToArray($response);
+	$iterator = $this->convertResponseToArray($response);
 
-	return $phpArray;
+	return $iterator;
     }
 
     protected function getResponse($request)
     {
 	if (is_array($request))
 	{
-	    if (sizeof($request) <= 0)
-	    {
-		return array();
-	    }
-
-	    $response = $this->batchRequestManager->executeRequests($request);
+	    return $this->getResponses($request);
 	}
-	else
+
+	try
 	{
-	    try
-	    {
-		$response = $this->client->send($request);
-	    }
-	    catch (ClientException $ex)
-	    {
-		throw new BadRequestException($ex->getResponse()->json()['text']);
-	    }
+	    $response = $this->client->send($request);
+	}
+	catch (ClientException $ex)
+	{
+	    throw new BadRequestException($ex->getResponse()->json()['text']);
 	}
 
 	return $response;
+    }
+
+    protected function getResponses(array $requests)
+    {
+	if (sizeof($requests) <= 0)
+	{
+	    return array();
+	}
+
+	return $this->batchRequestManager->executeRequests($requests);
     }
 
     protected function convertResponseToArray($response)
     {
 	if (is_array($response))
 	{
-	    $phpArray = $this->convertResponsesToArray($response);
-	}
-	else
-	{
-	    $phpArray = $response->json();
+	    return $this->convertResponsesToArray($response);
 	}
 
-	return $phpArray;
+	$iterator = $response->json();
+
+	return $iterator;
     }
 
     protected function convertResponsesToArray(array &$responses)
     {
-	$phpArray = array();
+	$iterator = array();
 
 	foreach ($responses as $response)
 	{
-	    $phpArray = array_merge($phpArray, $response->json());
+	    $iterator = array_merge($iterator, $response->json());
 	}
 
-	return $phpArray;
+	return $iterator;
     }
 
 }
