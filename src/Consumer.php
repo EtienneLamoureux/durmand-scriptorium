@@ -67,11 +67,6 @@ abstract class Consumer
 
     protected function getResponses(array $requests)
     {
-	if (sizeof($requests) <= 0)
-	{
-	    return array();
-	}
-
 	return $this->batchRequestManager->executeRequests($requests);
     }
 

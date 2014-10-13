@@ -51,6 +51,7 @@ Documentation
     - [Get](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#get)
     - [GetAll](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getall)
     - [GetPage](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getpage)
+    - [GetPageRange](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getpagerange)
 - [Converter consumer](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/CONVERTER_CONSUMER.md#converter-consumer)
     - [Convert](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/CONVERTER_CONSUMER.md#convert)
 

@@ -66,13 +66,13 @@ class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
      * @param int $pageSize
      * @return array
      */
-    public function getPageRange($pageSize)
+    public function getPageRange($pageSize = null)
     {
 	$request = $this->requestFactory->pageRequest(Settings::FIRST_PAGE_NB, $pageSize);
 	$response = $this->getResponse($request);
 	$totalNbOfPages = $response->getHeader(Settings::TOTAL_PAGE_HEADER);
 
-	$pageRange = ['first' => Settings::FIRST_PAGE_NB, 'last' => $totalNbOfPages];
+	$pageRange = ['first' => Settings::FIRST_PAGE_NB, 'last' => ($totalNbOfPages - 1)];
 
 	return $pageRange;
     }

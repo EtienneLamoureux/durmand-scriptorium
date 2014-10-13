@@ -5,7 +5,7 @@
  * @copyright 2014 Etienne Lamoureux
  * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  */
-namespace Crystalgorithm\DurmandScriptorium\v2\converter;
+namespace Crystalgorithm\DurmandScriptorium\v2\collection;
 
 use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
@@ -121,6 +121,18 @@ class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
 	$this->response->shouldReceive('json')->once();
 
 	$this->consumer->getAll();
+    }
+
+    public function testWhenRequestPageRangeGet()
+    {
+	$this->requestFactory->shouldReceive('pageRequest')->andReturn($this->request);
+	$this->client->shouldReceive('send')->with($this->request)->andReturn($this->response);
+	$this->response->shouldReceive('getHeader')->with(Settings::TOTAL_PAGE_HEADER)->once()->andReturn(self::NB_PAGE);
+
+	$actual = $this->consumer->getPageRange();
+
+	$expected = ['first' => self::ONE_PAGE, 'last' => self::NB_PAGE];
+	$this->assertEquals($expected, $actual);
     }
 
     public function testWhenRequestAllDetailsThenGetAllDetails()

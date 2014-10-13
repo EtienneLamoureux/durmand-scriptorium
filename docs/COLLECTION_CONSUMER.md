@@ -218,7 +218,9 @@ public function getPage($page, $pageSize = null)
 
 The *getPage* method fetches detailed information about a page of elements of the collection.
 
-The first page number is 0. The last page number depends on the collection and the page size requested. This method won't give you this information, but if you are interested in iterating over all the pages, the *getAll* method is there just for that!
+To get the first and last page number for a given page size, use the *getPageRange* method.
+
+To get all pages as quickly and efficiently as possible, use the *getAll(true)* method. You should only use *getPage* to fetch all pages if you have memory or timeout issues with *getAll*.
 
 The page size parameter is optional. It will default to 50. The maximum value allowed is 200.
 
@@ -255,3 +257,64 @@ array (size=100)
 
 ### Throws
 *BadRequestException* when using an invalid page size or fetching an invalid page number.
+
+GetPageRange
+-------
+### Definition
+
+```php
+public function getPageRange($pageSize = null)
+```
+
+The *getPageRange* method fetches the first and last page number for a given page size. Use it in conjunction with the *getPage* method to fetch all pages one by one.
+
+The returned array contains two indexes : *first* and *last*, who contain the first and last page number for the page size given in parameter.
+
+The page size parameter is optional. It will default to 50. The maximum value allowed is 200.
+
+### Example
+```php
+use Crystalgorithm\DurmandScriptorium\Facade as DurmandScriptorium;
+require 'vendor/autoload.php';
+
+$api = new DurmandScriptorium();
+
+$pageSize = 5;
+$pageRange = $api->quaggans()->getPageRange($pageSize);
+
+for ($currentPage = $pageRange['first']; $currentPage <= $pageRange['last']; $currentPage++)
+{
+    // Process the pages one by one
+    $pageOfQuaggans = $api->quaggans()->getPage($currentPage, $pageSize);
+}
+```
+
+The above snippet of code will return the following results:
+```php
+/* Example only features the first iteration of the for-loop */
+// $pageOfQuaggans
+array (size=5)
+  0 =>
+    array (size=2)
+      'id' => string '404' (length=3)
+      'url' => string 'https://static.staticwars.com/quaggans/404.jpg' (length=46)
+  1 =>
+    array (size=2)
+      'id' => string 'aloha' (length=5)
+      'url' => string 'https://static.staticwars.com/quaggans/aloha.jpg' (length=48)
+  2 =>
+    array (size=2)
+      'id' => string 'attack' (length=6)
+      'url' => string 'https://static.staticwars.com/quaggans/attack.jpg' (length=49)
+  3 =>
+    array (size=2)
+      'id' => string 'bear' (length=4)
+      'url' => string 'https://static.staticwars.com/quaggans/bear.jpg' (length=47)
+  4 =>
+    array (size=2)
+      'id' => string 'bowl' (length=4)
+      'url' => string 'https://static.staticwars.com/quaggans/bowl.jpg' (length=47)
+```
+
+### Throws
+Never. Invalid page sizes will be ignored and defaulted to 50.
