@@ -26,6 +26,8 @@ class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
     const INVALID_ID = -1;
     const NB_PAGE = 2;
     const ONE_PAGE = 0;
+    const FIRST_PAGE = 0;
+    const LAST_PAGE = 1;
     const VALID_PAGE = 1;
     const INVALID_PAGE = 1;
     const INVALID_PAGE_SIZE = 250;
@@ -131,7 +133,7 @@ class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
 
 	$actual = $this->consumer->getPageRange();
 
-	$expected = ['first' => self::ONE_PAGE, 'last' => self::NB_PAGE];
+	$expected = ['first' => self::FIRST_PAGE, 'last' => self::LAST_PAGE];
 	$this->assertEquals($expected, $actual);
     }
 

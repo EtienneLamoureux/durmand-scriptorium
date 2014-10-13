@@ -21,7 +21,7 @@ Add Durmand Scriptorium to your project's composer.json file:
 ```javascript
 {
     "require": {
-        "crystalgorithm/durmand-scriptorium": "~1.0"
+        "crystalgorithm/durmand-scriptorium": "~1.1"
     }
 }
 ```
