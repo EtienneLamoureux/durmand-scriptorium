@@ -9,6 +9,7 @@ namespace Crystalgorithm\DurmandScriptorium\v2\collection;
 
 use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
+use Crystalgorithm\DurmandScriptorium\utils\JsonFilesIterator;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionConsumer;
 use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionRequestFactory;
@@ -69,6 +70,11 @@ class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
      */
     protected $exception;
 
+    /**
+     * @var JsonFilesIterator
+     */
+    protected $jsonIterator;
+
     protected function setUp()
     {
 	$this->client = Mockery::mock('GuzzleHttp\Client');
@@ -77,6 +83,7 @@ class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
 	$this->request = Mockery::mock('GuzzleHttp\Message\Request');
 	$this->response = Mockery::mock('GuzzleHttp\Message\Response');
 	$this->exception = Mockery::mock('GuzzleHttp\Exception\ClientException');
+	$this->jsonIterator = Mockery::mock('overload:Crystalgorithm\DurmandScriptorium\utils\JsonFilesIterator');
 
 	$this->consumer = new PaginatedCollectionConsumer($this->client, $this->requestFactory, $this->batchRequestManager);
     }
