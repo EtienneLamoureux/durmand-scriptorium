@@ -76,9 +76,10 @@ class BatchRequestManager
 	$this->fileHandles = array();
     }
 
-    protected function saveResponseToFile(Response &$response, $fileName)
+    protected function saveResponseToFile(Response &$response)
     {
-	$reponseSavedToFile = file_put_contents('.\\src\\utils\\json\\' . sizeof($this->fileHandles) . '.json', $response->getBody());
+	$fileName = __DIR__ . '\\json\\' . sizeof($this->fileHandles) . '.json';
+	$reponseSavedToFile = file_put_contents($fileName, $response->getBody());
 
 	if ($reponseSavedToFile != false)
 	{

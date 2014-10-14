@@ -7,19 +7,19 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\utils;
 
-use MultipleIterator;
+use AppendIterator;
 
-class JsonFilesIterator extends MultipleIterator
+class JsonFilesIterator extends AppendIterator
 {
 
-    public function __construct($jsonFileHandles, $firstTopLevelString = null, $jsonStringHasSquareBrackets = true, $flags = null)
+    public function __construct($jsonFileHandles, $firstTopLevelString = null, $jsonStringHasSquareBrackets = true)
     {
+	parent::__construct();
+
 	foreach ($jsonFileHandles as $jsonFileHandle)
 	{
-	    $this->attachIterator(new JsonFileIterator($jsonFileHandle, $firstTopLevelString, $jsonStringHasSquareBrackets));
+	    $this->append(new JsonFileIterator($jsonFileHandle, $firstTopLevelString, $jsonStringHasSquareBrackets));
 	}
-
-	parent::__construct($flags);
     }
 
 }
