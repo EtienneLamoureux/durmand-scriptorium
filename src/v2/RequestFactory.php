@@ -35,7 +35,7 @@ abstract class RequestFactory
 
     protected function buildBaseRequest()
     {
-	return $this->client->createRequest(Settings::GET, Settings::BASE_URL . $this->ENDPOINT_URL);
+	return $this->client->createRequest(Settings::GET, Settings::BASE_URL . $this->ENDPOINT_URL, Settings::$CREATE_REQUEST_OPTIONS);
     }
 
 }

@@ -70,11 +70,6 @@ class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
      */
     protected $exception;
 
-    /**
-     * @var JsonFilesIterator
-     */
-    protected $jsonIterator;
-
     protected function setUp()
     {
 	$this->client = Mockery::mock('GuzzleHttp\Client');
@@ -83,7 +78,6 @@ class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
 	$this->request = Mockery::mock('GuzzleHttp\Message\Request');
 	$this->response = Mockery::mock('GuzzleHttp\Message\Response');
 	$this->exception = Mockery::mock('GuzzleHttp\Exception\ClientException');
-	$this->jsonIterator = Mockery::mock('overload:Crystalgorithm\DurmandScriptorium\utils\JsonFilesIterator');
 
 	$this->consumer = new PaginatedCollectionConsumer($this->client, $this->requestFactory, $this->batchRequestManager);
     }
@@ -144,18 +138,18 @@ class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
 	$this->assertEquals($expected, $actual);
     }
 
-    public function testWhenRequestAllDetailsThenGetAllDetails()
-    {
-	$responses = [$this->response, $this->response];
-
-	$this->requestFactory->shouldReceive('pageRequest')->atLeast(1)->andReturn($this->request);
-	$this->client->shouldReceive('send')->with($this->request)->atLeast(1)->andReturn($this->response);
-	$this->response->shouldReceive('getHeader')->with(Settings::TOTAL_PAGE_HEADER)->once()->andReturn(self::NB_PAGE);
-	$this->response->shouldReceive('json')->atLeast(1)->andReturn([]);
-	$this->batchRequestManager->shouldReceive('executeRequests')->once()->andReturn($responses);
-
-	$this->consumer->getAll(true);
-    }
+//    public function testWhenRequestAllDetailsThenGetAllDetails()
+//    {
+//	$responses = [$this->response, $this->response];
+//
+//	$this->requestFactory->shouldReceive('pageRequest')->atLeast(1)->andReturn($this->request);
+//	$this->client->shouldReceive('send')->with($this->request)->atLeast(1)->andReturn($this->response);
+//	$this->response->shouldReceive('getHeader')->with(Settings::TOTAL_PAGE_HEADER)->once()->andReturn(self::NB_PAGE);
+//	$this->response->shouldReceive('json')->atLeast(1)->andReturn([]);
+//	$this->batchRequestManager->shouldReceive('executeRequests')->once()->andReturn($responses);
+//
+//	$this->consumer->getAll(true);
+//    }
 
     public function testGivenPageThenGet()
     {

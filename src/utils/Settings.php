@@ -32,4 +32,6 @@ class Settings
     const GEMS_ENDPOINT = '/v2/commerce/exchange/gems';
     const COINS_ENDPOINT = '/v2/commerce/exchange/coins';
 
+    public static $CREATE_REQUEST_OPTIONS = ['verify' => false];
+
 }
