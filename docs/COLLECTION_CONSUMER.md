@@ -2,7 +2,7 @@ Collection consumer
 ===================
 The collection consumer is used to interact with collection-type endpoints.
 
-Each method below returns a PHP array equivalent to the JSON data returned by the API.
+Each method below returns a PHP array equivalent to the JSON data returned by the API, unless stated otherwise.
 
 Get
 ---
@@ -15,6 +15,11 @@ public function get($id)
 The *get* method fetches detailed information about one or more element of the collection. It accepts a single ID or an array of IDs.
 
 There is no limit to the size of the array passed in parameter, as a batch request will automatically be built if the number of IDs exceed the limit of the API. However, if you wish to retrieve detailed information about all the elements of the collection, see the *getAll* method.
+
+### Returns
+For an array of 200 or less IDs, this method returns a PHP array equivalent to the JSON data returned by the API.
+
+For an array of more than 200 IDs, it returns an [iterator](http://php.net/manual/en/class.iterator.php) on arrays containing the data for one element of the collection.
 
 ### Example
 ```php
@@ -137,6 +142,11 @@ The *getAll* method has two modes of operation. Without parameters, it will retu
 
 However, by specifying *$expanded = true*, it will instead return the detailed information about each and every element in the collection. Batch requests will be automatically built and sent in parallel to get the data as fast as possible. There is no guaranty on the order of the elements when using *getAll(true)*.
 
+### Returns
+When retrieving all the IDs, this method returns a PHP array equivalent to the JSON data returned by the API.
+
+When fetching the detailed information on each element of the collection, it returns an [iterator](http://php.net/manual/en/class.iterator.php) on arrays containing the data for one element of the collection.
+
 ### Example
 ```php
 use Crystalgorithm\DurmandScriptorium\Facade as DurmandScriptorium;
@@ -149,6 +159,11 @@ $quaggansIds = $api->quaggans()->getAll();
 
 // Get the detailed listings for all the items on the trading post
 $allListings = $api->listings()->getAll(true);
+
+foreach ($allListings as $listings)
+{
+    // process the listings for each item
+}
 ```
 
 The above snippet of code will return the following results:
@@ -191,18 +206,26 @@ array (size=35)
   33 => string 'summer' (length=6)
   34 => string 'vacation' (length=8)
 
-// $allListings
-array (size=22151)
-  0 =>
-    array (size=3)
-      'id' => int 279
-      'buys' =>
-        array (size=20)
-          0 =>
-            array (size=3)
-              ...
-            more elements...
-    more elements...
+/* Example only features the first iteration of the foreach-loop */
+// $listings
+array (size=3)
+  'id' => int 24
+  'buys' =>
+    array (size=30)
+      0 =>
+        array (size=3)
+          'listings' => int 1
+          'unit_price' => int 1105
+          'quantity' => int 3
+      more elements...
+  'sells' =>
+    array (size=7)
+      0 =>
+        array (size=3)
+          'listings' => int 1
+          'unit_price' => int 50000
+          'quantity' => int 58
+      more elements...
 ```
 
 ### Throws
