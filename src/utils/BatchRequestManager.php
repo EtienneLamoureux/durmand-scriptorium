@@ -10,6 +10,7 @@ namespace Crystalgorithm\DurmandScriptorium\utils;
 use GuzzleHttp\Client;
 use GuzzleHttp\Event\CompleteEvent;
 use GuzzleHttp\Event\ErrorEvent;
+use GuzzleHttp\Message\Response;
 
 class BatchRequestManager
 {
@@ -20,9 +21,9 @@ class BatchRequestManager
     protected $client;
 
     /**
-     * @var array Array of Response
+     * @var array Array of file handles
      */
-    protected $aggregatedResponse;
+    protected $fileHandles;
 
     /**
      * @var int nb of maximum parallel requests
@@ -33,14 +34,14 @@ class BatchRequestManager
     {
 	$this->client = $client;
 	$this->parallel = $parallel;
-	$this->aggregatedResponse = array();
+	$this->fileHandles = array();
     }
 
     public function executeRequests(array $requests)
     {
 	set_time_limit(Settings::TIMEOUT_LIMIT_IN_SECONDS);
 	ini_set('memory_limit', Settings::MEMORY_LIMIT);
-	$this->resetAggregatedResponse();
+	$this->resetFileHandles();
 
 	$requestChunks = array_chunk($requests, $this->parallel);
 
@@ -49,7 +50,7 @@ class BatchRequestManager
 	    $this->sendRequestChunk($requestChunk);
 	}
 
-	return $this->aggregatedResponse;
+	return $this->fileHandles;
     }
 
     protected function sendRequestChunk(array $requests)
@@ -57,7 +58,7 @@ class BatchRequestManager
 	$this->client->sendAll($requests, [
 	    'complete' => function (CompleteEvent $event)
 	    {
-		$this->aggregatedResponse[] = $event->getResponse();
+		$this->saveResponseToFile($event->getResponse());
 	    },
 	    'error' => function (ErrorEvent $event)
 	    {
@@ -69,10 +70,20 @@ class BatchRequestManager
 	]);
     }
 
-    protected function resetAggregatedResponse()
+    protected function resetFileHandles()
     {
-	unset($this->aggregatedResponse);
-	$this->aggregatedResponse = array();
+	unset($this->fileHandles);
+	$this->fileHandles = array();
+    }
+
+    protected function saveResponseToFile(Response &$response, $fileName)
+    {
+	$reponseSavedToFile = file_put_contents('.\\src\\utils\\json\\' . sizeof($this->fileHandles) . '.json', $response->getBody());
+
+	if ($reponseSavedToFile != false)
+	{
+	    $this->fileHandles[] = $fileName;
+	}
     }
 
 }

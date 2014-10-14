@@ -9,10 +9,20 @@ namespace Crystalgorithm\DurmandScriptorium\v2\collection;
 
 use Crystalgorithm\DurmandScriptorium\CollectionConsumer;
 use Crystalgorithm\DurmandScriptorium\Consumer;
+use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
+use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
+use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
+use GuzzleHttp\Client;
 
 class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
 {
+
+    public function __construct(Client $client, RequestFactory $requestFactory, BatchRequestManager $batchRequestManager, $idString = null)
+    {
+	parent::__construct($client, $requestFactory, $batchRequestManager);
+	$this->idString = $idString;
+    }
 
     /**
      * {@inheritdoc}

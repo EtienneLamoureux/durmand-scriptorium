@@ -55,16 +55,16 @@ class Facade
 	$batchRequestManager = new BatchRequestManager($client);
 
 	$quaggansRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::QUAGGANS_ENDPOINT);
-	$this->quaggans = new PaginatedCollectionConsumer($client, $quaggansRequestFactory, $batchRequestManager);
+	$this->quaggans = new PaginatedCollectionConsumer($client, $quaggansRequestFactory, $batchRequestManager, 'id');
 
 	$listingsRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::LISTINGS_ENDPOINT);
-	$this->listings = new PaginatedCollectionConsumer($client, $listingsRequestFactory, $batchRequestManager);
+	$this->listings = new PaginatedCollectionConsumer($client, $listingsRequestFactory, $batchRequestManager, 'id');
 
 	$pricesRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::PRICES_ENDPOINT);
-	$this->prices = new PaginatedCollectionConsumer($client, $pricesRequestFactory, $batchRequestManager);
+	$this->prices = new PaginatedCollectionConsumer($client, $pricesRequestFactory, $batchRequestManager, 'id');
 
 	$itemsRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::ITEMS_ENDPOINT);
-	$this->items = new PaginatedCollectionConsumer($client, $itemsRequestFactory, $batchRequestManager);
+	$this->items = new PaginatedCollectionConsumer($client, $itemsRequestFactory, $batchRequestManager, 'name');
 
 	$coinsRequestFactory = new ConverterRequestFactory($client, Settings::COINS_ENDPOINT);
 	$this->coins = new ConverterConsumer($client, $coinsRequestFactory, $batchRequestManager);
