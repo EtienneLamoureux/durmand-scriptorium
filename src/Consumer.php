@@ -9,8 +9,8 @@ namespace Crystalgorithm\DurmandScriptorium;
 
 use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
-use Crystalgorithm\DurmandScriptorium\utils\JsonFilesIterator;
 use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
+use Crystalgorithm\PhpJsonIterator\JsonIteratorFactory;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
@@ -33,15 +33,21 @@ abstract class Consumer
     protected $batchRequestManager;
 
     /**
+     * @var JsonIteratorFactory
+     */
+    protected $jsonIteratorFactory;
+
+    /**
      * @var String
      */
     protected $idString;
 
-    public function __construct(Client $client, RequestFactory $requestFactory, BatchRequestManager $batchRequestManager)
+    public function __construct(Client $client, RequestFactory $requestFactory, BatchRequestManager $batchRequestManager, JsonIteratorFactory $jsonIteratorFactory)
     {
 	$this->client = $client;
 	$this->requestFactory = $requestFactory;
 	$this->batchRequestManager = $batchRequestManager;
+	$this->jsonIteratorFactory = $jsonIteratorFactory;
 	$this->idString = null;
     }
 
@@ -91,7 +97,7 @@ abstract class Consumer
 
     protected function convertResponsesToArray(array $responses)
     {
-	return new JsonFilesIterator($responses, $this->idString);
+	return $this->jsonIteratorFactory->buildJsonFilesIterator($responses, ['firstTopLevelString' => $this->idString]);
     }
 
 }

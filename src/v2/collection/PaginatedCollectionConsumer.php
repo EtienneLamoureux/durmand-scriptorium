@@ -13,14 +13,15 @@ use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
+use Crystalgorithm\PhpJsonIterator\JsonIteratorFactory;
 use GuzzleHttp\Client;
 
 class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
 {
 
-    public function __construct(Client $client, RequestFactory $requestFactory, BatchRequestManager $batchRequestManager, $idString = null)
+    public function __construct(Client $client, RequestFactory $requestFactory, BatchRequestManager $batchRequestManager, JsonIteratorFactory $jsonIteratorFactory, $idString = null)
     {
-	parent::__construct($client, $requestFactory, $batchRequestManager);
+	parent::__construct($client, $requestFactory, $batchRequestManager, $jsonIteratorFactory);
 	$this->idString = $idString;
     }
 

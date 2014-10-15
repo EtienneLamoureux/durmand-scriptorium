@@ -13,7 +13,8 @@
 	}
     ],
     "require": {
-	"guzzlehttp/guzzle": "~5.0"
+	"guzzlehttp/guzzle": "~5.0",
+	"crystalgorithm/php-json-iterator": "0.1.0-alpha2"
     },
     "require-dev": {
 	"phpunit/phpunit": "~4.2",
