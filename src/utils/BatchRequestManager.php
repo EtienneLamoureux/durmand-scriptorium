@@ -9,8 +9,8 @@ namespace Crystalgorithm\DurmandScriptorium\utils;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Event\CompleteEvent;
-use GuzzleHttp\Event\ErrorEvent;
 use GuzzleHttp\Message\Response;
+use GuzzleHttp\Pool;
 
 class BatchRequestManager
 {
@@ -43,37 +43,17 @@ class BatchRequestManager
 	ini_set('memory_limit', Settings::MEMORY_LIMIT);
 	$this->resetFileHandles();
 
-	$requestChunks = array_chunk($requests, $this->parallel);
-
-	foreach ($requestChunks as $requestChunk)
-	{
-	    $this->sendRequestChunk($requestChunk);
-	}
-
-	return $this->fileHandles;
-    }
-
-    protected function sendRequestChunk(array $requests)
-    {
-	$this->client->sendAll($requests, [
+	$pool = new Pool($this->client, $requests, [
 	    'complete' => function (CompleteEvent $event)
 	    {
 		$this->saveResponseToFile($event->getResponse());
 	    },
-	    'error' => function (ErrorEvent $event)
-	    {
-		// TODO log errors
-//		echo 'Request failed: ' . $event->getRequest()->getUrl() . "\n";
-//		echo $event->getException();
-	    },
-	    'parallel' => $this->parallel
+	    'pool_size' => Settings::NB_OF_PARALLEL_REQUESTS
 	]);
-    }
 
-    protected function resetFileHandles()
-    {
-	unset($this->fileHandles);
-	$this->fileHandles = array();
+	$pool->wait();
+
+	return $this->fileHandles;
     }
 
     protected function saveResponseToFile(Response &$response)
@@ -85,6 +65,14 @@ class BatchRequestManager
 	{
 	    $this->fileHandles[] = $fileName;
 	}
+
+	unset($response);
+    }
+
+    protected function resetFileHandles()
+    {
+	unset($this->fileHandles);
+	$this->fileHandles = array();
     }
 
 }

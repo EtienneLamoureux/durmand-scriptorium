@@ -23,7 +23,7 @@ class JsonFileIterator extends JsonIterator
     public function __destruct()
     {
 	parent::__destruct();
-	unlink($this->jsonFileHandle);
+	//unlink($this->jsonFileHandle);
     }
 
 }
