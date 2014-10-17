@@ -45,5 +45,9 @@ class BatchRequestManagerTest extends PHPUnit_Framework_TestCase
 	Mockery::close();
     }
 
-    //TODO
+    public function test()
+    {
+
+    }
+
 }

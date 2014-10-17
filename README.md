@@ -4,7 +4,6 @@ Durmand Scriptorium
 [![Coverage Status](https://img.shields.io/coveralls/EtienneLamoureux/durmand-scriptorium.svg)](https://coveralls.io/r/EtienneLamoureux/durmand-scriptorium)
 [![Dependency Status](https://www.versioneye.com/user/projects/54276b2175d3727f13000228/badge.svg)](https://www.versioneye.com/user/projects/54276b2175d3727f13000228)
 [![Latest Stable Version](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/v/stable.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
-[![Latest Unstable Version](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/v/unstable.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
 [![License](https://poser.pugx.org/crystalgorithm/durmand-scriptorium/license.svg)](https://packagist.org/packages/crystalgorithm/durmand-scriptorium)
 
 PHP package to consume the Guild Wars 2 API, proudly brought to you by Keider.8652
