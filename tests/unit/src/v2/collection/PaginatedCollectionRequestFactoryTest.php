@@ -64,7 +64,7 @@ class PaginatedCollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testGivenValidIdWhenBuildingIdRequestThenBuildIdRequest()
     {
-	$createRequestArgs = [Settings::GET, Settings::BASE_URL . self::COLLECTION_ENDPOINT];
+	$createRequestArgs = [Settings::GET, Settings::BASE_URL . self::COLLECTION_ENDPOINT, Settings::$CREATE_REQUEST_OPTIONS];
 	$setArgs = [Settings::ID, self::VALID_ID];
 
 	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->once()->andReturn($this->request);
@@ -102,7 +102,7 @@ class PaginatedCollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
     {
 	$validIds = [self::VALID_ID, self::VALID_ID];
 	$validIdsString = implode(Settings::ID_SEPARATOR, $validIds);
-	$createRequestArgs = [Settings::GET, Settings::BASE_URL . self::COLLECTION_ENDPOINT];
+	$createRequestArgs = [Settings::GET, Settings::BASE_URL . self::COLLECTION_ENDPOINT, Settings::$CREATE_REQUEST_OPTIONS];
 	$setArgs = [Settings::IDS, $validIdsString];
 
 	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->once()->andReturn($this->request);
@@ -116,7 +116,7 @@ class PaginatedCollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
     {
 	$timesTooBig = 3;
 	$validIds = array_fill(0, $timesTooBig * Settings::MAX_IDS_SINGLE_REQUEST, self::VALID_ID);
-	$createRequestArgs = [Settings::GET, Settings::BASE_URL . self::COLLECTION_ENDPOINT];
+	$createRequestArgs = [Settings::GET, Settings::BASE_URL . self::COLLECTION_ENDPOINT, Settings::$CREATE_REQUEST_OPTIONS];
 
 	$this->client->shouldReceive('createRequest')->withArgs($createRequestArgs)->times($timesTooBig)->andReturn($this->request);
 	$this->request->shouldReceive('getQuery')->times($timesTooBig)->andReturn($this->query);
@@ -127,7 +127,7 @@ class PaginatedCollectionRequestFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testGivenValidPageParamWhenBuildingPageRequestThenBuildPageRequest()
     {
-	$createRequestArgs = [Settings::GET, Settings::BASE_URL . self::COLLECTION_ENDPOINT];
+	$createRequestArgs = [Settings::GET, Settings::BASE_URL . self::COLLECTION_ENDPOINT, Settings::$CREATE_REQUEST_OPTIONS];
 	$setPageArgs = [Settings::PAGE, self::VALID_PAGE];
 	$setPageSizeArgs = [Settings::PAGE_SIZE, self::VALID_PAGE_SIZE];
 

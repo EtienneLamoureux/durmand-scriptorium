@@ -45,13 +45,5 @@ class BatchRequestManagerTest extends PHPUnit_Framework_TestCase
 	Mockery::close();
     }
 
-    public function testGivenRequestsThenExecute()
-    {
-	$requests = [$this->request, $this->request, $this->request, $this->request];
-
-	$this->client->shouldReceive('sendAll')->twice();
-
-	$this->batchRequestManager->executeRequests($requests);
-    }
-
+    //TODO
 }

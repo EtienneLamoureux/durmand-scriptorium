@@ -9,10 +9,10 @@ namespace Crystalgorithm\DurmandScriptorium\v2\collection;
 
 use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
-use Crystalgorithm\DurmandScriptorium\utils\JsonFilesIterator;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionConsumer;
 use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionRequestFactory;
+use Crystalgorithm\PhpJsonIterator\JsonIteratorFactory;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Message\Request;
@@ -70,6 +70,12 @@ class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
      */
     protected $exception;
 
+    /**
+     *
+     * @var JsonIteratorFactory
+     */
+    protected $jsonIteratorFactory;
+
     protected function setUp()
     {
 	$this->client = Mockery::mock('GuzzleHttp\Client');
@@ -78,8 +84,9 @@ class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
 	$this->request = Mockery::mock('GuzzleHttp\Message\Request');
 	$this->response = Mockery::mock('GuzzleHttp\Message\Response');
 	$this->exception = Mockery::mock('GuzzleHttp\Exception\ClientException');
+	$this->jsonIteratorFactory = Mockery::mock('Crystalgorithm\PhpJsonIterator\JsonIteratorFactory');
 
-	$this->consumer = new PaginatedCollectionConsumer($this->client, $this->requestFactory, $this->batchRequestManager);
+	$this->consumer = new PaginatedCollectionConsumer($this->client, $this->requestFactory, $this->batchRequestManager, $this->jsonIteratorFactory);
     }
 
     protected function tearDown()
@@ -138,18 +145,19 @@ class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
 	$this->assertEquals($expected, $actual);
     }
 
-//    public function testWhenRequestAllDetailsThenGetAllDetails()
-//    {
-//	$responses = [$this->response, $this->response];
-//
-//	$this->requestFactory->shouldReceive('pageRequest')->atLeast(1)->andReturn($this->request);
-//	$this->client->shouldReceive('send')->with($this->request)->atLeast(1)->andReturn($this->response);
-//	$this->response->shouldReceive('getHeader')->with(Settings::TOTAL_PAGE_HEADER)->once()->andReturn(self::NB_PAGE);
-//	$this->response->shouldReceive('json')->atLeast(1)->andReturn([]);
-//	$this->batchRequestManager->shouldReceive('executeRequests')->once()->andReturn($responses);
-//
-//	$this->consumer->getAll(true);
-//    }
+    public function testWhenRequestAllDetailsThenGetAllDetails()
+    {
+	$responses = [$this->response, $this->response];
+
+	$this->requestFactory->shouldReceive('pageRequest')->atLeast(1)->andReturn($this->request);
+	$this->client->shouldReceive('send')->with($this->request)->atLeast(1)->andReturn($this->response);
+	$this->response->shouldReceive('getHeader')->with(Settings::TOTAL_PAGE_HEADER)->once()->andReturn(self::NB_PAGE);
+	$this->response->shouldReceive('json')->atLeast(1)->andReturn([]);
+	$this->batchRequestManager->shouldReceive('executeRequests')->once()->andReturn($responses);
+	$this->jsonIteratorFactory->shouldReceive('buildJsonFilesIterator');
+
+	$this->consumer->getAll(true);
+    }
 
     public function testGivenPageThenGet()
     {

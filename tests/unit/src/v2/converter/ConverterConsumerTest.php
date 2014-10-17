@@ -10,6 +10,7 @@ namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
 use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
+use Crystalgorithm\PhpJsonIterator\JsonIteratorFactory;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Message\Request;
@@ -60,6 +61,12 @@ class ConverterConsumerTest extends PHPUnit_Framework_TestCase
      */
     protected $exception;
 
+    /**
+     *
+     * @var JsonIteratorFactory
+     */
+    protected $jsonIteratorFactory;
+
     protected function setUp()
     {
 	$this->client = Mockery::mock('GuzzleHttp\Client');
@@ -68,8 +75,9 @@ class ConverterConsumerTest extends PHPUnit_Framework_TestCase
 	$this->request = Mockery::mock('GuzzleHttp\Message\Request');
 	$this->response = Mockery::mock('GuzzleHttp\Message\Response');
 	$this->exception = Mockery::mock('GuzzleHttp\Exception\ClientException');
+	$this->jsonIteratorFactory = Mockery::mock('Crystalgorithm\PhpJsonIterator\JsonIteratorFactory');
 
-	$this->consumer = new ConverterConsumer($this->client, $this->requestFactory, $this->batchRequestManager);
+	$this->consumer = new ConverterConsumer($this->client, $this->requestFactory, $this->batchRequestManager, $this->jsonIteratorFactory);
     }
 
     protected function tearDown()
