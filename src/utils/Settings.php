@@ -33,5 +33,6 @@ class Settings
     const COINS_ENDPOINT = '/v2/commerce/exchange/coins';
 
     public static $CREATE_REQUEST_OPTIONS = ['verify' => false];
+    public static $LOCALE = Locale::ENGLISH;
 
 }
