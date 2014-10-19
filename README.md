@@ -35,9 +35,9 @@ require 'vendor/autoload.php';
 Durmand Scriptorium uses a number of open source projects to work properly:
 - [Guzzle](https://github.com/guzzle/guzzle) - PHP HTTP client and webservice framework
 - [PHP JSON Iterator](https://github.com/EtienneLamoureux/php-json-iterator) - PHP package to iterate through various JSON formats
-- [PHP Enum](https://github.com/myclabs/php-enum) - PHP Enum implementation inspired from SplEnum.
-- [PHPUnit](https://github.com/sebastianbergmann/phpunit) [dev only] - The PHP Unit Testing framework.
-- [Mockery](https://github.com/padraic/mockery) [dev only] - Simple yet flexible PHP mock object framework.
+- [PHP Enum](https://github.com/myclabs/php-enum) - PHP Enum implementation inspired from SplEnum
+- [PHPUnit](https://github.com/sebastianbergmann/phpunit) [dev only] - The PHP Unit Testing framework
+- [Mockery](https://github.com/padraic/mockery) [dev only] - Simple yet flexible PHP mock object framework
 
 Documentation
 -------------
@@ -55,7 +55,7 @@ Documentation
     - [GetPageRange](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getpagerange)
 - [Converter consumer](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/CONVERTER_CONSUMER.md#converter-consumer)
     - [Convert](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/CONVERTER_CONSUMER.md#convert)
-- [Utilities](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/UTILITIES.md)
+- [Utilities](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/UTILITIES.md#utilities)
     - [Localization](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/UTILITIES.md#localization)
 
 License
