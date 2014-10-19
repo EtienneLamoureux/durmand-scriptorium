@@ -19,6 +19,7 @@ class Settings
     const ID = 'id';
     const IDS = 'ids';
     const PAGE = 'page';
+    const LANG = 'lang';
     const ID_SEPARATOR = ',';
     const PAGE_SIZE = 'page_size';
     const QUANTITY = 'quantity';
@@ -33,6 +34,6 @@ class Settings
     const COINS_ENDPOINT = '/v2/commerce/exchange/coins';
 
     public static $CREATE_REQUEST_OPTIONS = ['verify' => false];
-    public static $LOCALE = Locale::ENGLISH;
+    public static $LOCALE;
 
 }

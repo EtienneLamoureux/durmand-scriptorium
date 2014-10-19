@@ -14,16 +14,18 @@ abstract class RequestFactory
 {
 
     protected $ENDPOINT_URL = '';
+    protected $supportsLocalization;
 
     /**
      * @var Client
      */
     protected $client;
 
-    public function __construct(Client $client, $endpointUrl)
+    public function __construct(Client $client, $endpointUrl, $supportsLocalization = false)
     {
 	$this->client = $client;
 	$this->ENDPOINT_URL = $endpointUrl;
+	$this->supportsLocalization = $supportsLocalization;
     }
 
     public function baseRequest()
@@ -35,7 +37,15 @@ abstract class RequestFactory
 
     protected function buildBaseRequest()
     {
-	return $this->client->createRequest(Settings::GET, Settings::BASE_URL . $this->ENDPOINT_URL, Settings::$CREATE_REQUEST_OPTIONS);
+	$request = $this->client->createRequest(Settings::GET, Settings::BASE_URL . $this->ENDPOINT_URL, Settings::$CREATE_REQUEST_OPTIONS);
+
+	if ($this->supportsLocalization)
+	{
+	    $query = $request->getQuery();
+	    $query->set(Settings::LANG, Settings::$LOCALE);
+	}
+
+	return $request;
     }
 
 }
