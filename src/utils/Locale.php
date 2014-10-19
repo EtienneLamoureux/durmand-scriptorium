@@ -36,7 +36,7 @@ class Locale extends Enum
     const FRENCH = 'fr';
 
     /**
-     * 한국어; Hangugeo
+     * 한국어 (Hangugeo)
      */
     const KOREAN = 'ko';
 

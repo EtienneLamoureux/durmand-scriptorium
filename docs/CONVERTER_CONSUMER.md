@@ -1,5 +1,5 @@
 Converter consumer
-===================
+===
 The converter consumer is used to interact with converter-type endpoints.
 
 Each method below returns a PHP array equivalent to the JSON data returned by the API.

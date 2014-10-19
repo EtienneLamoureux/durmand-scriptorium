@@ -54,6 +54,8 @@ Documentation
     - [GetPageRange](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getpagerange)
 - [Converter consumer](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/CONVERTER_CONSUMER.md#converter-consumer)
     - [Convert](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/CONVERTER_CONSUMER.md#convert)
+- [Utilities](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/UTILITIES.md)
+    - [Localization](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/UTILITIES.md#localization)
 
 License
 -------
