@@ -1,5 +1,5 @@
 Supported endpoints
-===================
+===
 This is a list of the [Guild Wars 2 API](http://wiki.guildwars2.com/wiki/API:Main) endpoints currently supported by Durmand Scriptorium. If a resource is accessible by more than one version of the API, the latest is used whenever possible.
 
 Quaggans

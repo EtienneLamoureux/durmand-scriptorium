@@ -1,5 +1,5 @@
 Collection consumer
-===================
+===
 The collection consumer is used to interact with collection-type endpoints.
 
 Each method below returns a PHP array equivalent to the JSON data returned by the API, unless stated otherwise.

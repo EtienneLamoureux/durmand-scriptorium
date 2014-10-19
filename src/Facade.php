@@ -8,6 +8,7 @@
 namespace Crystalgorithm\DurmandScriptorium;
 
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
+use Crystalgorithm\DurmandScriptorium\utils\Locale;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionConsumer;
 use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionRequestFactory;
@@ -49,8 +50,10 @@ class Facade
      */
     protected $gems;
 
-    public function __construct()
+    public function __construct($localeCode = Locale::ENGLISH)
     {
+	$this->setLocale($localeCode);
+
 	$client = new Client();
 
 	$batchRequestManager = new BatchRequestManager($client);
@@ -65,7 +68,7 @@ class Facade
 	$pricesRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::PRICES_ENDPOINT);
 	$this->prices = new PaginatedCollectionConsumer($client, $pricesRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'id');
 
-	$itemsRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::ITEMS_ENDPOINT);
+	$itemsRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::ITEMS_ENDPOINT, true);
 	$this->items = new PaginatedCollectionConsumer($client, $itemsRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'name');
 
 	$coinsRequestFactory = new ConverterRequestFactory($client, Settings::COINS_ENDPOINT);
@@ -121,6 +124,17 @@ class Facade
     public function gems()
     {
 	return $this->gems;
+    }
+
+    /**
+     * @param string $localeCode ISO 639-1 locale code
+     * @see Locale
+     * @throws \UnexpectedValueException if given an unsupported locale code
+     */
+    public function setLocale($localeCode)
+    {
+	$locale = new Locale($localeCode);
+	Settings::$LOCALE = $locale->getValue();
     }
 
 }
