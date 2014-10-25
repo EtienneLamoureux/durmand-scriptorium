@@ -32,6 +32,7 @@ class Settings
     const ITEMS_ENDPOINT = '/v2/items';
     const GEMS_ENDPOINT = '/v2/commerce/exchange/gems';
     const COINS_ENDPOINT = '/v2/commerce/exchange/coins';
+    const WORLDS_ENDPOINT = '/v2/worlds';
 
     public static $CREATE_REQUEST_OPTIONS = ['verify' => false];
     public static $LOCALE;

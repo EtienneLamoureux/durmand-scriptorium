@@ -50,6 +50,12 @@ class Facade
      */
     protected $gems;
 
+    /**
+     *
+     * @param PaginatedCollectionConsumer
+     */
+    protected $worlds;
+
     public function __construct($localeCode = Locale::ENGLISH)
     {
 	$this->setLocale($localeCode);
@@ -76,6 +82,9 @@ class Facade
 
 	$gemsRequestFactory = new ConverterRequestFactory($client, Settings::GEMS_ENDPOINT);
 	$this->gems = new ConverterConsumer($client, $gemsRequestFactory, $batchRequestManager, $jsonIteratorFactory);
+
+	$worldsRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::WORLDS_ENDPOINT, true);
+	$this->worlds = new PaginatedCollectionConsumer($client, $worldsRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'id');
     }
 
     /**
@@ -119,11 +128,20 @@ class Facade
     }
 
     /**
-     * @return ConverterConsumer
+     * @return PaginatedCollectionConsumer
      */
     public function gems()
     {
 	return $this->gems;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    public function worlds()
+    {
+	return $this->worlds;
     }
 
     /**
