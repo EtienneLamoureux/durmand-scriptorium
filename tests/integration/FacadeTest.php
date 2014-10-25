@@ -40,6 +40,13 @@ class FacadeTest extends PHPUnit_Framework_TestCase
 	$this->assertNotNull($data);
     }
 
+    public function testCanReachWorlds()
+    {
+	$data = $this->api->worlds()->getAll();
+
+	$this->assertNotNull($data);
+    }
+
     public function testCanReachListings()
     {
 	$data = $this->api->listings()->getAll();
