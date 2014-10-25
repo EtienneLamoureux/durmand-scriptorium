@@ -40,6 +40,6 @@ For more information, see the [official documentation](http://wiki.guildwars2.co
 
 Worlds
 ---
-The items endpoint is a [collection-type](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#collection-consumer) endpoint. This resource returns information about the available worlds, or servers.
+The worlds endpoint is a [collection-type](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#collection-consumer) endpoint. This resource returns information about the available worlds, or servers.
 
 For more information, see the [official documentation](http://wiki.guildwars2.com/wiki/API:2/worlds).
