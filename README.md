@@ -48,6 +48,7 @@ Documentation
     - [Prices](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/SUPPORTED_ENDPOINTS.md#prices)
     - [Coins](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/SUPPORTED_ENDPOINTS.md#coins)
     - [Gems](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/SUPPORTED_ENDPOINTS.md#gems)
+    - [Worlds](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/SUPPORTED_ENDPOINTS.md#worlds)
 - [Collection consumer](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#collection-consumer)
     - [Get](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#get)
     - [GetAll](https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getall)
