@@ -51,10 +51,14 @@ class Facade
     protected $gems;
 
     /**
-     *
-     * @param PaginatedCollectionConsumer
+     * @var PaginatedCollectionConsumer
      */
     protected $worlds;
+
+    /**
+     * @var PaginatedCollectionConsumer
+     */
+    protected $recipes;
 
     public function __construct($localeCode = Locale::ENGLISH)
     {
@@ -85,6 +89,9 @@ class Facade
 
 	$worldsRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::WORLDS_ENDPOINT, true);
 	$this->worlds = new PaginatedCollectionConsumer($client, $worldsRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'id');
+
+	$receipesRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::RECIPES_ENDPOINT, true);
+	$this->recipes = new PaginatedCollectionConsumer($client, $receipesRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'type');
     }
 
     /**
@@ -128,7 +135,7 @@ class Facade
     }
 
     /**
-     * @return PaginatedCollectionConsumer
+     * @return ConverterConsumer
      */
     public function gems()
     {
@@ -137,11 +144,20 @@ class Facade
 
     /**
      *
-     * @return type
+     * @return PaginatedCollectionConsumer
      */
     public function worlds()
     {
 	return $this->worlds;
+    }
+
+    /**
+     *
+     * @return PaginatedCollectionConsumer
+     */
+    public function recipes()
+    {
+	return $this->recipes;
     }
 
     /**
