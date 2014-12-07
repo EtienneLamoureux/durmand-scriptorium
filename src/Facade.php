@@ -14,8 +14,11 @@ use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionConsumer;
 use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionRequestFactory;
 use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterConsumer;
 use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
+use Crystalgorithm\DurmandScriptorium\v2\search\RecipesSearchConsumer;
+use Crystalgorithm\DurmandScriptorium\v2\search\SearchRequestFactory;
 use Crystalgorithm\PhpJsonIterator\JsonIteratorFactory;
 use GuzzleHttp\Client;
+use UnexpectedValueException;
 
 class Facade
 {
@@ -60,6 +63,11 @@ class Facade
      */
     protected $recipes;
 
+    /**
+     * @var RecipesSearchConsumer
+     */
+    protected $recipesSearch;
+
     public function __construct($localeCode = Locale::ENGLISH)
     {
 	$this->setLocale($localeCode);
@@ -92,6 +100,9 @@ class Facade
 
 	$receipesRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::RECIPES_ENDPOINT, true);
 	$this->recipes = new PaginatedCollectionConsumer($client, $receipesRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'type');
+
+	$recipesSearchRequestFactory = new SearchRequestFactory($client, Settings::RECIPES_SEARCH_ENDPOINT, true);
+	$this->recipesSearch = new RecipesSearchConsumer($client, $recipesSearchRequestFactory, $batchRequestManager, $jsonIteratorFactory);
     }
 
     /**
@@ -161,9 +172,18 @@ class Facade
     }
 
     /**
+     *
+     * @return RecipesSearchConsumer
+     */
+    public function recipesSearch()
+    {
+	return $this->recipesSearch;
+    }
+
+    /**
      * @param string $localeCode ISO 639-1 locale code
      * @see Locale
-     * @throws \UnexpectedValueException if given an unsupported locale code
+     * @throws UnexpectedValueException if given an unsupported locale code
      */
     public function setLocale($localeCode)
     {

@@ -82,6 +82,13 @@ class FacadeTest extends PHPUnit_Framework_TestCase
 	$this->assertNotNull($data);
     }
 
+    public function testCanReachRecipes()
+    {
+	$data = $this->api->recipes()->getAll();
+
+	$this->assertNotNull($data);
+    }
+
     /**
      * TODO make functional
      */

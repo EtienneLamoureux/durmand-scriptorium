@@ -23,6 +23,8 @@ class Settings
     const ID_SEPARATOR = ',';
     const PAGE_SIZE = 'page_size';
     const QUANTITY = 'quantity';
+    const INPUT = 'input';
+    const OUTPUT = 'output';
     const GET = 'GET';
     const TOTAL_PAGE_HEADER = 'x-page-total';
     const BASE_URL = 'https://api.guildwars2.com';
@@ -34,6 +36,7 @@ class Settings
     const COINS_ENDPOINT = '/v2/commerce/exchange/coins';
     const WORLDS_ENDPOINT = '/v2/worlds';
     const RECIPES_ENDPOINT = '/v2/recipes';
+    const RECIPES_SEARCH_ENDPOINT = '/v2/recipes/search';
 
     public static $CREATE_REQUEST_OPTIONS = ['verify' => false];
     public static $LOCALE;
