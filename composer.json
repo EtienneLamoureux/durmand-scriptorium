@@ -15,7 +15,7 @@
     "require": {
 	"guzzlehttp/guzzle": "~5.0",
 	"crystalgorithm/php-json-iterator": "0.1.0-alpha2",
-	"myclabs/php-enum": "1.2.1"
+	"myclabs/php-enum": "~1.3"
     },
     "require-dev": {
 	"phpunit/phpunit": "~4.2",
