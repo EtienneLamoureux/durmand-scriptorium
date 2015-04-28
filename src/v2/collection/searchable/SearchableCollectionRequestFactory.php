@@ -8,10 +8,10 @@
 namespace Crystalgorithm\DurmandScriptorium\v2\collection\searchable;
 
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
-use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
+use Crystalgorithm\DurmandScriptorium\v2\collection\paginated\PaginatedCollectionRequestFactory;
 use InvalidArgumentException;
 
-class SearchRequestFactory extends RequestFactory
+class SearchableCollectionRequestFactory extends PaginatedCollectionRequestFactory
 {
 
     public function searchRequest($id, $argument = Settings::INPUT)

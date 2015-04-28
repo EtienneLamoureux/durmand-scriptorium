@@ -13,7 +13,8 @@ use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\collection\paginated\PaginatedCollectionConsumer;
 use Crystalgorithm\DurmandScriptorium\v2\collection\paginated\PaginatedCollectionRequestFactory;
 use Crystalgorithm\DurmandScriptorium\v2\collection\searchable\RecipesSearchConsumer;
-use Crystalgorithm\DurmandScriptorium\v2\collection\searchable\SearchRequestFactory;
+use Crystalgorithm\DurmandScriptorium\v2\collection\searchable\SearchableCollectionConsumer;
+use Crystalgorithm\DurmandScriptorium\v2\collection\searchable\SearchableCollectionRequestFactory;
 use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterConsumer;
 use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
 use Crystalgorithm\PhpJsonIterator\JsonIteratorFactory;
@@ -98,11 +99,8 @@ class Facade
 	$worldsRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::WORLDS_ENDPOINT, true);
 	$this->worlds = new PaginatedCollectionConsumer($client, $worldsRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'id');
 
-	$receipesRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::RECIPES_ENDPOINT, true);
-	$this->recipes = new PaginatedCollectionConsumer($client, $receipesRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'type');
-
-	$recipesSearchRequestFactory = new SearchRequestFactory($client, Settings::RECIPES_SEARCH_ENDPOINT, true);
-	$this->recipesSearch = new RecipesSearchConsumer($client, $recipesSearchRequestFactory, $batchRequestManager, $jsonIteratorFactory);
+	$receipesRequestFactory = new SearchableCollectionRequestFactory($client, Settings::RECIPES_ENDPOINT, true);
+	$this->recipes = new SearchableCollectionConsumer($client, $receipesRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'type');
     }
 
     /**
@@ -169,15 +167,6 @@ class Facade
     public function recipes()
     {
 	return $this->recipes;
-    }
-
-    /**
-     *
-     * @return RecipesSearchConsumer
-     */
-    public function recipesSearch()
-    {
-	return $this->recipesSearch;
     }
 
     /**

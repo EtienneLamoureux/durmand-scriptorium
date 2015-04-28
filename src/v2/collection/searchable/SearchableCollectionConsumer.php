@@ -7,13 +7,13 @@
  */
 namespace Crystalgorithm\DurmandScriptorium\v2\collection\searchable;
 
-use Crystalgorithm\DurmandScriptorium\Consumer;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
+use Crystalgorithm\DurmandScriptorium\v2\collection\paginated\PaginatedCollectionConsumer;
 
 /**
  * @link https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/RECIPES_SEARCH_CONSUMER.md documentation
  */
-class RecipesSearchConsumer extends Consumer implements SearchConsumer
+class SearchableCollectionConsumer extends PaginatedCollectionConsumer
 {
 
     /**
