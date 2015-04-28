@@ -11,12 +11,9 @@ use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
 use Crystalgorithm\DurmandScriptorium\utils\Locale;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\collection\paginated\PaginatedCollectionConsumer;
-use Crystalgorithm\DurmandScriptorium\v2\collection\paginated\PaginatedCollectionRequestFactory;
-use Crystalgorithm\DurmandScriptorium\v2\collection\searchable\RecipesSearchConsumer;
 use Crystalgorithm\DurmandScriptorium\v2\collection\searchable\SearchableCollectionConsumer;
-use Crystalgorithm\DurmandScriptorium\v2\collection\searchable\SearchableCollectionRequestFactory;
+use Crystalgorithm\DurmandScriptorium\v2\ConsumerFactory;
 use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterConsumer;
-use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
 use Crystalgorithm\PhpJsonIterator\JsonIteratorFactory;
 use GuzzleHttp\Client;
 use UnexpectedValueException;
@@ -60,47 +57,27 @@ class Facade
     protected $worlds;
 
     /**
-     * @var PaginatedCollectionConsumer
+     * @var SearchableCollectionConsumer
      */
     protected $recipes;
-
-    /**
-     * @var RecipesSearchConsumer
-     */
-    protected $recipesSearch;
 
     public function __construct($localeCode = Locale::ENGLISH)
     {
 	$this->setLocale($localeCode);
 
 	$client = new Client();
-
 	$batchRequestManager = new BatchRequestManager($client);
 	$jsonIteratorFactory = new JsonIteratorFactory();
+	$consumerFactory = new ConsumerFactory($client, $batchRequestManager, $jsonIteratorFactory);
 
-	$quaggansRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::QUAGGANS_ENDPOINT);
-	$this->quaggans = new PaginatedCollectionConsumer($client, $quaggansRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'id');
-
-	$listingsRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::LISTINGS_ENDPOINT);
-	$this->listings = new PaginatedCollectionConsumer($client, $listingsRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'id');
-
-	$pricesRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::PRICES_ENDPOINT);
-	$this->prices = new PaginatedCollectionConsumer($client, $pricesRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'id');
-
-	$itemsRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::ITEMS_ENDPOINT, true);
-	$this->items = new PaginatedCollectionConsumer($client, $itemsRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'name');
-
-	$coinsRequestFactory = new ConverterRequestFactory($client, Settings::COINS_ENDPOINT);
-	$this->coins = new ConverterConsumer($client, $coinsRequestFactory, $batchRequestManager, $jsonIteratorFactory);
-
-	$gemsRequestFactory = new ConverterRequestFactory($client, Settings::GEMS_ENDPOINT);
-	$this->gems = new ConverterConsumer($client, $gemsRequestFactory, $batchRequestManager, $jsonIteratorFactory);
-
-	$worldsRequestFactory = new PaginatedCollectionRequestFactory($client, Settings::WORLDS_ENDPOINT, true);
-	$this->worlds = new PaginatedCollectionConsumer($client, $worldsRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'id');
-
-	$receipesRequestFactory = new SearchableCollectionRequestFactory($client, Settings::RECIPES_ENDPOINT, true);
-	$this->recipes = new SearchableCollectionConsumer($client, $receipesRequestFactory, $batchRequestManager, $jsonIteratorFactory, 'type');
+	$this->quaggans = $consumerFactory->buildQuaggansConsumer();
+	$this->listings = $consumerFactory->buildListingsConsumer();
+	$this->prices = $consumerFactory->buildPricesConsumer();
+	$this->items = $consumerFactory->buildItemsConsumer();
+	$this->coins = $consumerFactory->buildCoinsConsumer();
+	$this->gems = $consumerFactory->buildGemsConsumer();
+	$this->worlds = $consumerFactory->buildWorldsConsumer();
+	$this->recipes = $consumerFactory->buildRecipesConsumer();
     }
 
     /**
