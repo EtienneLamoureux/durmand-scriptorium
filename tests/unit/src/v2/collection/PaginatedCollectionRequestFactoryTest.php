@@ -8,6 +8,7 @@
 namespace Crystalgorithm\DurmandScriptorium\v2\collection;
 
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
+use Crystalgorithm\DurmandScriptorium\v2\collection\paginated\PaginatedCollectionRequestFactory;
 use GuzzleHttp\Client;
 use GuzzleHttp\Message\Request;
 use GuzzleHttp\Query;

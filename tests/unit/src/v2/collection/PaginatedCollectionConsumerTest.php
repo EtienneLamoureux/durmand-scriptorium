@@ -10,8 +10,8 @@ namespace Crystalgorithm\DurmandScriptorium\v2\collection;
 use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
 use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
-use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionConsumer;
-use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionRequestFactory;
+use Crystalgorithm\DurmandScriptorium\v2\collection\paginated\PaginatedCollectionConsumer;
+use Crystalgorithm\DurmandScriptorium\v2\collection\paginated\PaginatedCollectionRequestFactory;
 use Crystalgorithm\PhpJsonIterator\JsonIteratorFactory;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -79,7 +79,7 @@ class PaginatedCollectionConsumerTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
 	$this->client = Mockery::mock('GuzzleHttp\Client');
-	$this->requestFactory = Mockery::mock('Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionRequestFactory');
+	$this->requestFactory = Mockery::mock('Crystalgorithm\DurmandScriptorium\v2\collection\paginated\PaginatedCollectionRequestFactory');
 	$this->batchRequestManager = Mockery::mock('Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager');
 	$this->request = Mockery::mock('GuzzleHttp\Message\Request');
 	$this->response = Mockery::mock('GuzzleHttp\Message\Response');

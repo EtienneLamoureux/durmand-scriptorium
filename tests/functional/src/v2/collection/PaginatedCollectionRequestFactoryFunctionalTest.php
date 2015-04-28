@@ -8,8 +8,7 @@
 namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
-use Crystalgorithm\DurmandScriptorium\v2\collection\PaginatedCollectionRequestFactory;
-use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
+use Crystalgorithm\DurmandScriptorium\v2\collection\paginated\PaginatedCollectionRequestFactory;
 use GuzzleHttp\Client;
 use PHPUnit_Framework_TestCase;
 
@@ -75,7 +74,7 @@ class PaginatedCollectionRequestFactoryFunctionalTest extends PHPUnit_Framework_
 
     protected function setDefaultExpectations()
     {
-	
+
     }
 
 }

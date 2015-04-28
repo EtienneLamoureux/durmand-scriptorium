@@ -8,7 +8,6 @@
 namespace Crystalgorithm\DurmandScriptorium\v2\converter;
 
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
-use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterRequestFactory;
 use GuzzleHttp\Client;
 use PHPUnit_Framework_TestCase;
 
