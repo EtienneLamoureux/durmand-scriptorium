@@ -8,10 +8,11 @@ php:
 before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --dev --no-interaction
+  - php composer.phar require satooshi/php-coveralls --dev
 
 script:
   - mkdir -p build/logs
-  - php vendor/bin/phpunit -c phpunit.xml
+  - php vendor/bin/phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml
 
 after_script:
   - php vendor/bin/coveralls
