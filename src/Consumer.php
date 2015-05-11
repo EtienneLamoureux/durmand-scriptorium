@@ -7,12 +7,9 @@
  */
 namespace Crystalgorithm\DurmandScriptorium;
 
-use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
-use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
+use Crystalgorithm\DurmandScriptorium\utils\http\Client;
 use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
 use Crystalgorithm\PhpJsonIterator\JsonIteratorFactory;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 
 abstract class Consumer
 {
@@ -28,11 +25,6 @@ abstract class Consumer
     protected $client;
 
     /**
-     * @var BatchRequestManager
-     */
-    protected $batchRequestManager;
-
-    /**
      * @var JsonIteratorFactory
      */
     protected $jsonIteratorFactory;
@@ -42,11 +34,10 @@ abstract class Consumer
      */
     protected $idString;
 
-    public function __construct(Client $client, RequestFactory $requestFactory, BatchRequestManager $batchRequestManager, JsonIteratorFactory $jsonIteratorFactory)
+    public function __construct(Client $client, RequestFactory $requestFactory, JsonIteratorFactory $jsonIteratorFactory)
     {
 	$this->client = $client;
 	$this->requestFactory = $requestFactory;
-	$this->batchRequestManager = $batchRequestManager;
 	$this->jsonIteratorFactory = $jsonIteratorFactory;
 	$this->idString = null;
     }
@@ -63,24 +54,14 @@ abstract class Consumer
     {
 	if (is_array($request))
 	{
-	    return $this->getResponses($request);
+	    $response = $this->client->sendRequests($request);
 	}
-
-	try
+	else
 	{
-	    $response = $this->client->send($request);
-	}
-	catch (ClientException $ex)
-	{
-	    throw new BadRequestException($ex->getResponse()->json()['text']);
+	    $response = $this->client->sendRequest($request);
 	}
 
 	return $response;
-    }
-
-    protected function getResponses(array $requests)
-    {
-	return $this->batchRequestManager->executeRequests($requests);
     }
 
     protected function convertResponseToArray($response)

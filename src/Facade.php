@@ -139,7 +139,7 @@ class Facade
 
     /**
      *
-     * @return PaginatedCollectionConsumer
+     * @return SearchableCollectionConsumer
      */
     public function recipes()
     {
