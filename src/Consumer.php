@@ -8,6 +8,7 @@
 namespace Crystalgorithm\DurmandScriptorium;
 
 use Crystalgorithm\DurmandScriptorium\utils\http\Client;
+use Crystalgorithm\DurmandScriptorium\utils\http\HttpClient;
 use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
 use Crystalgorithm\PhpJsonIterator\JsonIteratorFactory;
 
@@ -22,7 +23,7 @@ abstract class Consumer
     /**
      * @var Client
      */
-    protected $client;
+    protected $httpClient;
 
     /**
      * @var JsonIteratorFactory
@@ -34,9 +35,9 @@ abstract class Consumer
      */
     protected $idString;
 
-    public function __construct(Client $client, RequestFactory $requestFactory, JsonIteratorFactory $jsonIteratorFactory)
+    public function __construct(HttpClient $httpClient, RequestFactory $requestFactory, JsonIteratorFactory $jsonIteratorFactory)
     {
-	$this->client = $client;
+	$this->httpClient = $httpClient;
 	$this->requestFactory = $requestFactory;
 	$this->jsonIteratorFactory = $jsonIteratorFactory;
 	$this->idString = null;
@@ -54,11 +55,11 @@ abstract class Consumer
     {
 	if (is_array($request))
 	{
-	    $response = $this->client->sendRequests($request);
+	    $response = $this->httpClient->sendRequests($request);
 	}
 	else
 	{
-	    $response = $this->client->sendRequest($request);
+	    $response = $this->httpClient->sendRequest($request);
 	}
 
 	return $response;
@@ -68,10 +69,12 @@ abstract class Consumer
     {
 	if (is_array($response))
 	{
-	    return $this->convertResponsesToArray($response);
+	    $iterator = $this->convertResponsesToArray($response);
 	}
-
-	$iterator = $response->json();
+	else
+	{
+	    $iterator = $response->json();
+	}
 
 	return $iterator;
     }

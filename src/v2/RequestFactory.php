@@ -17,35 +17,33 @@ abstract class RequestFactory
     protected $supportsLocalization;
 
     /**
-     * @var Client
+     * @var HttpClient
      */
-    protected $client;
+    protected $httpClient;
 
-    public function __construct(Client $client, $endpointUrl, $supportsLocalization = false)
+    public function __construct(HttpClient $httpClient, $endpointUrl, $supportsLocalization = false)
     {
-	$this->client = $client;
+	$this->httpClient = $httpClient;
 	$this->ENDPOINT_URL = $endpointUrl;
 	$this->supportsLocalization = $supportsLocalization;
     }
 
-    public function baseRequest()
+    public function buildBaseRequest()
     {
-	$request = $this->buildBaseRequest($this->client);
+	$request = $this->httpClient->buildGetRequest(Settings::GET, Settings::BASE_URL . $this->ENDPOINT_URL, Settings::$CREATE_REQUEST_OPTIONS);
+
+	localizeRequest($request);
 
 	return $request;
     }
 
-    protected function buildBaseRequest()
+    protected function localizeRequest($request)
     {
-	$request = $this->client->createRequest(Settings::GET, Settings::BASE_URL . $this->ENDPOINT_URL, Settings::$CREATE_REQUEST_OPTIONS);
-
 	if ($this->supportsLocalization)
 	{
 	    $query = $request->getQuery();
 	    $query->set(Settings::LANG, Settings::$LOCALE);
 	}
-
-	return $request;
     }
 
 }

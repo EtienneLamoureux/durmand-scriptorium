@@ -17,6 +17,13 @@ interface CollectionConsumer
 {
 
     /**
+     * @link https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getall documentation
+     * @param bool $expanded
+     * @return array
+     */
+    public function getAllIds($expanded);
+
+    /**
      * @link https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#get documentation
      * @param int|string $id
      * @return array
@@ -25,10 +32,7 @@ interface CollectionConsumer
      */
     public function get($id);
 
-    /**
-     * @link https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getall documentation
-     * @param bool $expanded
-     * @return array
-     */
-    public function getAll($expanded);
+    public function getMany(array $ids);
+
+    public function getAll();
 }

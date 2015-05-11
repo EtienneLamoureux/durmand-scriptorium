@@ -1,14 +1,14 @@
 <?php
 
-namespace Crystalgorithm\DurmandScriptorium\utils\http\guzzle;
+namespace Crystalgorithm\DurmandScriptorium\http\guzzle;
 
-use Crystalgorithm\DurmandScriptorium\utils\http\Client;
-use Crystalgorithm\DurmandScriptorium\utils\http\exceptions\BadRequestException;
-use Crystalgorithm\DurmandScriptorium\utils\http\HttpClient;
-use Crystalgorithm\DurmandScriptorium\utils\http\Request;
+use Crystalgorithm\DurmandScriptorium\http\exceptions\BadRequestException;
+use Crystalgorithm\DurmandScriptorium\http\HttpClient;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
+use GuzzleHttp\Client;
 use GuzzleHttp\Event\CompleteEvent;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Message\Request;
 use GuzzleHttp\Message\Response;
 use GuzzleHttp\Pool;
 
@@ -29,6 +29,14 @@ class GuzzleClientAdaptor implements HttpClient
     {
 	$this->guzzleClient = $guzzleClient;
 	$this->fileHandles = array();
+    }
+
+    public function buildGetRequest($method, $url, array $options = [])
+    {
+	$guzzleRequest = $this->guzzleClient->createRequest($method, $url, $options);
+	$request = GuzzleRequestAdaptor($guzzleRequest);
+
+	return $request;
     }
 
     public function sendRequest(Request $request)

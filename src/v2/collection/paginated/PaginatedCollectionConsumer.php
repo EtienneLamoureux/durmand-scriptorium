@@ -8,21 +8,31 @@
 namespace Crystalgorithm\DurmandScriptorium\v2\collection\paginated;
 
 use Crystalgorithm\DurmandScriptorium\Consumer;
-use Crystalgorithm\DurmandScriptorium\exceptions\BadRequestException;
-use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
+use Crystalgorithm\DurmandScriptorium\http\exceptions\BadRequestException;
+use Crystalgorithm\DurmandScriptorium\http\HttpClient;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\collection\CollectionConsumer;
-use Crystalgorithm\DurmandScriptorium\v2\RequestFactory;
 use Crystalgorithm\PhpJsonIterator\JsonIteratorFactory;
-use GuzzleHttp\Client;
+use Guzzle\Http\Message\RequestFactory;
 
 class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
 {
 
-    public function __construct(Client $client, RequestFactory $requestFactory, BatchRequestManager $batchRequestManager, JsonIteratorFactory $jsonIteratorFactory, $idString = null)
+    public function __construct(HttpClient $httpClient, RequestFactory $requestFactory, JsonIteratorFactory $jsonIteratorFactory, $idString = null)
     {
-	parent::__construct($client, $requestFactory, $batchRequestManager, $jsonIteratorFactory);
+	parent::__construct($httpClient, $requestFactory, $jsonIteratorFactory);
 	$this->idString = $idString;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAllIds()
+    {
+	$request = $this->requestFactory->baseRequest();
+	$data = $this->getDataFromApi($request);
+
+	return $data;
     }
 
     /**
@@ -41,35 +51,27 @@ class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
 	return $data;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getAll($expanded = false)
+    public function getMany(array $ids)
     {
-	if ($expanded)
+	if (sizeof($ids) <= 0)
 	{
-	    return $this->getAllPages();
+	    return array();
 	}
 
-	$request = $this->requestFactory->baseRequest();
+	$request = $this->requestFactory->idsRequest($ids);
 	$data = $this->getDataFromApi($request);
 
 	return $data;
     }
 
-    /**
-     * @link https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getpage documentation
-     * @param int $page
-     * @param int $pageSize
-     * @return array
-     * @throws BadRequestException
-     */
-    public function getPage($page, $pageSize = null)
+    public function getAll()
     {
-	$request = $this->requestFactory->pageRequest($page, $pageSize);
-	$data = $this->getDataFromApi($request);
+	$pageRange = $this->getPageRange(Settings::MAX_PAGE_SIZE);
 
-	return $data;
+	$requests = $this->buildPagesRequests($pageRange['first'], $pageRange['last']);
+	$iterator = $this->getDataFromApi($requests);
+
+	return $iterator;
     }
 
     /**
@@ -88,27 +90,19 @@ class PaginatedCollectionConsumer extends Consumer implements CollectionConsumer
 	return $pageRange;
     }
 
-    protected function getMany(array $ids)
+    /**
+     * @link https://github.com/EtienneLamoureux/durmand-scriptorium/blob/master/docs/COLLECTION_CONSUMER.md#getpage documentation
+     * @param int $page
+     * @param int $pageSize
+     * @return array
+     * @throws BadRequestException
+     */
+    public function getPage($page, $pageSize = null)
     {
-	if (sizeof($ids) <= 0)
-	{
-	    return array();
-	}
-
-	$request = $this->requestFactory->idsRequest($ids);
+	$request = $this->requestFactory->pageRequest($page, $pageSize);
 	$data = $this->getDataFromApi($request);
 
 	return $data;
-    }
-
-    protected function getAllPages()
-    {
-	$pageRange = $this->getPageRange(Settings::MAX_PAGE_SIZE);
-
-	$requests = $this->buildPagesRequests($pageRange['first'], $pageRange['last']);
-	$iterator = $this->getDataFromApi($requests);
-
-	return $iterator;
     }
 
     protected function buildPagesRequests($firstPage, $lastPage)

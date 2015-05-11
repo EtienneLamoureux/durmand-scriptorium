@@ -5,7 +5,7 @@
  * @copyright 2014 Etienne Lamoureux
  * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  */
-namespace Crystalgorithm\DurmandScriptorium\utils\http\exceptions;
+namespace Crystalgorithm\DurmandScriptorium\http\exceptions;
 
 class BadRequestException extends \RuntimeException
 {
