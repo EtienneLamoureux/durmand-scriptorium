@@ -36,7 +36,7 @@ class Settings
     const COINS_ENDPOINT = '/v2/commerce/exchange/coins';
     const WORLDS_ENDPOINT = '/v2/worlds';
     const RECIPES_ENDPOINT = '/v2/recipes';
-    const RECIPES_SEARCH_ENDPOINT = '/v2/recipes/search';
+    const SEARCH_ENDPOINT_SUFFIX = '/search';
 
     public static $CREATE_REQUEST_OPTIONS = ['verify' => false];
     public static $LOCALE;
