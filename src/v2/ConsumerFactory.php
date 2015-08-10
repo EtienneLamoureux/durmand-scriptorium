@@ -19,20 +19,18 @@ class ConsumerFactory
 {
 
     private $client;
-    private $batchRequestManager;
     private $jsonIteratorFactory;
 
-    public function __construct($client, $batchRequestManager, $jsonIteratorFactory)
+    public function __construct($client, $jsonIteratorFactory)
     {
 	$this->client = $client;
-	$this->batchRequestManager = $batchRequestManager;
 	$this->jsonIteratorFactory = $jsonIteratorFactory;
     }
 
     public function buildQuaggansConsumer()
     {
 	$quaggansRequestFactory = new PaginatedCollectionRequestFactory($this->client, Settings::QUAGGANS_ENDPOINT);
-	$quaggans = new PaginatedCollectionConsumer($this->client, $quaggansRequestFactory, $this->batchRequestManager, $this->jsonIteratorFactory, 'id');
+	$quaggans = new PaginatedCollectionConsumer($this->client, $quaggansRequestFactory, $this->jsonIteratorFactory, 'id');
 
 	return $quaggans;
     }
@@ -40,7 +38,7 @@ class ConsumerFactory
     public function buildListingsConsumer()
     {
 	$listingsRequestFactory = new PaginatedCollectionRequestFactory($this->client, Settings::LISTINGS_ENDPOINT);
-	$listings = new PaginatedCollectionConsumer($this->client, $listingsRequestFactory, $this->batchRequestManager, $this->jsonIteratorFactory, 'id');
+	$listings = new PaginatedCollectionConsumer($this->client, $listingsRequestFactory, $this->jsonIteratorFactory, 'id');
 
 	return $listings;
     }
@@ -48,7 +46,7 @@ class ConsumerFactory
     public function buildPricesConsumer()
     {
 	$pricesRequestFactory = new PaginatedCollectionRequestFactory($this->client, Settings::PRICES_ENDPOINT);
-	$prices = new PaginatedCollectionConsumer($this->client, $pricesRequestFactory, $this->batchRequestManager, $this->jsonIteratorFactory, 'id');
+	$prices = new PaginatedCollectionConsumer($this->client, $pricesRequestFactory, $this->jsonIteratorFactory, 'id');
 
 	return $prices;
     }
@@ -56,7 +54,7 @@ class ConsumerFactory
     public function buildItemsConsumer()
     {
 	$itemsRequestFactory = new PaginatedCollectionRequestFactory($this->client, Settings::ITEMS_ENDPOINT, true);
-	$items = new PaginatedCollectionConsumer($this->client, $itemsRequestFactory, $this->batchRequestManager, $this->jsonIteratorFactory, 'name');
+	$items = new PaginatedCollectionConsumer($this->client, $itemsRequestFactory, $this->jsonIteratorFactory, 'name');
 
 	return $items;
     }
@@ -64,7 +62,7 @@ class ConsumerFactory
     public function buildCoinsConsumer()
     {
 	$coinsRequestFactory = new ConverterRequestFactory($this->client, Settings::COINS_ENDPOINT);
-	$coins = new ConverterConsumer($this->client, $coinsRequestFactory, $this->batchRequestManager, $this->jsonIteratorFactory);
+	$coins = new ConverterConsumer($this->client, $coinsRequestFactory, $this->jsonIteratorFactory);
 
 	return $coins;
     }
@@ -72,7 +70,7 @@ class ConsumerFactory
     public function buildGemsConsumer()
     {
 	$gemsRequestFactory = new ConverterRequestFactory($this->client, Settings::GEMS_ENDPOINT);
-	$gems = new ConverterConsumer($this->client, $gemsRequestFactory, $this->batchRequestManager, $this->jsonIteratorFactory);
+	$gems = new ConverterConsumer($this->client, $gemsRequestFactory, $this->jsonIteratorFactory);
 
 	return $gems;
     }
@@ -80,7 +78,7 @@ class ConsumerFactory
     public function buildWorldsConsumer()
     {
 	$worldsRequestFactory = new PaginatedCollectionRequestFactory($this->client, Settings::WORLDS_ENDPOINT, true);
-	$worlds = new PaginatedCollectionConsumer($this->client, $worldsRequestFactory, $this->batchRequestManager, $this->jsonIteratorFactory, 'id');
+	$worlds = new PaginatedCollectionConsumer($this->client, $worldsRequestFactory, $this->jsonIteratorFactory, 'id');
 
 
 	return $worlds;
@@ -89,7 +87,7 @@ class ConsumerFactory
     public function buildRecipesConsumer()
     {
 	$receipesRequestFactory = new SearchableCollectionRequestFactory($this->client, Settings::RECIPES_ENDPOINT, true);
-	$recipes = new SearchableCollectionConsumer($this->client, $receipesRequestFactory, $this->batchRequestManager, $this->jsonIteratorFactory, 'type');
+	$recipes = new SearchableCollectionConsumer($this->client, $receipesRequestFactory, $this->jsonIteratorFactory, 'type');
 
 	return $recipes;
     }

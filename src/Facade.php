@@ -7,7 +7,7 @@
  */
 namespace Crystalgorithm\DurmandScriptorium;
 
-use Crystalgorithm\DurmandScriptorium\utils\BatchRequestManager;
+use Crystalgorithm\DurmandScriptorium\http\guzzle\GuzzleClientAdaptor;
 use Crystalgorithm\DurmandScriptorium\utils\Locale;
 use Crystalgorithm\DurmandScriptorium\utils\Settings;
 use Crystalgorithm\DurmandScriptorium\v2\collection\paginated\PaginatedCollectionConsumer;
@@ -15,7 +15,6 @@ use Crystalgorithm\DurmandScriptorium\v2\collection\searchable\SearchableCollect
 use Crystalgorithm\DurmandScriptorium\v2\ConsumerFactory;
 use Crystalgorithm\DurmandScriptorium\v2\converter\ConverterConsumer;
 use Crystalgorithm\PhpJsonIterator\JsonIteratorFactory;
-use GuzzleHttp\Client;
 use UnexpectedValueException;
 
 class Facade
@@ -61,14 +60,13 @@ class Facade
      */
     protected $recipes;
 
-    public function __construct($localeCode = Locale::ENGLISH)
+    public function __construct($locale = Locale::ENGLISH)
     {
-	$this->setLocale($localeCode);
+	$this->setLocale($locale);
 
-	$client = new Client();
-	$batchRequestManager = new BatchRequestManager($client);
+	$client = new GuzzleClientAdaptor();
 	$jsonIteratorFactory = new JsonIteratorFactory();
-	$consumerFactory = new ConsumerFactory($client, $batchRequestManager, $jsonIteratorFactory);
+	$consumerFactory = new ConsumerFactory($client, $jsonIteratorFactory);
 
 	$this->quaggans = $consumerFactory->buildQuaggansConsumer();
 	$this->listings = $consumerFactory->buildListingsConsumer();
